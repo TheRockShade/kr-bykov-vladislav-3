@@ -1,0 +1,23 @@
+@font-face {
+  font-family: "Gilroy";
+  src: url("gilroy-regular.woff") format("woff"),
+  	url("gilroy-regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+	font-family: "Gilroy";
+	src: url("gilroy-medium.woff") format("woff"),
+		url("gilroy-medium.woff2") format("woff2");
+	font-weight: 500;
+	font-style: normal;
+}
+
+@font-face {
+  font-family: "Gilroy";
+  src: url("gilroy-bold.woff") format("woff"),
+  	url("gilroy-bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+}

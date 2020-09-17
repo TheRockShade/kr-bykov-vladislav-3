@@ -1,0 +1,50 @@
+<section class="slider">
+	<div class="slider__container container">
+		<div class="slider__content">
+			<h2 class="slider__title title-one">Antonina Antoninovna</h2>
+			<p class="slider__text text">Future front-end developer 23 years old, Tolyatti</p>
+			<picture>
+				<source srcset="/static/images/slider.jpg, /static/images/slider-retina.jpg 2x" media="(min-width: 800px)">
+				<source srcset="/static/images/slider-tablet.jpg" media="(min-width: 375px) and (max-width: 799px)">
+				<source srcset="/static/images/slider-mobile.jpg" media="(max-width: 374px)">
+				<img class="slider__img" src="/static/images/slider.jpg" alt="Photo">
+			</picture>
+			<div class="slider__control">
+				@@include('arrow-button/index.html', {
+					"type": "normal",
+					"rotation": "left"
+				})
+				<ul class="slider__pagination pagination">
+					<li class="pagination__item">
+						<label class="pagination__label">
+							<input class="pagination__radio hidden" type="radio" name="pagination" value="1">
+							<span class="pagination__checker"></span>
+						</label>
+					</li>
+					<li class="pagination__item">
+						<label class="pagination__label">
+							<input class="pagination__radio hidden" type="radio" name="pagination" value="2">
+							<span class="pagination__checker"></span>
+						</label>
+					</li>
+					<li class="pagination__item">
+						<label class="pagination__label">
+							<input class="pagination__radio hidden" type="radio" name="pagination" value="3">
+							<span class="pagination__checker"></span>
+						</label>
+					</li>
+					<li class="pagination__item">
+						<label class="pagination__label">
+							<input class="pagination__radio hidden" type="radio" name="pagination" value="4">
+							<span class="pagination__checker"></span>
+						</label>
+					</li>
+				</ul>
+				@@include('arrow-button/index.html', {
+					"type": "normal",
+					"rotation": "right"
+				})
+			</div>
+		</div>
+	</div>
+</section>

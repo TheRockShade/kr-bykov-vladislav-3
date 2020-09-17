@@ -1,0 +1,50 @@
+@import "./mixins";
+@import "./colors";
+@import "./vars";
+
+.arrow-button {
+	position: relative;
+
+	width: 42px;
+	height: 42px;
+
+	background: transparent;
+	border: 2.5px solid $c_black;
+	border-radius: 50%;
+	
+	outline: none;
+	cursor: pointer;
+
+	transition: opacity $tr_duration $tr_easing;
+
+	&--right {
+		transform: rotate(180deg);
+	}
+
+	&:hover,
+	&:focus {
+		opacity: .5;
+	}
+
+	&:active {
+		opacity: .3;
+	}
+
+	&__img {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%)
+	}
+
+	&--disabled {
+		opacity: .1;
+
+		cursor: auto;
+
+		&:hover,
+		&:focus {
+			opacity: .1;
+		}
+	}
+}

@@ -1,0 +1,17 @@
+@import "./vars";
+
+@mixin media($min, $max) {
+  @if $max == 0 {
+    @media (min-width: $min) {
+      @content;
+    }
+  } @else if $min == 0 {
+    @media (max-width: ($max - 1px)) {
+      @content;
+    }
+  } @else {
+    @media (min-width: $min) and (max-width: ($max - 1px)) {
+      @content;
+    }
+  }
+}
