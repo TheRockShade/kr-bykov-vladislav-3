@@ -1,0 +1,159 @@
+@import "./mixins";
+@import "./colors";
+@import "./vars";
+
+.portfolio {
+
+	background: $c_wild-sand;
+
+	&__content {
+		padding: 60px 0;
+
+		@include media($m_tab, $m_pc) {
+			padding: 62px 0 60px 0;
+		}
+
+		@include media(0, $m_tab) {
+			padding: 40px 0 60px 0;
+		}
+	}
+
+	&__title {
+		margin-bottom: 50px;
+
+		text-align: center;
+
+		@include media(0, $m_tab) {
+			margin-bottom: 31px;
+		}
+	}
+
+	&__slider {
+		position: relative;
+
+		height: 605px;
+
+		overflow: hidden;
+
+		@include media(0, $m_pc) {
+			height: 604px;
+		}
+	}
+
+	&__button {
+		position: absolute;
+
+		line-height: 0;
+
+		background: transparent;
+		border: none;
+		outline:none;
+		cursor: pointer;
+
+		transition: opacity $tr_duration $tr_easing;
+
+		&--left {
+			position: absolute;
+
+			left: 23px;
+			top: 50%;
+   		transform: translate(0, -50%);
+			content: "";
+
+			@include media(0, $m_tab) {
+				left: 8px;
+			}
+		}
+
+		&--right {
+			position: absolute;
+
+			right: 23px;
+			top: 50%;
+			transform: translate(0, -50%);
+			
+			content: "";
+
+			@include media(0, $m_tab) {
+				right: 8px;
+			}
+		}
+
+		&:hover,
+		&:focus {
+			opacity: .5;
+		}
+	
+		&:active {
+			opacity: .3;
+		}
+	}
+
+	&__arrow {
+
+		&--right {
+			transform: rotate(180deg);
+		}
+	}
+
+	&__panel {
+		position: absolute;
+		top: 454px;
+		left: 0;
+		right: 0;
+		bottom: 0;
+
+		padding: 31px 0;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+
+		background: rgba($c_black--dl, .85);
+
+		content: "";
+
+		@include media(0, $m_tab) {
+			top: 423px;
+
+			padding: 20px 15px;
+		}
+	}
+
+	&__subtitle {
+		margin-bottom: 17px;
+		display: inline-block;
+
+		font-size: 18px;
+		font-weight: 500;
+		line-height: 21px;
+		color: $c_white;
+
+		border-bottom: 1px dashed $c_white;
+		outline: none;
+
+		transition: $tr_duration $tr_easing;
+
+		@include media(0, $m_tab) {
+			max-width: 159px;
+		}
+
+		@include media(0, $m_tab) {
+			margin-bottom: 16px;
+
+			text-align: center;
+		}
+
+		&:hover,
+		&:focus {
+			border-bottom: 1px solid $c_white;
+		}
+	}
+
+	.text-small {
+		max-width: 400px;
+
+		font-weight: 500;
+		text-align: center;
+		color: $c_white;
+	}
+}
