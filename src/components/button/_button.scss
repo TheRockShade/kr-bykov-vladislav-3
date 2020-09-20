@@ -1,0 +1,78 @@
+@import "./mixins";
+@import "./colors";
+@import "./vars";
+
+.button {
+	padding: 7.5px 26.5px;
+	display: inline-block;
+	
+	font-size: 18px;
+	font-weight: 700;
+	line-height: 22px;
+	color: $c_white;
+
+	background: $c_black--dl;
+	border: 2.5px solid $c_black--dl;
+	border-radius: 30px;
+	outline: none;
+	cursor: pointer;
+
+	transition: background-color $tr_duration $tr_easing, color $tr_duration $tr_easing;
+
+	&:hover,
+	&:focus {
+		color: $c_black--dl;
+
+		background: transparent;
+	}
+
+	&--link {
+		padding: 7.5px 16.5px;
+	}
+
+	&--empty {
+		color: $c_black--dl;
+
+		background: transparent;
+
+		&:hover {
+			background: $c_black--dl;
+
+			color: $c_white;
+		}
+	}
+
+	&--bad {
+		color: $c_pomegranade;
+
+		background: transparent;
+		border-color: $c_pomegranade;
+
+		&:hover {
+			color: $c_white;
+
+			background: $c_pomegranade;
+		}
+	}
+
+	&--good {
+		color: $c_malachite;
+
+		background: transparent;
+		border-color: $c_malachite;
+
+		&:hover {
+			color: $c_white;
+
+			background: $c_malachite;
+		}
+	}
+
+	&:disabled {
+		color: $c_mercury;
+
+		background: transparent;
+		border-color: $c_mercury;
+		cursor: auto;
+	}
+}
