@@ -5,10 +5,10 @@
 .skills {
 
 	&__content {
-		padding: 60px 0;
+		padding: 60px 0 30px 0;
 
 		@include media($m_tab, $m_pc) {
-			padding: 40px 0 30px 0;
+			padding: 60px 0 30px 0;
 		}
 
 		@include media(0, $m_tab) {
