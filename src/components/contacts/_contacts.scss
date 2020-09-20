@@ -1,0 +1,71 @@
+@import "./mixins";
+@import "./colors";
+@import "./vars";
+
+.contacts {
+
+	&__content {
+		padding: 60px 0;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+
+		@include media(0, $m_tab) {
+			padding: 40px 0;
+		}
+	}
+
+	&__title {
+		margin-bottom: 20px;
+
+		@include media(0, $m_tab) {
+			margin-bottom: 10px;
+		}
+	}
+
+	&__text {
+		max-width: 269px;
+		margin-bottom: 32px;
+
+		text-align: center;
+
+		@include media(0, $m_tab) {
+			margin-bottom: 41px;
+		}
+	}
+
+	&__button {
+		margin-bottom: 40px;
+	}
+
+	&__list {
+		max-width: 318px;
+		margin-bottom: 30px;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-around;
+
+		@include media(0, $m_tab) {
+			max-width: 200px;
+		}
+	}
+
+	&__item {
+		margin-bottom: 10px;
+	}
+
+	&__design.text-small {
+		margin-bottom: 6px;
+		color: $c_gray;
+	}
+
+	&__accent {
+		color: $c_gray;
+
+		border-bottom: 1px dashed $c_gray;
+
+		&:hover {
+			border-bottom-style: solid;
+		}
+	}
+}

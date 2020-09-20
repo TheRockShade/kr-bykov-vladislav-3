@@ -1,0 +1,79 @@
+<div class="contacts">
+	<div class="contacts__container container">
+		<div class="contacts__content">
+			<h2 class="contacts__title title-two">Contacts</h2>
+			<p class="contacts__text text">Want to know more or just chat? You are welcome!</p>
+			@@include('button/index.html', {
+				"dest": "button",
+				"type": "normal",
+				"text": "Send message",
+				"class": "contacts__button",
+				"disabled": "no"
+			})
+			<ul class="contacts__list">
+				<li class="contacts__item">
+					@@include('button/index.html', {
+						"dest": "link",
+						"type": "empty",
+						"text": "Instagram",
+						"class": "contacts__link",
+						"href": "#",
+						"disabled": "no"
+					})
+				</li>
+				<li class="contacts__item">
+					@@include('button/index.html', {
+						"dest": "link",
+						"type": "empty",
+						"text": "Vk",
+						"class": "contacts__link",
+						"href": "#",
+						"disabled": "no"
+					})
+				</li>
+				<li class="contacts__item">
+					@@include('button/index.html', {
+						"dest": "link",
+						"type": "empty",
+						"text": "Telegram",
+						"class": "contacts__link",
+						"href": "#",
+						"disabled": "no"
+					})
+				</li>
+				<li class="contacts__item">
+					@@include('button/index.html', {
+						"dest": "link",
+						"type": "empty",
+						"text": "Mail",
+						"class": "contacts__link",
+						"href": "#",
+						"disabled": "no"
+					})
+				</li>
+				<li class="contacts__item">
+					@@include('button/index.html', {
+						"dest": "link",
+						"type": "empty",
+						"text": "GitHub",
+						"class": "contacts__link",
+						"href": "#",
+						"disabled": "no"
+					})
+				</li>
+				<li class="contacts__item">
+					@@include('button/index.html', {
+						"dest": "link",
+						"type": "empty",
+						"text": "Phone",
+						"class": "contacts__link",
+						"href": "#",
+						"disabled": "no"
+					})
+				</li>
+			</ul>
+			<span class="contacts__design text-small">Design by <a class="contacts__accent" href="#">DL Academy</a></span>
+			<span class="contacts__code text-small">Program code from Antonina</span>
+		</div>
+	</div>
+</div>
