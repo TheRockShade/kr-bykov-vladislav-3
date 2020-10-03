@@ -1,0 +1,297 @@
+@import "./mixins";
+@import "./colors";
+@import "./vars";
+
+.filter {
+	padding-top: 38px;
+
+	@include media($m_tab, $m_pc) {
+		padding-top: 40px;
+	}
+
+	@include media(0, $m_mob--md) {
+		padding-top: 30px;
+	}
+
+	&__title {
+		margin-bottom: 40px;
+
+		@include media(0, $m_mob--md) {
+			width: 173px;
+			margin-bottom: 36px;
+		}
+	}
+}
+
+.filter-form {
+	display: flex;
+	flex-wrap: wrap;
+	
+	@include media(0, $m_mob--md) {
+		justify-content: space-between;
+	}
+
+	&__fieldset {
+		margin: 0;
+		padding: 0;
+		display: flex;
+
+		border: none;
+
+		@include media($m_mob--md, $m_pc) {
+			margin-bottom: 20px;
+		}
+
+		@include media(0, $m_mob--md) {
+			width: 46.3%;
+			margin-bottom: 16px;
+		}
+
+		&--tags {
+			width: 115px;
+			margin-right: 77px;
+			display: block;
+			flex-wrap: nowrap;
+
+			@include media(0, $m_pc) {
+				order: 4;
+			}
+
+			@include media($m_mob--md, $m_pc) {
+				margin-right: 52px;
+			}
+
+			@include media(0, $m_mob--md) {
+				margin-right: 0;
+			}
+		}
+
+		&--views {
+			margin-right: 70px;
+
+			@include media(0, $m_pc) {
+				order: 1;
+			}
+
+			@include media($m_mob--md, $m_pc) {
+				margin-right: 53px;
+			}
+
+			@include media(0, $m_mob--md) {
+				margin-right: 0;
+			}
+		}
+
+		&--comments {
+			margin-right: 138px;
+
+			@include media(0, $m_pc) {
+				order: 0;
+			}
+
+			@include media($m_mob--md, $m_pc) {
+				margin-right: 52px;
+			}
+
+			@include media(0, $m_mob--md) {
+				margin-right: 0;
+			}
+		}
+
+		&--show {
+			margin-right: 76px;
+
+			@include media(0, $m_pc) {
+				order: 3;
+			}
+
+			@include media($m_mob--md, $m_pc) {
+				margin-right: 23px;
+			}
+
+			@include media(0, $m_mob--md) {
+				margin-right: 0;
+			}
+		}
+
+		&--sort {
+			margin-right: 49px;
+
+			@include media(0, $m_pc) {
+				order: 2;
+			}
+
+			@include media($m_mob--md, $m_pc) {
+				margin-right: 81px;
+			}
+
+			@include media(0, $m_mob--md) {
+				margin-right: 0;
+			}
+		}
+
+		&--reset {
+			margin-top: 19px;
+
+			order: 5;
+
+			@include media($m_mob--md, $m_pc) {
+				margin-top: 10px;
+			}
+
+			@include media(0, $m_mob--md) {
+				margin-top: 10px;
+			}
+		}
+	}
+
+	&__legend {
+		margin-bottom: 11px;
+
+		&--reset.text-small {
+			margin-bottom: 5px;
+
+			text-align: center;
+			color: $c_mercury;
+
+			@include media(0, $m_mob--md) {
+				margin-left: 11px;
+
+				text-align: left;
+			}
+		}
+	}
+
+	&__checkbox {
+
+		&-label {
+			margin-bottom: 10px;
+			display: flex;
+			align-items: center;
+
+			line-height: 0;
+
+			cursor: pointer;
+
+			&--tags {
+				margin-bottom: 0;
+				display: inline-block;
+			}
+		}
+
+		&-checker {
+			position: relative;
+
+			width: 25px;
+			height: 25px;
+			margin-right: 12px;
+			display: inline-block;
+
+			line-height: 0;
+
+			border: 2.5px solid $c_black--dl;
+			border-radius: 5px;
+			opacity: .1;
+
+			transition: opacity $tr_duration $tr_easing;
+
+			&--tags {
+				margin-right: 0;
+			}
+		}
+
+		&-text {
+			opacity: .1;
+
+			transition: opacity $tr_duration $tr_easing;
+		}
+
+		&:checked ~ .filter-form__checkbox-checker::before {
+			position: absolute;
+			top: 2px;
+			left: 3px;
+
+			width: 15px;
+			height: 15px;
+			
+			background: url(static/images/icon-check.svg);
+			
+			content: "";
+		}
+
+		&:checked ~ .filter-form__checkbox-checker,
+		&:checked ~ .filter-form__checkbox-text {
+			opacity: 1;
+		}
+	}
+
+	&__radio {
+
+		&-label {
+			display: flex;
+			align-items: center;
+
+			cursor: pointer;
+
+			&:not(last-child) {
+				margin-bottom: 10px;
+			}
+		}
+
+		&-checker {
+			position: relative;
+
+			width: 25px;
+			height: 25px;
+			margin-right: 12px;
+			display: inline-block;
+
+			line-height: 0;
+
+			border: 2.5px solid $c_black--dl;
+			border-radius: 50%;
+			opacity: .1;
+
+			transition: opacity $tr_duration $tr_easing;
+
+			&::before {
+				position: absolute;
+				top: 2.5px;
+				right: 2.5px;
+				bottom: 2.5px;
+				left: 2.5px;
+				
+				background-color: $c_black--dl;
+				border-radius: 50%;
+
+				content: "";
+			}
+		}
+
+		&-text {
+			opacity: .1;
+
+			transition: opacity $tr_duration $tr_easing;
+		}
+
+		&:checked ~ .filter-form__radio-checker,
+		&:checked ~ .filter-form__radio-text {
+			opacity: 1;
+		}
+	}
+
+	&__button {
+		width: 84px;
+		padding: 7.5px 26.5px 7.5px 17.5px;
+	}
+}
+
+.filter-form__checkbox-label:hover .filter-form__checkbox-checker,
+.filter-form__checkbox-label:hover .filter-form__checkbox-text {
+	opacity: .5;
+}
+
+.filter-form__radio-label:hover .filter-form__radio-checker,
+.filter-form__radio-label:hover .filter-form__radio-text {
+	opacity: .5;
+}

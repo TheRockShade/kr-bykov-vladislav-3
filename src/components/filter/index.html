@@ -1,0 +1,121 @@
+<section class="filter">
+	<div class="filter__container container">
+		<div class="filter__content">
+			<h1 class="filter__title title-one">My blog</h1>
+			<form class="filter__form filter-form">
+				<fieldset class="filter-form__fieldset filter-form__fieldset--tags">
+					<legend class="filter-form__legend text-small">Tags</legend>
+					<label class="filter-form__checkbox-label filter-form__checkbox-label--tags">
+						<input class="filter-form__checkbox hidden" type="checkbox" name="tags" value="2176ff" checked>
+						<span class="filter-form__checkbox-checker filter-form__checkbox-checker--tags"></span>
+					</label>
+					<label class="filter-form__checkbox-label filter-form__checkbox-label--tags">
+						<input class="filter-form__checkbox hidden" type="checkbox" name="tags" value="33a1fd">
+						<span class="filter-form__checkbox-checker filter-form__checkbox-checker--tags"></span>
+					</label>
+					<label class="filter-form__checkbox-label filter-form__checkbox-label--tags">
+						<input class="filter-form__checkbox hidden" type="checkbox" name="tags" value="fdca40">
+						<span class="filter-form__checkbox-checker filter-form__checkbox-checker--tags"></span>
+					</label>
+					<label class="filter-form__checkbox-label filter-form__checkbox-label--tags">
+						<input class="filter-form__checkbox hidden" type="checkbox" name="tags" value="57e2e5">
+						<span class="filter-form__checkbox-checker filter-form__checkbox-checker--tags"></span>
+					</label>
+					<label class="filter-form__checkbox-label filter-form__checkbox-label--tags">
+						<input class="filter-form__checkbox hidden" type="checkbox" name="tags" value="f79824">
+						<span class="filter-form__checkbox-checker filter-form__checkbox-checker--tags"></span>
+					</label>
+					<label class="filter-form__checkbox-label filter-form__checkbox-label--tags">
+						<input class="filter-form__checkbox hidden" type="checkbox" name="tags" value="e08dac" checked>
+						<span class="filter-form__checkbox-checker filter-form__checkbox-checker--tags"></span>
+					</label>
+					<label class="filter-form__checkbox-label filter-form__checkbox-label--tags">
+						<input class="filter-form__checkbox hidden" type="checkbox" name="tags" value="6a7fdb">
+						<span class="filter-form__checkbox-checker filter-form__checkbox-checker--tags"></span>
+					</label>
+					<label class="filter-form__checkbox-label filter-form__checkbox-label--tags">
+						<input class="filter-form__checkbox hidden" type="checkbox" name="tags" value="45cb85">
+						<span class="filter-form__checkbox-checker filter-form__checkbox-checker--tags"></span>
+					</label>
+				</fieldset>
+				<fieldset class="filter-form__fieldset filter-form__fieldset--views">
+					<legend class="filter-form__legend text-small">Views</legend>
+					<label class="filter-form__radio-label">
+						<input class="filter-form__radio hidden" type="radio" name="views" value="100-500">
+						<span class="filter-form__radio-checker"></span>
+						<span class="filter-form__radio-text text">more 100</span>
+					</label>
+					<label class="filter-form__radio-label">
+						<input class="filter-form__radio hidden" type="radio" name="views" value="500-1000" checked>
+						<span class="filter-form__radio-checker"></span>
+						<span class="filter-form__radio-text text">more 500</span>
+					</label>
+					<label class="filter-form__radio-label">
+						<input class="filter-form__radio hidden" type="radio" name="views" value="1000-2000">
+						<span class="filter-form__radio-checker"></span>
+						<span class="filter-form__radio-text text">more 1000</span>
+					</label>
+				</fieldset>
+				<fieldset class="filter-form__fieldset filter-form__fieldset--comments">
+					<legend class="filter-form__legend text-small">Comments</legend>
+					<label class="filter-form__checkbox-label">
+						<input class="filter-form__checkbox hidden" type="checkbox" name="comments" value="0" checked>
+						<span class="filter-form__checkbox-checker"></span>
+						<span class="filter-form__checkbox-text text">not a single</span>
+					</label>
+					<label class="filter-form__checkbox-label">
+						<input class="filter-form__checkbox hidden" type="checkbox" name="comments" value="0-1">
+						<span class="filter-form__checkbox-checker"></span>
+						<span class="filter-form__checkbox-text text">more 1</span>
+					</label>
+					<label class="filter-form__checkbox-label">
+						<input class="filter-form__checkbox hidden" type="checkbox" name="comments" value="1-50">
+						<span class="filter-form__checkbox-checker"></span>
+						<span class="filter-form__checkbox-text text">more 50</span>
+					</label>
+				</fieldset>
+				<fieldset class="filter-form__fieldset filter-form__fieldset--show">
+					<legend class="filter-form__legend text-small">How show?</legend>
+					<label class="filter-form__radio-label">
+						<input class="filter-form__radio hidden" type="radio" name="show" value="5" checked>
+						<span class="filter-form__radio-checker"></span>
+						<span class="filter-form__radio-text text">show 5</span>
+					</label>
+					<label class="filter-form__radio-label">
+						<input class="filter-form__radio hidden" type="radio" name="show" value="15">
+						<span class="filter-form__radio-checker"></span>
+						<span class="filter-form__radio-text text">show 15</span>
+					</label>
+				</fieldset>
+				<fieldset class="filter-form__fieldset filter-form__fieldset--sort">
+					<legend class="filter-form__legend text-small">Sort by</legend>
+					<label class="filter-form__radio-label">
+						<input class="filter-form__radio hidden" type="radio" name="sort" value="date" checked>
+						<span class="filter-form__radio-checker"></span>
+						<span class="filter-form__radio-text text">date</span>
+					</label>
+					<label class="filter-form__radio-label">
+						<input class="filter-form__radio hidden" type="radio" name="sort" value="title">
+						<span class="filter-form__radio-checker"></span>
+						<span class="filter-form__radio-text text">title</span>
+					</label>
+					<label class="filter-form__radio-label">
+						<input class="filter-form__radio hidden" type="radio" name="sort" value="views">
+						<span class="filter-form__radio-checker"></span>
+						<span class="filter-form__radio-text text">views</span>
+					</label>
+				</fieldset>
+				<fieldset class="filter-form__fieldset filter-form__fieldset--reset">
+					<legend class="filter-form__legend filter-form__legend--reset text-small">reset form</legend>
+					@@include('button/index.html', {
+						"dest": "submit",
+						"type": "empty",
+						"disabled": "no",
+						"text": "Reset",
+						"class": "filter-form__button"
+					})
+				</fieldset>
+			</form>
+		</div>
+	</div>
+</section>
