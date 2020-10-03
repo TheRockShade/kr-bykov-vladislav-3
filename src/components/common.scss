@@ -9,6 +9,7 @@
 @import "./contacts/contacts";
 @import "./filter/filter";
 @import "./search/search";
+@import "./blog/blog";
 
 body {
 	font-family: "Gilroy", "Arial", sans-serif;
@@ -29,6 +30,10 @@ html {
 img {
 	max-width: 100%;
 
+	line-height: 0;
+}
+
+picture {
 	line-height: 0;
 }
 
@@ -78,6 +83,12 @@ h1,h2,h3,h4,h5,h6,p,ul {
 .title-two {
 	font-size: 34px;
 	line-height: 41px;
+	color: $c_black--dl;
+}
+
+.title-three {
+	font-size: 24px;
+	line-height: 29px;
 	color: $c_black--dl;
 }
 

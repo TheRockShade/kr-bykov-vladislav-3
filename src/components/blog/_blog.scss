@@ -1,0 +1,178 @@
+@import "./mixins";
+@import "./colors";
+@import "./vars";
+
+.blog {
+	padding-bottom: 60px;
+
+	@include media(0, $m_tab) {
+		padding-bottom: 40px;
+	}
+
+	&__list {
+		display: flex;
+		flex-direction: column;
+
+		@include media(0, 670px) {
+			align-items: center;
+		}
+	}
+
+	&__item {
+		padding: 19px 0 21px 0;
+
+		display: flex;
+		align-items: center;
+
+		border-bottom: 2px solid $c_mercury;
+
+		&:first-child {
+			border-top: 2px solid $c_mercury;
+		}
+
+		&:last-child {
+			border-bottom: none;
+		}
+
+		@include media(0, 670px) {
+			width: 280px;
+			padding: 19px 0 16px 0;
+			flex-wrap: wrap;
+		}
+	}
+
+	&__img {
+		max-width: none;
+		margin-right: 20px;
+
+		@include media(0, 670px) {
+			margin-right: 0;
+			margin-bottom: 19px;
+		}
+	}
+
+	&__box {
+		padding: 4px 20px 0 0;
+
+		@include media(0, 670px) {
+			padding: 0;
+		}
+	}
+
+	&__tags {
+		margin-bottom: 10px;
+		display: flex;
+	}
+
+	&__tag {
+		width: 30px;
+		height: 10px;
+
+		background: #000;
+
+		border-radius: 5px;
+
+		&:not(last-child) {
+			margin-right: 5px;
+		}
+
+		&--f79824 {
+			background: #f79824;
+		}
+
+		&--6a7fdb {
+			background: #6a7fdb;
+		}
+
+		&--45cb85 {
+			background: #45cb85;
+		}
+
+		&--33a1fd {
+			background: #33a1fd;
+		}
+
+		&--2176ff {
+			background: #2176ff;
+		}
+
+		&--e08dac {
+			background: #e08dac;
+		}
+
+		&--57e2e5 {
+			background: #57e2e5;
+		}
+	}
+
+	&__info {
+		margin-bottom: 13px;
+	}
+
+	&__info span {
+		color: $c_gray;
+
+		&:not(last-child) {
+			margin-right: 7px;
+		}
+	}
+
+	&__title {
+		margin-bottom: 10px;
+	}
+
+	&__text {
+		margin-bottom: 22px;
+
+		letter-spacing: 0.1px;
+	}
+
+	&__link {
+		margin-bottom: 5px;
+		display: inline-block;
+
+		border-bottom: 1px dashed $c_black--dl;
+
+		&:hover {
+			border-bottom-style: solid;
+		}
+	}
+}
+
+.blog-pagination {
+	margin-top: 29px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	@include media($m_tab, $m_pc) {
+		margin-top: 19px;
+	}
+
+	@include media(0, $m_tab) {
+		margin-top: 9px;
+	}
+
+	&__list {
+		margin-left: 10px;
+		display: flex;
+	}
+
+	&__item {
+		margin-right: 10px;
+	}
+
+	.text {
+		color: $c_mercury;
+
+		transition: color $tr_duration $tr_easing;
+
+		&.active {
+			color: $c_black--dl;
+		}
+
+		&:hover {
+			color: $c_gray;
+		}
+	}
+}
