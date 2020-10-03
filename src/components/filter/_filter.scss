@@ -3,14 +3,14 @@
 @import "./vars";
 
 .filter {
-	padding-top: 38px;
+	padding: 38px 0 25px 0;
 
-	@include media($m_tab, $m_pc) {
-		padding-top: 40px;
+	@include media($m_mob--md, $m_pc) {
+		padding: 40px 0 12px 0;
 	}
 
 	@include media(0, $m_mob--md) {
-		padding-top: 30px;
+		padding: 30px 0 18px 0;
 	}
 
 	&__title {
@@ -293,5 +293,15 @@
 
 .filter-form__radio-label:hover .filter-form__radio-checker,
 .filter-form__radio-label:hover .filter-form__radio-text {
+	opacity: .5;
+}
+
+.filter-form__checkbox:focus ~ .filter-form__checkbox-checker,
+.filter-form__checkbox:focus ~ .filter-form__checkbox-text {
+	opacity: .5;
+}
+
+.filter-form__radio:focus ~ .filter-form__radio-checker,
+.filter-form__radio:focus ~ .filter-form__radio-text {
 	opacity: .5;
 }
