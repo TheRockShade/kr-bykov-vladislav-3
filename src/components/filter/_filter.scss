@@ -3,7 +3,7 @@
 @import "./vars";
 
 .filter {
-	padding: 38px 0 25px 0;
+	padding: 40px 0 25px 0;
 
 	@include media($m_mob--md, $m_pc) {
 		padding: 40px 0 12px 0;
@@ -49,7 +49,7 @@
 
 		&--tags {
 			width: 115px;
-			margin-right: 77px;
+			margin-right: 79px;
 			display: block;
 			flex-wrap: nowrap;
 

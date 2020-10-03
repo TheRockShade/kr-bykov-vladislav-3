@@ -35,15 +35,10 @@
 	}
 
 	&__logo {
-		margin-left: 10px;
 		display: inline-block;
 
 		&.active {
 			color: $c_black;
-		}
-
-		@include media($m_mob--md, $m_pc) {
-			margin-left: 0;
 		}
 	}
 }
