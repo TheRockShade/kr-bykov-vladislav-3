@@ -1,0 +1,96 @@
+@import "./mixins";
+@import "./colors";
+@import "./vars";
+
+.profile {
+	padding: 40px 0;
+
+	@include media(0, $m_tab) {
+		padding: 30px 0;
+	}
+
+	&__title {
+		margin-bottom: 40px;
+
+		@include media(0, $m_tab) {
+			width: 200px;
+			margin-bottom: 36px;
+		}
+	}
+
+	&__box {
+		display: flex;
+
+		@include media(0, $m_tab) {
+			flex-wrap: wrap;
+		}
+	}
+
+	&__photo {
+		position: relative;
+
+		width: 320px;
+		height: 450px;
+		margin-right: 105px;
+
+		background: $c_wild-sand;
+		box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
+
+		&::before {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+
+			width: 120px;
+			height: 144px;
+			
+			background: url(/static/images/icon-profile.svg);
+			content: "";
+		}
+
+		@include media($m_tab, $m_pc) {
+			width: 314px;
+			margin-right: 76px;
+		}
+
+		@include media(0, $m_tab) {
+			width: 280px;
+			margin-right: 40px;
+			margin-bottom: 40px;
+		}
+
+		@include media(0, 550px) {
+			margin-right: 0px;
+		}
+	}
+}
+
+.profile-info {
+
+	margin-bottom: 30px;
+
+	&__item {
+		
+		&:not(:last-child) {
+			margin-bottom: 20px;
+		}
+	}
+
+	&__data {
+		margin-right: 15px;
+	}
+}
+
+.profile-buttons {
+
+	&__item {
+		&:not(:last-child) {
+			margin-bottom: 20px;
+		}
+
+		button {
+			padding: 7.5px 16.5px;
+		}
+	}
+}
