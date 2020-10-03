@@ -1,0 +1,99 @@
+@import "./mixins";
+@import "./colors";
+@import "./vars";
+
+.menu {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 99;
+
+	display: none;
+	align-items: center;
+	justify-content: flex-end;
+
+	background: rgba($c_wild-sand, .99);
+
+	&__list {
+		margin-right: 20px;
+	}
+
+	&__item {
+		text-align: right;
+
+		&:not(:last-child) {
+			margin-bottom: 40px;
+		}
+	}
+
+	&__link {
+		font-size: 34px;
+		font-weight: 700;
+		line-height: 41px;
+		color: $c_gray;
+
+		outline: none;
+
+		transition: color $tr_duration $tr_easing;
+
+		&.active {
+			color: $c_black--dl;
+		}
+
+		&:hover,
+		&:focus {
+			color: $c_black--dl;
+		}
+	}
+
+	&__open {
+		position: absolute;
+		top: 50px;
+		right: 20px;
+
+		padding: 0;
+		display: none;
+
+		line-height: 0;
+
+		background: transparent;
+		border: none;
+		outline: none;
+		cursor: pointer;
+
+		transition: opacity $tr_duration $tr_easing;
+
+		&:hover,
+		&:focus {
+			opacity: .5;
+		}
+
+		@include media(0, $m_mob--md) {
+			display: block;
+		}
+	}
+
+	&__close {
+		position: absolute;
+		top: 50px;
+		right: 13px;
+
+		padding: 0;
+
+		line-height: 0;
+
+		background: transparent;
+		border: none;
+		outline: none;
+		cursor: pointer;
+
+		transition: opacity $tr_duration $tr_easing;
+
+		&:hover,
+		&:focus {
+			opacity: .5;
+		}
+	}
+}

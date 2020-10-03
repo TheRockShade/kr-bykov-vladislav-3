@@ -11,6 +11,7 @@
 @import "./search/search";
 @import "./blog/blog";
 @import "./profile/profile";
+@import "./menu/menu";
 
 body {
 	font-family: "Gilroy", "Arial", sans-serif;
@@ -107,4 +108,12 @@ h1,h2,h3,h4,h5,h6,p,ul {
 	font-size: 14px;
 	line-height: 16px;
 	color: $c_black--dl;
+}
+
+.js_open {
+	display: flex;
+}
+
+.js_overflow {
+	overflow: hidden;
 }

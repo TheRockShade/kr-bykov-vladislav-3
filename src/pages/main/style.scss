@@ -1,3 +1,11 @@
 @import "../../components/mixins";
 @import "../../components/colors";
 @import "../../components/vars";
+
+.menu__open {
+	top: 175px;
+
+	@include media(563px, $m_mob--md) {
+		top: 145px;
+	}
+}
