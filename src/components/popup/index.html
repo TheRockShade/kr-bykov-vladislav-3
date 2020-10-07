@@ -1,0 +1,212 @@
+<div class="popup popup--change-password">
+	<form class="popup__form popup__form--change-password">
+		<label class="popup__label">
+			<span class="popup__text text-small">Old password <span class="popup__accent">*</span></span>
+			<input class="popup__input" type="password" name="Old password">
+		</label>
+		<label class="popup__label">
+			<span class="popup__text text-small">New password <span class="popup__accent">*</span></span>
+			<input class="popup__input" type="password" name="New password">
+		</label>
+		<label class="popup__label">
+			<span class="popup__text text-small">Repeat new password <span class="popup__accent">*</span></span>
+			<input class="popup__input" type="password" name="Repeat password">
+		</label>
+		@@include('button/index.html', {
+			"dest": "submit",
+			"type": "empty",
+			"disabled": "no",
+			"text": "Change password",
+			"class": "popup__button popup__button"
+		})
+		<button class="popup__close" aria-label="Close"><img class="popup__x" src="/static/images/icon-close.svg" alt="Close button"></button>
+	</form>
+</div>
+
+<div class="popup popup--change-data">
+	<form class="popup__form popup__form--change-data">
+		<label class="popup__label">
+			<span class="popup__text text-small">Email</span>
+			<input class="popup__input" type="email" name="Email">
+		</label>
+		<div class="popup__col">
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">Name</span>
+					<input class="popup__input" type="text" name="Name">
+				</label>
+			</div>
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">Surname</span>
+					<input class="popup__input" type="text" name="Surname">
+				</label>
+			</div>
+		</div>
+		<div class="popup__col">
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">Location</span>
+					<input class="popup__input" type="text" name="Location">
+				</label>
+			</div>
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">Age</span>
+					<input class="popup__input" type="text" name="Age">
+				</label>
+			</div>
+		</div>
+		<div class="popup__col">
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">Profile picture</span>
+					<input class="popup__input" type="file" name="picture">
+				</label>
+			</div>
+		</div>
+		@@include('button/index.html', {
+			"dest": "submit",
+			"type": "empty",
+			"disabled": "no",
+			"text": "Submit changes",
+			"class": "popup__button"
+		})
+		<button class="popup__close" aria-label="Close"><img class="popup__x" src="/static/images/icon-close.svg" alt="Close button"></button>
+	</form>
+</div>
+
+<div class="popup popup--login">
+	<form class="popup__form popup__form--login">
+		<label class="popup__label">
+			<span class="popup__text text-small">Email <span class="popup__accent">*</span></span>
+			<input class="popup__input" type="email" name="Email">
+		</label>
+		<label class="popup__label">
+			<span class="popup__text text-small">Password <span class="popup__accent">*</span></span>
+			<input class="popup__input" type="password" name="Password">
+		</label>
+		@@include('button/index.html', {
+			"dest": "submit",
+			"type": "empty",
+			"disabled": "no",
+			"text": "Log in",
+			"class": "popup__button"
+		})
+		<button class="popup__close" aria-label="Close"><img class="popup__x" src="/static/images/icon-close.svg" alt="Close button"></button>
+	</form>
+</div>
+
+<div class="popup popup--register">
+	<form class="popup__form popup__form--register">
+		<label class="popup__label">
+			<span class="popup__text text-small">Email <span class="popup__accent">*</span></span>
+			<input class="popup__input" type="email" name="Email">
+		</label>
+		<div class="popup__col">
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">Name <span class="popup__accent">*</span></span>
+					<input class="popup__input" type="text" name="Name">
+				</label>
+			</div>
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">Surname <span class="popup__accent">*</span></span>
+					<input class="popup__input" type="text" name="Surname">
+				</label>
+			</div>
+		</div>
+		<div class="popup__col">
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">Password <span class="popup__accent">*</span></span>
+					<input class="popup__input" type="password" name="Password">
+				</label>
+			</div>
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">Repeat password <span class="popup__accent">*</span></span>
+					<input class="popup__input" type="password" name="Repeat password">
+				</label>
+			</div>
+		</div>
+		<div class="popup__col">
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">Location <span class="popup__accent">*</span></span>
+					<input class="popup__input" type="text" name="Location">
+				</label>
+			</div>
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">Age <span class="popup__accent">*</span></span>
+					<input class="popup__input" type="text" name="Age">
+				</label>
+			</div>
+		</div>
+		<label class="popup__label popup__label--checkbox">
+			<input class="popup__checkbox hidden" type="checkbox" name="data" value="yes">
+			<span class="popup__checkbox-checker"></span>
+			<span class="popup__checkbox-text">Clicking on the button, you consent to the processing of your personal data.</span>
+		</label>
+		@@include('button/index.html', {
+			"dest": "submit",
+			"type": "empty",
+			"disabled": "no",
+			"text": "Sign up",
+			"class": "popup__button"
+		})
+		<button class="popup__close" aria-label="Close"><img class="popup__x" src="/static/images/icon-close.svg" alt="Close button"></button>
+	</form>
+</div>
+
+<div class="popup popup--message">
+	<form class="popup__form popup__form--message">
+		<div class="popup__col">
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">What is your name? <span class="popup__accent">*</span></span>
+					<input class="popup__input" type="text" name="Name">
+				</label>
+			</div>
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">Message subject <span class="popup__accent">*</span></span>
+					<input class="popup__input" type="text" name="subject">
+				</label>
+			</div>
+		</div>
+		<div class="popup__col">
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">Your Email <span class="popup__accent">*</span></span>
+					<input class="popup__input" type="email" name="email">
+				</label>
+			</div>
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">Your mobile phone <span class="popup__accent">*</span></span>
+					<input class="popup__input" type="tel" name="telephone">
+				</label>
+			</div>
+		</div>
+		<label class="popup__label">
+			<span class="popup__text text-small">What do you want to discuss with me?</span>
+			<textarea class="popup__textarea" name="message"></textarea>
+		</label>
+		<label class="popup__label popup__label--checkbox">
+			<input class="popup__checkbox hidden" type="checkbox" name="data" value="yes">
+			<span class="popup__checkbox-checker"></span>
+			<span class="popup__checkbox-text">Clicking on the button, you consent to the processing of your personal data.</span>
+		</label>
+		@@include('button/index.html', {
+			"dest": "submit",
+			"type": "empty",
+			"disabled": "no",
+			"text": "Send",
+			"class": "popup__button"
+		})
+		<button class="popup__close" aria-label="Close"><img class="popup__x" src="/static/images/icon-close.svg" alt="Close button"></button>
+	</form>
+</div>
