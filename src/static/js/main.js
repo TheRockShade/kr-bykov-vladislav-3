@@ -105,3 +105,102 @@ let body = document.querySelector("body");
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
 })();
+
+function slider({ sliderEl, defaultActiveSlide = 0 }) {
+  const slider = document.querySelector(sliderEl),
+    wrapper = slider.querySelector(".slider__wrapper"),
+    innerWrapper = slider.querySelector(".slider__inner-wrapper"),
+    slides = [...slider.querySelectorAll(".slider__slide")],
+    pagination = slider.querySelector(".pagination"),
+    buttonBack = slider.querySelector(".arrow-button--left"),
+    buttonNext = slider.querySelector(".arrow-button--right"),
+    aniTime = 500;
+
+  let activeSlide = defaultActiveSlide,
+    slideWidth = 0,
+    dots = [],
+    timerId = null;
+
+  initSlidesWidth();
+  createPagination();
+  setActiveSlide(activeSlide, false);
+
+  window.addEventListener("resize", () => {
+    initSlidesWidth();
+    setActiveSlide(activeSlide, false);
+  });
+
+  function addAnimation(duration) {
+    clearTimeout(timerId);
+    innerWrapper.style.transition = `transform ${duration}ms`;
+    timerId = setTimeout(() => {
+      innerWrapper.style.transition = ``;
+    }, duration);
+  }
+
+  function createPagination() {
+    for (let i = 0; i < slides.length; i++) {
+      let dot = createDot(i);
+      pagination.insertAdjacentElement("beforeend", dot);
+      dots.push(dot);
+    }
+  }
+
+  function createDot(index) {
+    let dot = document.createElement("button");
+    dot.classList.add("pagination__button");
+
+    if (index === activeSlide) {
+      dot.classList.add("pagination__button--active");
+    }
+
+    dot.addEventListener("click", () => {
+      setActiveSlide(index);
+    });
+
+    return dot;
+  }
+
+  function initSlidesWidth() {
+    slideWidth = wrapper.clientWidth;
+    slides.forEach((slide) => {
+      slide.style.width = `${slideWidth}px`;
+    });
+  }
+
+  function setActiveSlide(index = 0, playAnimation = true) {
+    if (index < 0 || index >= slides.length) {
+      return;
+    }
+
+    if (playAnimation) {
+      addAnimation(aniTime);
+    }
+
+    dots[activeSlide].classList.remove("pagination__button--active");
+    dots[index].classList.add("pagination__button--active");
+
+    if (index === 0) {
+      buttonBack.setAttribute("disabled", "");
+    } else {
+      buttonBack.removeAttribute("disabled");
+    }
+
+    if (index === slides.length - 1) {
+      buttonNext.setAttribute("disabled", "");
+    } else {
+      buttonNext.removeAttribute("disabled");
+    }
+
+    innerWrapper.style.transform = `translateX(-${slideWidth * index}px)`;
+    activeSlide = index;
+  }
+
+  buttonBack.addEventListener("click", () => {
+    setActiveSlide(activeSlide - 1);
+  });
+
+  buttonNext.addEventListener("click", () => {
+    setActiveSlide(activeSlide + 1);
+  });
+}
