@@ -20,23 +20,23 @@ let body = document.querySelector("body");
 
   window.addEventListener("keydown", (e) => {
     if (e.code === "Escape" && menu.classList.contains("js_open")) {
-			menu.classList.remove("js_open");
-			body.classList.remove("js_overflow");
-			menuOpen.focus();
+      menu.classList.remove("js_open");
+      body.classList.remove("js_overflow");
+      menuOpen.focus();
     }
   });
 })();
 
 (function () {
   let loginOpen = document.querySelector(".js_signin"),
-		loginPopup = document.querySelector(".popup--login");
-		
+    loginPopup = document.querySelector(".popup--login");
+
   let loginOpenMenu = document.querySelector(".js_signin--menu"),
     loginPopupMenu = document.querySelector(".popup--login");
 
   let registerOpen = document.querySelector(".js_register"),
-		registerPopup = document.querySelector(".popup--register");
-		
+    registerPopup = document.querySelector(".popup--register");
+
   let registerOpenMenu = document.querySelector(".js_register--menu"),
     registerPopupMenu = document.querySelector(".popup--register");
 
@@ -50,31 +50,31 @@ let body = document.querySelector("body");
     changeDataPopup = document.querySelector(".popup--change-data");
 
   function popup(button, popup) {
-		if (button && popup) {
-			let close = popup.querySelector(".popup__close");
+    if (button && popup) {
+      let close = popup.querySelector(".popup__close");
 
-			button.addEventListener("click", () => {
-				let focus = popup.querySelector(".popup__input");
-	
-				popup.classList.add("js_open");
-				body.classList.add("js_overflow");
-				focus.focus();
-			});
-	
-			close.addEventListener("click", () => {
-				popup.classList.remove("js_open");
-				body.classList.remove("js_overflow");
-				button.focus();
-			});
-	
-			window.addEventListener("keydown", (e) => {
-				if (e.code === "Escape" && popup.classList.contains("js_open")) {
-					popup.classList.remove("js_open");
-					body.classList.remove("js_overflow");
-					button.focus();
-				}
-			});
-		}
+      button.addEventListener("click", () => {
+        let focus = popup.querySelector(".popup__input");
+
+        popup.classList.add("js_open");
+        body.classList.add("js_overflow");
+        focus.focus();
+      });
+
+      close.addEventListener("click", () => {
+        popup.classList.remove("js_open");
+        body.classList.remove("js_overflow");
+        button.focus();
+      });
+
+      window.addEventListener("keydown", (e) => {
+        if (e.code === "Escape" && popup.classList.contains("js_open")) {
+          popup.classList.remove("js_open");
+          body.classList.remove("js_overflow");
+          button.focus();
+        }
+      });
+    }
   }
 
   popup(loginOpen, loginPopup);
@@ -84,4 +84,24 @@ let body = document.querySelector("body");
   popup(messageOpen, messagePopup);
   popup(changePasswordOpen, changePasswordPopup);
   popup(changeDataOpen, changeDataPopup);
+})();
+
+(function () {
+  let scrollButton = document.querySelector(".scroll-button");
+
+  if (!scrollButton) {
+    return;
+  }
+
+  window.addEventListener("scroll", () => {
+    if (window.pageYOffset > 1500) {
+      scrollButton.classList.add("js_open");
+    } else {
+      scrollButton.classList.remove("js_open");
+    }
+  });
+
+  scrollButton.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
 })();
