@@ -1,5 +1,7 @@
 let body = document.querySelector("body");
 
+/* --- Mobile Menu --- */
+
 (function () {
   let menu = document.querySelector(".menu"),
     menuOpen = document.querySelector(".menu__open"),
@@ -26,6 +28,8 @@ let body = document.querySelector("body");
     }
   });
 })();
+
+/* --- Popup Windows --- */
 
 (function () {
   let loginOpen = document.querySelector(".js_signin"),
@@ -86,6 +90,8 @@ let body = document.querySelector("body");
   popup(changeDataOpen, changeDataPopup);
 })();
 
+/* --- Scroll Button --- */
+
 (function () {
   let scrollButton = document.querySelector(".scroll-button");
 
@@ -105,6 +111,8 @@ let body = document.querySelector("body");
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
 })();
+
+/* --- Slider --- */
 
 function slider({ sliderEl, defaultActiveSlide = 0 }) {
   const slider = document.querySelector(sliderEl),
@@ -204,3 +212,117 @@ function slider({ sliderEl, defaultActiveSlide = 0 }) {
     setActiveSlide(activeSlide + 1);
   });
 }
+
+/* --- Validation --- */
+
+function checkEmail(email) {
+	return email.match(/^[0-9a-z-\.]+\@[0-9a-z-]{2,}\.[a-z]{2,}$/i);
+}
+
+function checkTelephone(telephone) {
+	return telephone.match(/^(\s*)?(\+)?([-_():=+]?\d[- _():=+]?){10,14}(\s*)?$/);
+}
+
+function inputError(input) {
+	if (input.hasAttribute("isError")) {
+		return;
+	}
+	input.setAttribute("isError", "");
+	function handle() {
+		input.classList.remove("popup__input--error");
+		input.removeAttribute("isError");
+	}
+	input.classList.add("popup__input--error");
+	input.addEventListener("input", handle);
+}
+
+function textError(input, error) {
+	if (input.hasAttribute("isErrorText")) {
+		return;
+	}
+	input.setAttribute("isErrorText", "");
+	function handle() {
+		message.remove();
+		input.removeAttribute("isErrorText");
+	}
+	const message = document.createElement('span');
+	message.classList.add('popup__text','popup__text--error','text-small');
+	message.innerText = error;
+	input.insertAdjacentElement("afterend", message);
+	input.addEventListener("input", handle);
+}
+
+function setFormError(form, errors) {
+	let inputs = form.querySelectorAll("input");
+	for (let input of inputs) {
+		if(errors[input.name] && input.type !== "checkbox" && input.type !== "radio") {
+			inputError(input);
+			textError(input, errors[input.name]);
+		}
+	}
+}
+
+function getFormData(form, data = {}) {
+	let inputs = form.querySelectorAll("input");
+	for(let input of inputs) {
+		switch(input.type) {
+			case "radio":
+				if (input.checked) {
+					data[input.name] = input.value;
+				}
+				break;
+			case "checkbox":
+				if(!data[input.name]) {
+					data[input.name] = [];
+				}
+				if (input.checked) {
+					data[input.name].push(input.value);
+				}
+				break;
+			case "file":
+				data[input.name] = input.files;
+				break;
+			default:
+				data[input.name] = input.value;
+				break;
+		}
+	}
+	let textareas = form.querySelectorAll("textarea");
+	for(let textarea of textareas) {
+		data[textarea.name] = textarea.value;
+	}
+	return data;
+}
+
+(function(){
+	const messageForm = document.forms["message"];
+
+	messageForm.addEventListener("submit", (e) => {
+		e.preventDefault();
+		const data = getFormData(e.target);
+		const errors = validateData(data);
+		if (Object.keys(errors).length) {
+			setFormError(messageForm, errors);
+		}
+		console.log(errors);
+	})
+
+	function validateData(data, errors = {}) {
+		if(data.name === "") {
+			errors.name = "Введите имя";
+		}
+		if(data.subject === "") {
+			errors.subject = "Введите тему сообщения";
+		}
+		if(!checkEmail(data.email)) {
+			errors.email = "Почта введена не верно";
+		}
+		if(!checkTelephone(data.telephone)) {
+			errors.telephone = "Телефон введен не верно";
+		}
+		if(data.accept[0] !== "yes") {
+			errors.accept = "Вы не согласны";
+		}
+		return errors;
+	}
+})();

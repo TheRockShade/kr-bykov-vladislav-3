@@ -111,8 +111,23 @@
 	}
 
 	&__text {
+		width: 100%;
 		margin-bottom: 6px;
 		display: inline-block;
+
+		&--error.text-small {
+			margin-bottom: 0;
+			margin-top: 10px;
+
+			color: $c_pomegranade;
+		}
+
+		&--success.text-small {
+			margin-bottom: 0;
+			margin-top: 10px;
+
+			color: $c_malachite;
+		}
 	}
 
 	&__accent {
@@ -138,6 +153,24 @@
 
 		&:focus {
 			border-color: $c_black--dl;
+		}
+
+		&--error {
+			border-color: $c_pomegranade;
+			 
+			&:hover,
+			&:focus {
+				border-color: rgba($c_pomegranade, .5);
+			}
+		}
+
+		&--success {
+			border-color: $c_malachite;
+
+			&:hover,
+			&:focus {
+				border-color: rgba($c_malachite, .5);;
+			}
 		}
 	}
 
