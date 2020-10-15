@@ -228,12 +228,38 @@ function inputError(input) {
 		return;
 	}
 	input.setAttribute("isError", "");
-	function handle() {
+	input.classList.add("popup__input--error");
+	input.addEventListener("input", () => {
 		input.classList.remove("popup__input--error");
 		input.removeAttribute("isError");
+	});
+}
+
+function inputSuccess(input) {
+	if (input.hasAttribute("isSuccess")) {
+		return;
 	}
-	input.classList.add("popup__input--error");
-	input.addEventListener("input", handle);
+	input.setAttribute("isSuccess", "");
+	input.classList.add("popup__input--success");
+	input.addEventListener("input", () => {
+		input.classList.remove("popup__input--success");
+		input.removeAttribute("isSuccess");
+	});
+}
+
+function textSuccess(input) {
+	if (input.hasAttribute("isSuccessText")) {
+		return;
+	}
+	input.setAttribute("isSuccessText", "");
+	const message = document.createElement('span');
+	message.classList.add('popup__text','popup__text--success','text-small');
+	message.innerText = "All done";
+	input.insertAdjacentElement("afterend", message);
+	input.addEventListener("input", () => {
+		message.remove();
+		input.removeAttribute("issuccessText");
+	});
 }
 
 function textError(input, error) {
@@ -241,23 +267,26 @@ function textError(input, error) {
 		return;
 	}
 	input.setAttribute("isErrorText", "");
-	function handle() {
-		message.remove();
-		input.removeAttribute("isErrorText");
-	}
 	const message = document.createElement('span');
 	message.classList.add('popup__text','popup__text--error','text-small');
 	message.innerText = error;
 	input.insertAdjacentElement("afterend", message);
-	input.addEventListener("input", handle);
+	input.addEventListener("input", () => {
+		message.remove();
+		input.removeAttribute("isErrorText");
+	});
 }
 
-function setFormError(form, errors) {
+function setFormText(form, errors) {
 	let inputs = form.querySelectorAll("input");
 	for (let input of inputs) {
 		if(errors[input.name] && input.type !== "checkbox" && input.type !== "radio") {
 			inputError(input);
 			textError(input, errors[input.name]);
+		}
+		if(!errors[input.name]) {
+			inputSuccess(input);
+			textSuccess(input);
 		}
 	}
 }
@@ -295,33 +324,62 @@ function getFormData(form, data = {}) {
 }
 
 (function(){
-	const messageForm = document.forms["message"];
+	const register = document.forms["register"];
 
-	messageForm.addEventListener("submit", (e) => {
+	register.addEventListener("submit", (e) => {
 		e.preventDefault();
-		const data = getFormData(e.target);
-		const errors = validateData(data);
-		if (Object.keys(errors).length) {
-			setFormError(messageForm, errors);
-		}
+		let data = getFormData(e.target);
+		let errors = validateData(data);
+		setFormText(register, errors);
 		console.log(errors);
 	})
 
 	function validateData(data, errors = {}) {
-		if(data.name === "") {
-			errors.name = "Введите имя";
-		}
-		if(data.subject === "") {
-			errors.subject = "Введите тему сообщения";
-		}
 		if(!checkEmail(data.email)) {
-			errors.email = "Почта введена не верно";
+			errors.email = "Please enter a valid email adress";
 		}
-		if(!checkTelephone(data.telephone)) {
-			errors.telephone = "Телефон введен не верно";
+		if(data.name === "") {
+			errors.name = "Please enter your name";
+		}
+		if(data.surname === "") {
+			errors.surname = "Please enter your surname";
+		}
+		if(data.password.length < 8) {
+			errors.password = "Your password too short";
+		}
+		if(data.passwordRepeat !== data.password || data.passwordRepeat === "") {
+			errors.passwordRepeat = "Your password is incorrect";
+		}
+		if(data.location === "") {
+			errors.location = "Please enter your location";
+		}
+		if(isNaN(data.age) || data.age === "") {
+			errors.age = "Please enter your age";
 		}
 		if(data.accept[0] !== "yes") {
-			errors.accept = "Вы не согласны";
+			errors.accept = "You need to consent";
+		}
+		return errors;
+	}
+})();
+
+(function(){
+	const loginForm = document.forms["login"];
+
+	loginForm.addEventListener("submit", (e) => {
+		e.preventDefault();
+		const data = getFormData(e.target);
+		const errors = validateData(data);
+		setFormText(loginForm, errors);
+		console.log(errors);
+	})
+
+	function validateData(data, errors = {}) {
+		if(!checkEmail(data.email)) {
+			errors.email = "Please enter a valid email adress";
+		}
+		if(data.password === "") {
+			errors.password = "Please enter your password";
 		}
 		return errors;
 	}

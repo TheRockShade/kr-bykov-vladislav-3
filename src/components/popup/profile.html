@@ -1,0 +1,77 @@
+<div class="popup popup--change-password">
+	<form class="popup__form popup__form--change-password" name="change-password">
+		<label class="popup__label">
+			<span class="popup__text text-small">Old password <span class="popup__accent">*</span></span>
+			<input class="popup__input" type="password" name="passwordOld">
+		</label>
+		<label class="popup__label">
+			<span class="popup__text text-small">New password <span class="popup__accent">*</span></span>
+			<input class="popup__input" type="password" name="passwordNew">
+		</label>
+		<label class="popup__label">
+			<span class="popup__text text-small">Repeat new password <span class="popup__accent">*</span></span>
+			<input class="popup__input" type="password" name="passwordNewRepeat">
+		</label>
+		@@include('button/index.html', {
+			"dest": "submit",
+			"type": "empty",
+			"disabled": "no",
+			"text": "Change password",
+			"class": "popup__button popup__button"
+		})
+		<button class="popup__close" aria-label="Close"><img class="popup__x" src="/static/images/icon-close.svg" alt="Close button"></button>
+	</form>
+</div>
+
+<div class="popup popup--change-data">
+	<form class="popup__form popup__form--change-data" name="change-data">
+		<label class="popup__label">
+			<span class="popup__text text-small">Email</span>
+			<input class="popup__input" type="email" name="email">
+		</label>
+		<div class="popup__col">
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">Name</span>
+					<input class="popup__input" type="text" name="name">
+				</label>
+			</div>
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">Surname</span>
+					<input class="popup__input" type="text" name="surname">
+				</label>
+			</div>
+		</div>
+		<div class="popup__col">
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">Location</span>
+					<input class="popup__input" type="text" name="location">
+				</label>
+			</div>
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">Age</span>
+					<input class="popup__input" type="text" name="age">
+				</label>
+			</div>
+		</div>
+		<div class="popup__col">
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">Profile picture</span>
+					<input class="popup__input" type="file" name="picture">
+				</label>
+			</div>
+		</div>
+		@@include('button/index.html', {
+			"dest": "submit",
+			"type": "empty",
+			"disabled": "no",
+			"text": "Submit changes",
+			"class": "popup__button"
+		})
+		<button class="popup__close" aria-label="Close"><img class="popup__x" src="/static/images/icon-close.svg" alt="Close button"></button>
+	</form>
+</div>
