@@ -56,21 +56,17 @@ let body = document.querySelector("body");
   function popup(button, popup) {
     if (button && popup) {
       let close = popup.querySelector(".popup__close");
-
       button.addEventListener("click", () => {
         let focus = popup.querySelector(".popup__input");
-
         popup.classList.add("js_open");
         body.classList.add("js_overflow");
         focus.focus();
       });
-
       close.addEventListener("click", () => {
         popup.classList.remove("js_open");
         body.classList.remove("js_overflow");
         button.focus();
       });
-
       window.addEventListener("keydown", (e) => {
         if (e.code === "Escape" && popup.classList.contains("js_open")) {
           popup.classList.remove("js_open");
@@ -114,7 +110,7 @@ let body = document.querySelector("body");
 
 /* --- Slider --- */
 
-function slider({ sliderEl, defaultActiveSlide = 0 }) {
+function slider({ sliderEl, defaultActiveSlide = +localStorage.getItem("activeSlide") || 0 }) {
   const slider = document.querySelector(sliderEl),
     wrapper = slider.querySelector(".slider__wrapper"),
     innerWrapper = slider.querySelector(".slider__inner-wrapper"),
@@ -157,15 +153,12 @@ function slider({ sliderEl, defaultActiveSlide = 0 }) {
   function createDot(index) {
     let dot = document.createElement("button");
     dot.classList.add("pagination__button");
-
     if (index === activeSlide) {
       dot.classList.add("pagination__button--active");
     }
-
     dot.addEventListener("click", () => {
       setActiveSlide(index);
     });
-
     return dot;
   }
 
@@ -180,28 +173,24 @@ function slider({ sliderEl, defaultActiveSlide = 0 }) {
     if (index < 0 || index >= slides.length) {
       return;
     }
-
     if (playAnimation) {
       addAnimation(aniTime);
     }
-
     dots[activeSlide].classList.remove("pagination__button--active");
     dots[index].classList.add("pagination__button--active");
-
     if (index === 0) {
       buttonBack.setAttribute("disabled", "");
     } else {
       buttonBack.removeAttribute("disabled");
     }
-
     if (index === slides.length - 1) {
       buttonNext.setAttribute("disabled", "");
     } else {
       buttonNext.removeAttribute("disabled");
     }
-
     innerWrapper.style.transform = `translateX(-${slideWidth * index}px)`;
-    activeSlide = index;
+		activeSlide = index;
+		localStorage.setItem("activeSlide", activeSlide);
   }
 
   buttonBack.addEventListener("click", () => {
