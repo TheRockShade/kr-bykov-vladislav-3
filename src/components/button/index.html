@@ -66,6 +66,14 @@
 	<button class="button button--bad @@class" type="submit" disabled>@@text</button>
 }
 
+@@if (dest === "reset" && type === "empty" && disabled === "no") {
+	<button class="button button--empty @@class" type="reset">@@text</button>
+}
+
+@@if (dest === "reset" && type === "empty" && disabled === "yes") {
+	<button class="button button--empty @@class" type="reset" disabled>@@text</button>
+}
+
 
 
 

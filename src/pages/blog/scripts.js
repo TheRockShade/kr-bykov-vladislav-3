@@ -64,6 +64,9 @@
 		if(searchParams.has("sort")) {
 			params.sort = searchParams.get("sort");
 		}
+		if(searchParams.has("search")) {
+			params.search = searchParams.get("search");
+		}
 		if(searchParams.has("page")) {
 			params.page = searchParams.get("page");
 		}

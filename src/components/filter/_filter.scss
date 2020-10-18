@@ -3,14 +3,14 @@
 @import "./vars";
 
 .filter {
-	padding: 40px 0 25px 0;
+	padding: 40px 0 21px 0;
 
 	@include media($m_mob--md, $m_pc) {
-		padding: 40px 0 12px 0;
+		padding: 40px 0 21px 0;
 	}
 
 	@include media(0, $m_mob--md) {
-		padding: 30px 0 18px 0;
+		padding: 30px 0 20px 0;
 	}
 
 	&__title {
@@ -24,11 +24,21 @@
 }
 
 .filter-form {
-	display: flex;
-	flex-wrap: wrap;
-	
-	@include media(0, $m_mob--md) {
-		justify-content: space-between;
+
+	&__top {
+		margin-bottom: 25px;
+
+		display: flex;
+		flex-wrap: wrap;
+
+		@include media($m_tab, $m_pc) {
+			margin-bottom: 12px;
+		}
+		
+		@include media(0, $m_mob--md) {
+			margin-bottom: 18px;
+			justify-content: space-between;
+		}
 	}
 
 	&__fieldset {
@@ -304,4 +314,49 @@
 .filter-form__radio:focus ~ .filter-form__radio-checker,
 .filter-form__radio:focus ~ .filter-form__radio-text {
 	opacity: .5;
+}
+
+.search {
+	display: flex;
+	align-items: center;
+
+	@include media(0, $m_mob--md) {
+		flex-wrap: wrap;
+	}
+
+	&__input {
+		width: 100%;
+		margin-right: 28px;
+		padding: 12px 14px;
+
+		font-size: 18px;
+		line-height: 21px;
+		color: $c_black--dl;
+
+		border: 2.5px solid $c_mercury;
+		outline: none;
+
+		transition: border-color $tr_duration $tr_easing;
+
+		@include media(0, $m_mob--md) {
+			margin-right: 0;
+			margin-bottom: 20px;
+		}
+
+		&:hover {
+			border-color: $c_gray;
+		}
+
+		&:focus {
+			border-color: $c_black--dl;
+		}
+	}
+
+	&__button {
+		padding: 7.5px 17.5px;
+
+		@include media(0, $m_mob--md) {
+			margin-left: auto;
+		}
+	}
 }
