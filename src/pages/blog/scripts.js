@@ -131,10 +131,9 @@ function getParamsFromURL() {
 	}
 
 	function getPosts(params) {
-		console.log(params);
 		let url = new URL("http://123.ru");
-
 		url.searchParams.set("v", VERSION_API);
+
 		if (params.tags) {
 			url.searchParams.set("tags", JSON.stringify(params.tags))
 		}
@@ -162,14 +161,15 @@ function getParamsFromURL() {
 			filter.commentsCount = {$between: [commentsCountValue["min"], commentsCountValue["max"]]};
 		}
 
-		let sort = ["id", "ASC"];
+		url.searchParams.set("filter", JSON.stringify(filter));
 
+		let sort = ["id", "ASC"];
 		if (params.sort) {
 			sort[0] = params.sort;
 		}
-
-		url.searchParams.set("filter", JSON.stringify(filter));
+		
 		url.searchParams.set("sort", JSON.stringify(sort));
+
 		let xhr = new XMLHttpRequest();
 		xhr.open("GET", `${SERVER_URL}/api/posts?${url.searchParams}`);
 		xhr.send();
@@ -185,21 +185,10 @@ function getParamsFromURL() {
 					for (let tag of card.tags) {
 						tagBox.innerHTML += cardTagCreator(tag);
 					}
-					
 				}
 			} else {
 				console.error(response._message);
 			}
-		}
-		xhr.onerror = () => console.error("Произошла ошибка сервера");
-	}
-
-	function sort() {
-		let xhr = new XMLHttpRequest();
-		xhr.open("GET", `${SERVER_URL}/api/tags`);
-		xhr.send();
-		xhr.onload = () => {
-
 		}
 		xhr.onerror = () => console.error("Произошла ошибка сервера");
 	}
@@ -216,28 +205,27 @@ function getParamsFromURL() {
 		</label>`;
 	}
 
-
 	function cardCreator(card) {
 		return `
 		<li class="blog__item">
-		<picture>
-			<source srcset="${SERVER_URL}${card.photo.desktopPhotoUrl}", srcset="${SERVER_URL}${card.photo.desktop2xPhotoUrl}" 2x" media="(min-width: 800px)">
-			<source srcset="${SERVER_URL}${card.photo.tabletPhotoUrl}, srcset="${SERVER_URL}${card.photo.tablet2xPhotoUrl} 2x" media="(min-width: 670px) and (max-width: 799px)">
-			<source srcset="${SERVER_URL}${card.photo.mobilePhotoUrl}, srcset="${SERVER_URL}${card.photo.mobile2xPhotoUrl} 2x" media="(max-width: 669px)">
-			<img class="blog__img" src="${SERVER_URL}${card.photo.desktopPhotoUrl}" alt="${card.title}">
-		</picture>
-		<div class="blog__box">
-			<div class="blog__tags cardTags_js"></div>
-			<div class="blog__info">
-				<span class="blog__data text-small">${new Date(card.date).toLocaleDateString()}</span>
-				<span class="blog__views text-small">${card.views} views</span>
-				<span class="blog__comments text-small">${card.commentsCount} comments</span>
+			<picture>
+				<source srcset="${SERVER_URL}${card.photo.desktopPhotoUrl}", srcset="${SERVER_URL}${card.photo.desktop2xPhotoUrl}" 2x" media="(min-width: 800px)">
+				<source srcset="${SERVER_URL}${card.photo.tabletPhotoUrl}, srcset="${SERVER_URL}${card.photo.tablet2xPhotoUrl} 2x" media="(min-width: 670px) and (max-width: 799px)">
+				<source srcset="${SERVER_URL}${card.photo.mobilePhotoUrl}, srcset="${SERVER_URL}${card.photo.mobile2xPhotoUrl} 2x" media="(max-width: 669px)">
+				<img class="blog__img" src="${SERVER_URL}${card.photo.desktopPhotoUrl}" alt="${card.title}">
+			</picture>
+			<div class="blog__box">
+				<div class="blog__tags cardTags_js"></div>
+				<div class="blog__info">
+					<span class="blog__data text-small">${new Date(card.date).toLocaleDateString()}</span>
+					<span class="blog__views text-small">${card.views} views</span>
+					<span class="blog__comments text-small">${card.commentsCount} comments</span>
+				</div>
+				<h3 class="blog__title title-three">${card.title}</h3>
+				<p class="blog__text text">${card.text}</p>
+				<a class="blog__link text text--bold" href="#">Go to this post</a>
 			</div>
-			<h3 class="blog__title title-three">${card.title}</h3>
-			<p class="blog__text text">${card.text}</p>
-			<a class="blog__link text text--bold" href="#">Go to this post</a>
-		</div>
-	</li>`;
+		</li>`;
 	}
 
 	function cardTagCreator(tag) {
