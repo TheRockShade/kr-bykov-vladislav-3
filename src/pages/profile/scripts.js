@@ -1,11 +1,31 @@
-(function(){
-	const changePasswordForm = document.forms["change-password"];
+(() => {
+  let changePasswordOpen = document.querySelector(".change-password_js"),
+		changePasswordPopup = document.querySelector(".popup--change-password"),
+		changePasswordForm = document.forms["change-password"];
 
-	changePasswordForm.addEventListener("submit", (e) => {
+  let changeDataOpen = document.querySelector(".change-data_js"),
+		changeDataPopup = document.querySelector(".popup--change-data"),
+		changeDataForm = document.forms["change-data"];
+
+		changePasswordOpen.addEventListener("click", () => {
+			popup(changePasswordPopup, changePasswordOpen);
+		})
+		
+		changeDataOpen.addEventListener("click", () => {
+			popup(changeDataPopup, changeDataOpen);
+		})
+})();
+
+
+
+(function(){
+	const form = document.forms["change-password"];
+
+	form.addEventListener("submit", (e) => {
 		e.preventDefault();
 		const data = getFormData(e.target);
 		const errors = validateData(data);
-		setFormText(changePasswordForm, errors);
+		setFormText(form, errors);
 		console.log(errors);
 	})
 
@@ -24,13 +44,13 @@
 })();
 
 (function(){
-	const changeDataForm = document.forms["change-data"];
+	const form = document.forms["change-data"];
 
-	changeDataForm.addEventListener("submit", (e) => {
+	form.addEventListener("submit", (e) => {
 		e.preventDefault();
 		const data = getFormData(e.target);
 		const errors = validateData(data);
-		setFormText(changeDataForm, errors);
+		setFormText(form, errors);
 		console.log(errors);
 	})
 

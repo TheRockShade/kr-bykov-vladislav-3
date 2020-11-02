@@ -1,4 +1,6 @@
-let body = document.querySelector("body");
+const SERVER_URL = "https://academy.directlinedev.com";
+const VERSION_API = "1.0.0";
+const body = document.querySelector("body");
 
 /* --- Mobile Menu --- */
 
@@ -9,21 +11,21 @@ let body = document.querySelector("body");
     focusItem = document.querySelector(".js_focus");
 
   menuOpen.addEventListener("click", () => {
-    menu.classList.add("js_open");
-    body.classList.add("js_overflow");
+    menu.classList.add("open_js");
+    body.classList.add("overflow_js");
     focusItem.focus();
   });
 
   menuClose.addEventListener("click", () => {
-    menu.classList.remove("js_open");
-    body.classList.remove("js_overflow");
+    menu.classList.remove("open_js");
+    body.classList.remove("overflow_js");
     menuOpen.focus();
   });
 
   window.addEventListener("keydown", (e) => {
-    if (e.code === "Escape" && menu.classList.contains("js_open")) {
-      menu.classList.remove("js_open");
-      body.classList.remove("js_overflow");
+    if (e.code === "Escape" && menu.classList.contains("open_js")) {
+      menu.classList.remove("open_js");
+      body.classList.remove("overflow_js");
       menuOpen.focus();
     }
   });
@@ -31,60 +33,28 @@ let body = document.querySelector("body");
 
 /* --- Popup Windows --- */
 
-(function () {
-  let loginOpen = document.querySelector(".js_signin"),
-    loginPopup = document.querySelector(".popup--login");
-
-  let loginOpenMenu = document.querySelector(".js_signin--menu"),
-    loginPopupMenu = document.querySelector(".popup--login");
-
-  let registerOpen = document.querySelector(".js_register"),
-    registerPopup = document.querySelector(".popup--register");
-
-  let registerOpenMenu = document.querySelector(".js_register--menu"),
-    registerPopupMenu = document.querySelector(".popup--register");
-
-  let messageOpen = document.querySelector(".js_message"),
-    messagePopup = document.querySelector(".popup--message");
-
-  let changePasswordOpen = document.querySelector(".js_change-password"),
-    changePasswordPopup = document.querySelector(".popup--change-password");
-
-  let changeDataOpen = document.querySelector(".js_change-data"),
-    changeDataPopup = document.querySelector(".popup--change-data");
-
-  function popup(button, popup) {
-    if (button && popup) {
-      let close = popup.querySelector(".popup__close");
-      button.addEventListener("click", () => {
-        let focus = popup.querySelector(".popup__input");
-        popup.classList.add("js_open");
-        body.classList.add("js_overflow");
-        focus.focus();
-      });
-      close.addEventListener("click", () => {
-        popup.classList.remove("js_open");
-        body.classList.remove("js_overflow");
-        button.focus();
-      });
-      window.addEventListener("keydown", (e) => {
-        if (e.code === "Escape" && popup.classList.contains("js_open")) {
-          popup.classList.remove("js_open");
-          body.classList.remove("js_overflow");
-          button.focus();
-        }
-      });
-    }
-  }
-
-  popup(loginOpen, loginPopup);
-  popup(loginOpenMenu, loginPopupMenu);
-  popup(registerOpen, registerPopup);
-  popup(registerOpenMenu, registerPopupMenu);
-  popup(messageOpen, messagePopup);
-  popup(changePasswordOpen, changePasswordPopup);
-  popup(changeDataOpen, changeDataPopup);
-})();
+function popup(popup, button, form) {
+	let close = form.querySelector(".popup__close");
+	let focus = popup.querySelector(".popup__input");
+	popup.classList.add("open_js");
+	body.classList.add("overflow_js");
+	focus.focus();
+	close.addEventListener("click", (e) => {
+		e.preventDefault();
+		popup.classList.remove("open_js");
+		body.classList.remove("overflow_js");
+		form.reset();
+		button.focus();
+	});
+	window.addEventListener("keydown", (e) => {
+		if (e.code === "Escape" && popup.classList.contains("open_js")) {
+			popup.classList.remove("open_js");
+			body.classList.remove("overflow_js");
+			form.reset();
+			button.focus();
+		}
+	});
+}
 
 /* --- Scroll Button --- */
 
@@ -97,9 +67,9 @@ let body = document.querySelector("body");
 
   window.addEventListener("scroll", () => {
     if (window.pageYOffset > 1500) {
-      scrollButton.classList.add("js_open");
+      scrollButton.classList.add("open_js");
     } else {
-      scrollButton.classList.remove("js_open");
+      scrollButton.classList.remove("open_js");
     }
   });
 
@@ -112,18 +82,18 @@ let body = document.querySelector("body");
 
 function slider({ sliderEl, defaultActiveSlide = +localStorage.getItem("activeSlide") || 0 }) {
   const slider = document.querySelector(sliderEl),
-    wrapper = slider.querySelector(".slider__wrapper"),
-    innerWrapper = slider.querySelector(".slider__inner-wrapper"),
-    slides = [...slider.querySelectorAll(".slider__slide")],
-    pagination = slider.querySelector(".pagination"),
-    buttonBack = slider.querySelector(".arrow-button--left"),
-    buttonNext = slider.querySelector(".arrow-button--right"),
-    aniTime = 500;
+				wrapper = slider.querySelector(".slider__wrapper"),
+				innerWrapper = slider.querySelector(".slider__inner-wrapper"),
+				slides = [...slider.querySelectorAll(".slider__slide")],
+				pagination = slider.querySelector(".pagination"),
+				buttonBack = slider.querySelector(".arrow-button--left"),
+				buttonNext = slider.querySelector(".arrow-button--right"),
+				aniTime = 500;
 
   let activeSlide = defaultActiveSlide,
-    slideWidth = 0,
-    dots = [],
-    timerId = null;
+			slideWidth = 0,
+			dots = [],
+			timerId = null;
 
   initSlidesWidth();
   createPagination();
@@ -273,7 +243,7 @@ function setFormText(form, errors) {
 			inputError(input);
 			textError(input, errors[input.name]);
 		}
-		if(!errors[input.name]) {
+		if(!errors[input.name] && input.type !== "checkbox" && input.type !== "radio") {
 			inputSuccess(input);
 			textSuccess(input);
 		}
@@ -312,56 +282,97 @@ function getFormData(form, data = {}) {
 	return data;
 }
 
-(function(){
-	const register = document.forms["register"];
+(() => {
+	let open = document.querySelector(".register_js"),
+			window = document.querySelector(".popup--register"),
+			openMenu = document.querySelector(".register--menu_js"),
+			windowMenu = document.querySelector(".popup--register"),
+			form = document.forms["register"],
+			isLoading = false;
 
-	register.addEventListener("submit", (e) => {
-		e.preventDefault();
-		let data = getFormData(e.target);
-		let errors = validateData(data);
-		setFormText(register, errors);
-		console.log(errors);
+	if (open) {
+		open.addEventListener("click", () => {
+			popup(window, open, form);
+		})
+	}
+
+	if (openMenu) {
+		openMenu.addEventListener("click", () => {
+			popup(windowMenu, openMenu, form);
+		})
+	}
+
+	form.addEventListener("submit", (e) => {
+		submit(e);
 	})
 
+	function submit(e) {
+		e.preventDefault();
+		if (isLoading) {
+			return;
+		}
+		isLoading = true;
+		const data = getFormData(e.target);
+		fetchData({
+			method: "POST",
+			url: "/api/users",
+			body: JSON.stringify(data),
+			headers: {
+				"Content-Type": "application/json"
+			}
+		})
+		.then (res => { return res.json(); })
+		.then(res => {
+			if (res.success) {
+				alert(`Пользователь успешно создан\n ${JSON.stringify(res.data, null, 2)}`)
+			} else {
+				throw res;
+			}
+			isLoading = false;
+		})
+		.catch(err => {
+			// validateData(data, err.errors);
+			setFormText(e.target, err.errors);
+			isLoading = false;
+		})
+	}
+
 	function validateData(data, errors = {}) {
-		if(!checkEmail(data.email)) {
-			errors.email = "Please enter a valid email adress";
-		}
-		if(data.name === "") {
-			errors.name = "Please enter your name";
-		}
-		if(data.surname === "") {
-			errors.surname = "Please enter your surname";
-		}
-		if(data.password.length < 8) {
-			errors.password = "Your password too short";
-		}
 		if(data.passwordRepeat !== data.password || data.passwordRepeat === "") {
 			errors.passwordRepeat = "Your password is incorrect";
 		}
-		if(data.location === "") {
-			errors.location = "Please enter your location";
-		}
-		if(isNaN(data.age) || data.age === "") {
-			errors.age = "Please enter your age";
-		}
-		if(data.accept[0] !== "yes") {
-			errors.accept = "You need to consent";
-		}
-		return errors;
 	}
 })();
 
-(function(){
-	const loginForm = document.forms["login"];
+(() => {
+	let open = document.querySelector(".signin_js"),
+			window = document.querySelector(".popup--login"),
+			form = document.forms["login"],
+			openMenu = document.querySelector(".signin--menu_js"),
+			windowMenu = document.querySelector(".popup--login");
 
-	loginForm.addEventListener("submit", (e) => {
-		e.preventDefault();
-		const data = getFormData(e.target);
-		const errors = validateData(data);
-		setFormText(loginForm, errors);
-		console.log(errors);
+	if (open) {
+		open.addEventListener("click", () => {
+			popup(window, open, form);
+		})
+	}
+
+	if (openMenu) {
+		openMenu.addEventListener("click", () => {
+			popup(windowMenu, openMenu, form);
+		})
+	}
+
+	form.addEventListener("submit", (e) => {
+		submit(e);
 	})
+
+	function submit(e) {
+		e.preventDefault();
+		let data = getFormData(e.target);
+		let errors = validateData(data);
+		setFormText(form, errors);
+	}
 
 	function validateData(data, errors = {}) {
 		if(!checkEmail(data.email)) {
@@ -373,3 +384,13 @@ function getFormData(form, data = {}) {
 		return errors;
 	}
 })();
+
+/* --- Fetch --- */
+
+function fetchData({method = "get", url = "", headers = {}, body = null}) {
+	return fetch(SERVER_URL + url, {
+		method: method,
+		body: body,
+		headers: headers
+	})
+}

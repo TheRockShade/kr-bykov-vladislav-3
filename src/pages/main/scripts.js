@@ -1,13 +1,58 @@
-(function(){
-	const messageForm = document.forms["message"];
+(() => {
+	let open = document.querySelector(".message_js"),
+			window = document.querySelector(".popup--message"),
+			form = document.forms["message"],
+			isLoading = false;
 
-	messageForm.addEventListener("submit", (e) => {
-		e.preventDefault();
-		const data = getFormData(e.target);
-		const errors = validateData(data);
-		setFormText(messageForm, errors);
-		console.log(errors);
+	if (open) {
+		open.addEventListener("click", () => {
+			popup(window, open, form);
+		})
+	}
+
+	form.addEventListener("submit", (e) => {
+		submit(e);
 	})
+
+	function submit(e) {
+		e.preventDefault();
+		if (isLoading) {
+			return;
+		}
+		isLoading = true;
+		const data = getFormData(e.target);
+		let newData = {
+			to: data.to,
+			body: JSON.stringify(data)
+		}
+		console.log(newData);
+		fetchData({
+			method: "POST",
+			url: "/api/emails",
+			body: JSON.stringify(newData),
+			headers: {
+				"Content-Type": "application/json"
+			},
+		})
+		.then(res => { return res.json(); })
+		.then(res => {
+			if (res.success) {
+				console.log("Сообщение успешно отправлено");
+			} else {
+				throw res;
+			}
+			isLoading = false;
+		})
+		.catch(err => {
+			if (err.errors) {
+				setFormText(e.target, err.errors);
+				console.error(err.errors);
+			} else {
+				console.error(err._message);
+			}
+			isLoading = false;
+		})
+	}
 
 	function validateData(data, errors = {}) {
 		if(data.name === "") {
@@ -15,9 +60,6 @@
 		}
 		if(data.subject === "") {
 			errors.subject = "Please enter a message subject";
-		}
-		if(!checkEmail(data.email)) {
-			errors.email = "Please enter a valid email adress";
 		}
 		if(!checkTelephone(data.telephone)) {
 			errors.telephone = "Please enter a valid phone number";

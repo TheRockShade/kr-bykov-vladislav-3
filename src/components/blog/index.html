@@ -4,20 +4,13 @@
 			<ul class="blog__list posts_js"></ul>
 			<div class="blog__pagination blog-pagination">
 				@@include('arrow-button/index.html', {
+					"class": "blog-pagination__arrow blog-pagination__arrow--left left-arrow_js",
 					"type": "normal",
 					"rotation": "left"
 				})
-				<ul class="blog-pagination__list">
-					<li class="blog-pagination__item"><a class="blog-pagination__link text text--bold link_js" href="?page=1">1</a></li>
-					<li class="blog-pagination__item"><a class="blog-pagination__link text text--bold link_js" href="?page=2">2</a></li>
-					<li class="blog-pagination__item"><a class="blog-pagination__link text text--bold link_js" href="?page=3">3</a></li>
-					<li class="blog-pagination__item"><a class="blog-pagination__link text text--bold link_js" href="?page=4">4</a></li>
-					<li class="blog-pagination__item"><a class="blog-pagination__link text text--bold link_js" href="?page=5">5</a></li>
-					<li class="blog-pagination__item"><a class="blog-pagination__link text text--bold link_js" href="?page=6">6</a></li>
-					<li class="blog-pagination__item"><a class="blog-pagination__link text text--bold link_js" href="?page=7">7</a></li>
-					<li class="blog-pagination__item"><a class="blog-pagination__link text text--bold link_js" href="?page=8">8</a></li>
-				</ul>
+				<ul class="blog-pagination__list pagination_js"></ul>
 				@@include('arrow-button/index.html', {
+					"class": "blog-pagination__arrow blog-pagination__arrow--right right-arrow_js",
 					"type": "normal",
 					"rotation": "right"
 				})

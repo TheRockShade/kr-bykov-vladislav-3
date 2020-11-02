@@ -1,6 +1,7 @@
-const form = document.querySelector(".filter");
-const SERVER_URL = "https://academy.directlinedev.com";
-const VERSION_API = "1.0.0";
+const form = document.forms["filter"];
+let data = {
+	page: 0
+};
 
 function setParamsToURL(params = {}) {
 	const keysArr = Object.keys(params);
@@ -69,46 +70,52 @@ function getParamsFromURL() {
 	return params;
 }
 
-(function(){
-	const links = document.querySelectorAll(".link_js");
-	let realData = {page: 0};
-	realData = getParamsFromURL();
-	setValueToForm(form, realData);
-
-	form.addEventListener("submit", (e) => {
-		e.preventDefault();
-		const page = realData.page;
-		realData = getFormData(form);
-		realData.page = page;
-		setParamsToURL(realData);
-	})
-
-	for (let i = 0; i < links.length; i++) {
-		let link = links[i];
-		link.addEventListener("click", (e) => {
-			e.preventDefault();
-			realData.page = `${i}`;
-			setParamsToURL(realData);
-		})
-	}
-})();
-
-(function(){
+(() => {
 	const tagsBox = document.querySelector(".tags_js");
-	const postBox = document.querySelector(".posts_js")
+	const postBox = document.querySelector(".posts_js");
+	const searchButton = document.querySelector(".search-button_js")
+	const paginationBox = document.querySelector(".pagination_js");
+	const leftArrow = document.querySelector(".left-arrow_js");
+	const rightArrow = document.querySelector(".right-arrow_js");
 
 	tagsBox.innerHTML = spinnerCreator();
 	getTags();
 	getPosts(getFormData(form));
 
 	form.addEventListener("submit", (e) => {
+		get(e);
+	});
+
+	searchButton.addEventListener("click", () => {
+		data.page = 0;
+	})
+
+	leftArrow.addEventListener("click", (e) => {
+		if (data.page > 0) {
+			data.page--;
+			get(e);
+		}
+	})
+
+	rightArrow.addEventListener("click", (e) => {
+		let liList = paginationBox.querySelectorAll("li");
+		
+		if (data.page < liList.length - 1) {
+			data.page++;
+			get(e);
+		}
+	})
+
+	function get(e) {
 		e.preventDefault();
-		let data = getFormData(form);
+		let page = data.page || 0;
+		data = getFormData(form);
+		data.page = page;
 		data.show = +data.show || 0;
 		setParamsToURL(data);
 		postBox.innerHTML = spinnerCreator();
 		getPosts(data);
-	})
+	}
 
 	function getTags() {
 		let xhr = new XMLHttpRequest();
@@ -133,6 +140,10 @@ function getParamsFromURL() {
 	function getPosts(params) {
 		let url = new URL("http://123.ru");
 		url.searchParams.set("v", VERSION_API);
+
+		if (!params.page) {
+			params.page = 0;
+		}
 
 		if (params.tags) {
 			url.searchParams.set("tags", JSON.stringify(params.tags))
@@ -169,6 +180,12 @@ function getParamsFromURL() {
 		}
 		
 		url.searchParams.set("sort", JSON.stringify(sort));
+		
+		if (params.show) {
+			url.searchParams.set("limit", JSON.stringify(+params.show));
+		}
+
+		url.searchParams.set("offset", JSON.stringify(+params.show * params.page));
 
 		let xhr = new XMLHttpRequest();
 		xhr.open("GET", `${SERVER_URL}/api/posts?${url.searchParams}`);
@@ -186,6 +203,24 @@ function getParamsFromURL() {
 						tagBox.innerHTML += cardTagCreator(tag);
 					}
 				}
+
+				let count = response.count;
+				let index = 0;
+				
+				paginationBox.innerHTML = "";
+
+				while(count - params.show > 0) {
+					count -= params.show;
+					const a = pageCreator(index, data, (e) => {
+						get(e);
+					});
+					index++;
+					paginationBox.insertAdjacentElement("beforeend", a);
+				}
+				const a = pageCreator(index, data, (e) => {
+					get(e);
+				});
+				paginationBox.insertAdjacentElement("beforeend", a);
 			} else {
 				console.error(response._message);
 			}
@@ -230,5 +265,21 @@ function getParamsFromURL() {
 
 	function cardTagCreator(tag) {
 		return `<span class="blog__tag" style="background-color: ${tag.color}"></span>`;
+	}
+
+	function pageCreator(index, data, onclick) {
+		let li = document.createElement("li");
+		li.classList.add("blog-pagination__item");
+		let a = document.createElement("a");
+		a.setAttribute("href", `?page=${index}`);
+		a.classList.add("blog-pagination__link", "text", "text--bold", "link_js");
+		a.addEventListener("click", (e) => {
+			e.preventDefault();
+			data.page = index;
+			onclick(e);
+		})
+		a.innerText = +index + 1;
+		li.insertAdjacentElement("beforeend", a);
+		return li;
 	}
 })();
