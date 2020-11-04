@@ -211,13 +211,13 @@ function getParamsFromURL() {
 
 				while(count - params.show > 0) {
 					count -= params.show;
-					const a = pageCreator(index, data, (e) => {
+					const a = pageCreator(index, params, (e) => {
 						get(e);
 					});
 					index++;
 					paginationBox.insertAdjacentElement("beforeend", a);
 				}
-				const a = pageCreator(index, data, (e) => {
+				const a = pageCreator(index, params, (e) => {
 					get(e);
 				});
 				paginationBox.insertAdjacentElement("beforeend", a);
