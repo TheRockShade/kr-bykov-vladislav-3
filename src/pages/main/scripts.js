@@ -38,6 +38,7 @@
 		.then(res => {
 			if (res.success) {
 				console.log("Сообщение успешно отправлено");
+				popupClose(window, open, form);
 			} else {
 				throw res;
 			}

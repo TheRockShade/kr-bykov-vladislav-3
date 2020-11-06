@@ -61,8 +61,8 @@ function getParamsFromURL() {
 	if(searchParams.has("sort")) {
 		params.sort = searchParams.get("sort");
 	}
-	if(searchParams.has("search")) {
-		params.search = searchParams.get("search");
+	if(searchParams.has("title")) {
+		params.title = searchParams.get("title");
 	}
 	if(searchParams.has("page")) {
 		params.page = searchParams.get("page");
@@ -73,7 +73,7 @@ function getParamsFromURL() {
 (() => {
 	const tagsBox = document.querySelector(".tags_js");
 	const postBox = document.querySelector(".posts_js");
-	const searchButton = document.querySelector(".search-button_js")
+	const searchButton = document.querySelector(".search-button_js");
 	const paginationBox = document.querySelector(".pagination_js");
 	const leftArrow = document.querySelector(".left-arrow_js");
 	const rightArrow = document.querySelector(".right-arrow_js");
@@ -211,13 +211,13 @@ function getParamsFromURL() {
 
 				while(count - params.show > 0) {
 					count -= params.show;
-					const a = pageCreator(index, params, (e) => {
+					const a = pageCreator(index, data, (e) => {
 						get(e);
 					});
 					index++;
 					paginationBox.insertAdjacentElement("beforeend", a);
 				}
-				const a = pageCreator(index, params, (e) => {
+				const a = pageCreator(index, data, (e) => {
 					get(e);
 				});
 				paginationBox.insertAdjacentElement("beforeend", a);

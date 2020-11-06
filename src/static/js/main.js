@@ -1,6 +1,8 @@
 const SERVER_URL = "https://academy.directlinedev.com";
 const VERSION_API = "1.0.0";
 const body = document.querySelector("body");
+const logout = document.querySelector(".logout_js");
+const logoutMenu = document.querySelector(".logout--menu_js");
 
 /* --- Mobile Menu --- */
 
@@ -34,26 +36,27 @@ const body = document.querySelector("body");
 /* --- Popup Windows --- */
 
 function popup(popup, button, form) {
-	let close = form.querySelector(".popup__close");
+	let close = popup.querySelector(".popup__close");
 	let focus = popup.querySelector(".popup__input");
 	popup.classList.add("open_js");
 	body.classList.add("overflow_js");
 	focus.focus();
 	close.addEventListener("click", (e) => {
 		e.preventDefault();
-		popup.classList.remove("open_js");
-		body.classList.remove("overflow_js");
-		form.reset();
-		button.focus();
+		popupClose(popup, button, form);
 	});
 	window.addEventListener("keydown", (e) => {
 		if (e.code === "Escape" && popup.classList.contains("open_js")) {
-			popup.classList.remove("open_js");
-			body.classList.remove("overflow_js");
-			form.reset();
-			button.focus();
+			popupClose(popup, button, form);
 		}
 	});
+}
+
+function popupClose(popup, button, form) {
+	popup.classList.remove("open_js");
+	body.classList.remove("overflow_js");
+	form.reset();
+	button.focus();
 }
 
 /* --- Scroll Button --- */
@@ -250,36 +253,40 @@ function setFormText(form, errors) {
 	}
 }
 
-function getFormData(form, data = {}) {
-	let inputs = form.querySelectorAll("input");
-	for(let input of inputs) {
-		switch(input.type) {
-			case "radio":
-				if (input.checked) {
+function getFormData(form, data = {}, type = "json") {
+	if (type === "json") {
+		let inputs = form.querySelectorAll("input");
+		for(let input of inputs) {
+			switch(input.type) {
+				case "radio":
+					if (input.checked) {
+						data[input.name] = input.value;
+					}
+					break;
+				case "checkbox":
+					if(!data[input.name]) {
+						data[input.name] = [];
+					}
+					if (input.checked) {
+						data[input.name].push(input.value);
+					}
+					break;
+				case "file":
+					data[input.name] = input.files;
+					break;
+				default:
 					data[input.name] = input.value;
-				}
-				break;
-			case "checkbox":
-				if(!data[input.name]) {
-					data[input.name] = [];
-				}
-				if (input.checked) {
-					data[input.name].push(input.value);
-				}
-				break;
-			case "file":
-				data[input.name] = input.files;
-				break;
-			default:
-				data[input.name] = input.value;
-				break;
+					break;
+			}
 		}
+		let textareas = form.querySelectorAll("textarea");
+		for(let textarea of textareas) {
+			data[textarea.name] = textarea.value;
+		}
+		return data;
+	} else {
+		return new FormData(form);
 	}
-	let textareas = form.querySelectorAll("textarea");
-	for(let textarea of textareas) {
-		data[textarea.name] = textarea.value;
-	}
-	return data;
 }
 
 (() => {
@@ -324,7 +331,8 @@ function getFormData(form, data = {}) {
 		.then (res => { return res.json(); })
 		.then(res => {
 			if (res.success) {
-				alert(`Пользователь успешно создан\n ${JSON.stringify(res.data, null, 2)}`)
+				alert(`Пользователь успешно создан\n ${JSON.stringify(res.data, null, 2)}`);
+				popupClose(window, open, form);
 			} else {
 				throw res;
 			}
@@ -349,7 +357,8 @@ function getFormData(form, data = {}) {
 			window = document.querySelector(".popup--login"),
 			form = document.forms["login"],
 			openMenu = document.querySelector(".signin--menu_js"),
-			windowMenu = document.querySelector(".popup--login");
+			windowMenu = document.querySelector(".popup--login"),
+			isLoading = false;
 
 	if (open) {
 		open.addEventListener("click", () => {
@@ -369,7 +378,37 @@ function getFormData(form, data = {}) {
 
 	function submit(e) {
 		e.preventDefault();
-		let data = getFormData(e.target);
+		if (isLoading) {
+			return;
+		}
+		isLoading = true;
+		const data = getFormData(e.target);
+		fetchData({
+			method: "POST",
+			url: "/api/users/login",
+			body: JSON.stringify(data),
+			headers: {
+				"Content-Type": "application/json"
+			}
+		})
+		.then(res => res.json())
+		.then(res => {
+			if (res.success) {
+				console.log(`Пользователь успешно вошёл, его ID: ${JSON.stringify(res.data.userId)}`);
+				updateToken(res.data);
+				updateState();
+				popupClose(window, open, form);
+			} else {
+				throw res;
+			}
+		})
+		.catch(err => {
+			// validateData(data, err.errors);
+			setFormText(e.target, err.errors);
+			console.error(err);
+			isLoading = false;
+		})
+		
 		let errors = validateData(data);
 		setFormText(form, errors);
 	}
@@ -393,4 +432,56 @@ function fetchData({method = "get", url = "", headers = {}, body = null}) {
 		body: body,
 		headers: headers
 	})
+}
+
+function updateToken({token, userId}) {
+	localStorage.setItem("token", token);
+	localStorage.setItem("userId", userId);
+}
+
+updateState();
+
+function updateState() {
+	const login = document.querySelector(".signin_js"),
+				register = document.querySelector(".register_js"),
+				profile = document.querySelector(".profile_js"),
+				loginMenu = document.querySelector(".signin--menu_js"),
+				registerMenu = document.querySelector(".register--menu_js"),
+				profileMenu = document.querySelector(".profile--menu_js");
+
+	if(localStorage.getItem("token")) {
+		login.classList.add("hidden");
+		register.classList.add("hidden");
+		profile.classList.remove("hidden");
+		logout.classList.remove("hidden");
+
+		loginMenu.classList.add("hidden");
+		registerMenu.classList.add("hidden");
+		profileMenu.classList.remove("hidden");
+		logoutMenu.classList.remove("hidden");
+	} else {
+		login.classList.remove("hidden");
+		register.classList.remove("hidden");
+		profile.classList.add("hidden");
+		logout.classList.add("hidden");
+
+		loginMenu.classList.remove("hidden");
+		registerMenu.classList.remove("hidden");
+		profileMenu.classList.add("hidden");
+		logoutMenu.classList.add("hidden");
+	}
+}
+
+logout.addEventListener("click", () => {
+	logoutUser();
+});
+
+logoutMenu.addEventListener("click", () => {
+	logoutUser();
+});
+
+function logoutUser() {
+	localStorage.removeItem("token");
+	localStorage.removeItem("userId");
+	return window.location = "/";
 }

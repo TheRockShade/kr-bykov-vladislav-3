@@ -2,15 +2,15 @@
 	<form class="popup__form popup__form--change-password" name="change-password">
 		<label class="popup__label">
 			<span class="popup__text text-small">Old password <span class="popup__accent">*</span></span>
-			<input class="popup__input" type="password" name="passwordOld">
+			<input class="popup__input" type="password" name="oldPassword">
 		</label>
 		<label class="popup__label">
 			<span class="popup__text text-small">New password <span class="popup__accent">*</span></span>
-			<input class="popup__input" type="password" name="passwordNew">
+			<input class="popup__input" type="password" name="newPassword">
 		</label>
 		<label class="popup__label">
 			<span class="popup__text text-small">Repeat new password <span class="popup__accent">*</span></span>
-			<input class="popup__input" type="password" name="passwordNewRepeat">
+			<input class="popup__input" type="password" name="repeatPassword">
 		</label>
 		@@include('button/index.html', {
 			"dest": "submit",
@@ -61,7 +61,7 @@
 			<div class="popup__col-50">
 				<label class="popup__label">
 					<span class="popup__text text-small">Profile picture</span>
-					<input class="popup__input" type="file" name="picture">
+					<input class="popup__input" type="file" name="avatar">
 				</label>
 			</div>
 		</div>

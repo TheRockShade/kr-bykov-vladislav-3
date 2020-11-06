@@ -1,3 +1,15 @@
+const profileName = document.querySelector(".profile-name_js"),
+			profileSurname = document.querySelector(".profile-surname_js"),
+			profileEmail = document.querySelector(".profile-email_js"),
+			profileLocation = document.querySelector(".profile-location_js"),
+			profileAge = document.querySelector(".profile-age_js"),
+			profilePhoto = document.querySelector(".profile-photo_js"),
+			token = localStorage.getItem("token"),
+			userId = localStorage.getItem("userId"),
+			deleteButton = document.querySelector(".delete_js");
+
+let user = {};
+
 (() => {
 	let open = document.querySelector(".change-password_js"),
 			window = document.querySelector(".popup--change-password"),
@@ -16,19 +28,35 @@
 
 	function submit(e) {
 		e.preventDefault();
-		const data = getFormData(e.target);
-		const errors = validateData(data);
-		setFormText(form, errors);
-		console.log(errors);
+		if (isLoading) {
+			return;
+		}
+		isLoading = true;
+		const body = getFormData(e.target, {}, "FormData");
+		fetchData({
+			method: "PUT",
+			body: body,
+			url: "/api/users",
+			headers: {
+				"x-access-token": token,
+			}
+		})
+		.then(res => res.json())
+		.then (res => {
+			if (res.success) {
+				popupClose(window, open, form);
+			} else {
+				throw res;
+			}
+			isLoading = false;
+		})
+		.catch ((err) => {
+			// setFormText(form, err.errors);
+			isLoading = false;
+		})
 	}
 
 	function validateData(data, errors = {}) {
-		if(data.passwordOld === "") {
-			errors.passwordOld = "Your password is incorrect";
-		}
-		if(data.passwordNew.length < 8) {
-			errors.passwordNew = "Your new password too short";
-		}
 		if(data.passwordNewRepeat !== data.passwordNew || data.passwordNewRepeat === "") {
 			errors.passwordNewRepeat = "Your password is incorrect";
 		}
@@ -54,28 +82,91 @@
 
 	function submit(e) {
 		e.preventDefault();
-		const data = getFormData(e.target);
-		const errors = validateData(data);
-		setFormText(form, errors);
-		console.log(errors);
-	}
-
-	function validateData(data, errors = {}) {
-		if(!checkEmail(data.email)) {
-			errors.email = "Please enter a valid email adress";
+		if (isLoading) {
+			return;
 		}
-		if(data.name === "") {
-			errors.name = "Please enter your name";
-		}
-		if(data.surname === "") {
-			errors.surname = "Please enter your surname";
-		}
-		if(data.location === "") {
-			errors.location = "Please enter your location";
-		}
-		if(isNaN(data.age) || data.age === "") {
-			errors.age = "Please enter your age";
-		}
-		return errors;
+		isLoading = true;
+		const body = getFormData(e.target, {}, "FormData");
+		fetchData({
+			method: "PUT",
+			body: body,
+			url: "/api/users",
+			headers: {
+				"x-access-token": token,
+			}
+		})
+		.then(res => res.json())
+		.then (res => {
+			if (res.success) {
+				rerenderUserData(res.data);
+				popupClose(window, open, form);
+			} else {
+				throw res;
+			}
+			isLoading = false;
+		})
+		.catch ((err) => {
+			// setFormText(form, err.errors);
+			isLoading = false;
+		})
 	}
 })();
+
+function updateUserData() {
+		if (!token || !userId) {
+			return window.location = "/";
+		}
+
+		fetchData({
+			method: "GET",
+			url: `/api/users/${userId}`,
+			headers: {
+				"Content-Type": "application/json"
+			}
+		})
+		.then(res => res.json())
+		.then(res => {
+			if (res.success) {
+				user = res.data;
+				rerenderUserData(user);
+			} else {
+				throw res;
+			}
+		})
+		.catch(err => {
+			console.error(err);
+			return window.location = "/";
+		})
+}
+
+function rerenderUserData(user) {
+	profileName.innerText = user.name;
+	profileSurname.innerText = user.surname;
+	profileEmail.innerText = user.email;
+	profileLocation.innerText = user.location;
+	profileAge.innerText = user.age,
+	profilePhoto.style = `background-image: url(${SERVER_URL}${user.photoUrl})`;
+}
+
+updateUserData();
+
+deleteButton.addEventListener("click", () => {
+	fetchData({
+		method: "DELETE",
+		url: `/api/users/${userId}`,
+		headers: {
+			"x-access-token": token,
+		}
+	})
+	.then(res => res.json())
+	.then(res => {
+		if (res.success) {
+			logoutUser();
+		} else {
+			throw res;
+		}
+	})
+	.catch(() => {
+		console.error("Что-то пошло не так");
+	})
+})
