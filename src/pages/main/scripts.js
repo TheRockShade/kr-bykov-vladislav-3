@@ -25,7 +25,6 @@
 			to: data.to,
 			body: JSON.stringify(data)
 		}
-		console.log(newData);
 		fetchData({
 			method: "POST",
 			url: "/api/emails",
@@ -36,20 +35,33 @@
 		})
 		.then(res => { return res.json(); })
 		.then(res => {
-			if (res.success) {
-				console.log("Сообщение успешно отправлено");
-				popupClose(window, open, form);
+			const data = getFormData(e.target);
+			let errors = validateData(data, errors = {});
+			if (res.success && Object.keys(errors).length === 0) {
+				setFormSuccess(e.target);
+				setTimeout(() => {
+					popupClose(window, open, form);
+					answer(answerPopup, "Форма была успешно отправлена", "success");
+				}, 2000);
 			} else {
 				throw res;
 			}
 			isLoading = false;
 		})
 		.catch(err => {
+			const data = getFormData(e.target);
+			let errors = validateData(data, errors = {});
+
 			if (err.errors) {
-				setFormText(e.target, err.errors);
-				console.error(err.errors);
-			} else {
-				console.error(err._message);
+				setFormErrors(e.target, err.errors);
+			}
+
+			if(errors) {
+				setFormErrors(e.target, errors);
+			}
+
+			if (errors.accept && Object.keys(errors).length === 1 && !err.errors) {
+				answer(answerPopup, "Вам нужно подтвердить отправку", "error");
 			}
 			isLoading = false;
 		})
@@ -57,16 +69,16 @@
 
 	function validateData(data, errors = {}) {
 		if(data.name === "") {
-			errors.name = "Please enter your name";
+			errors.name = "Пожалуйста, введите своё имя";
 		}
 		if(data.subject === "") {
-			errors.subject = "Please enter a message subject";
+			errors.subject = "Пожалуйста, введите тему сообщения";
 		}
 		if(!checkTelephone(data.telephone)) {
-			errors.telephone = "Please enter a valid phone number";
+			errors.telephone = "Пожалуйста, введите валидный номер телефона";
 		}
-		if(data.accept[0] !== "yes") {
-			errors.accept = "You need to consent";
+		if(data.accept[0] !== "on") {
+			errors.accept = "Вам нужно подтвердить отправку";
 		}
 		return errors;
 	}

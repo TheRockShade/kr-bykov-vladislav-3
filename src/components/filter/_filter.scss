@@ -207,6 +207,10 @@
 			&--tags {
 				margin-right: 0;
 			}
+
+			&--2176FF::before {
+				background-color: red;
+			}
 		}
 
 		&-text {
@@ -215,19 +219,54 @@
 			transition: opacity $tr_duration $tr_easing;
 		}
 
-		&:checked ~ .filter-form__checkbox-checker::before {
-			position: absolute;
-			top: 2px;
-			left: 3px;
+		&:checked ~ .filter-form__checkbox-checker {
 
-			width: 15px;
-			height: 15px;
-			
-			background: url(static/images/icon-check.svg);
-			
-			content: "";
+			&::before {
+				position: absolute;
+				top: 2px;
+				left: 3px;
+	
+				width: 15px;
+				height: 15px;
+				
+				background: url(static/images/icon-check.svg);
+				
+				content: "";
+			}
+
+			&--2176FF::before {
+				background: url(static/images/icon-check-2176ff.svg);
+			}
+
+			&--33A1FD::before {
+				background: url(static/images/icon-check-33a1fd.svg);
+			}
+
+			&--FDCA40::before {
+				background: url(static/images/icon-check-fdca40.svg);
+			}
+
+			&--57E2E5::before {
+				background: url(static/images/icon-check-57e2e5.svg);
+			}
+
+			&--F79824::before {
+				background: url(static/images/icon-check-f79824.svg);
+			}
+
+			&--E08DAC::before {
+				background: url(static/images/icon-check-e08dac.svg);
+			}
+
+			&--6A7FDB::before {
+				background: url(static/images/icon-check-6a7fdb.svg);
+			}
+
+			&--45CB85::before {
+				background: url(static/images/icon-check-45cb85.svg);
+			}
 		}
-
+		
 		&:checked ~ .filter-form__checkbox-checker,
 		&:checked ~ .filter-form__checkbox-text {
 			opacity: 1;
@@ -257,7 +296,7 @@
 
 			line-height: 0;
 
-			border: 2.5px solid $c_black--dl;
+			border: 2px solid $c_black--dl;
 			border-radius: 50%;
 			opacity: .1;
 
@@ -265,10 +304,10 @@
 
 			&::before {
 				position: absolute;
-				top: 2.5px;
-				right: 2.5px;
-				bottom: 2.5px;
-				left: 2.5px;
+				top: 3px;
+				right: 3px;
+				bottom: 3px;
+				left: 3px;
 				
 				background-color: $c_black--dl;
 				border-radius: 50%;

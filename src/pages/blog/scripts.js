@@ -19,30 +19,6 @@ function setParamsToURL(params = {}) {
 	history.replaceState({}, document.title, url.search);
 }
 
-function setValueToForm(form, data) {
-	let inputs = form.querySelectorAll("input");
-	for(let input of inputs) {
-		switch(input.type) {
-			case "radio":
-				if (data[input.name] === input.value) {
-					input.checked = true;
-				}
-				break;
-			case "checkbox":
-				if(data[input.name] && data[input.name].includes(input.value)) {
-					input.checked = true;
-				}
-				break;
-			default:
-				if(data[input.name]) {
-					input.value = data[input.name];
-				}
-				break;
-		}
-	}
-	return data;
-}
-
 function getParamsFromURL() {
 	const searchParams = new URL(window.location).searchParams;
 	let params = {};
@@ -74,13 +50,10 @@ function getParamsFromURL() {
 	const tagsBox = document.querySelector(".tags_js");
 	const postBox = document.querySelector(".posts_js");
 	const searchButton = document.querySelector(".search-button_js");
+	const resetButton = document.querySelector(".reset-button_js");
 	const paginationBox = document.querySelector(".pagination_js");
 	const leftArrow = document.querySelector(".left-arrow_js");
 	const rightArrow = document.querySelector(".right-arrow_js");
-
-	tagsBox.innerHTML = spinnerCreator();
-	getTags();
-	getPosts(getFormData(form));
 
 	form.addEventListener("submit", (e) => {
 		get(e);
@@ -88,14 +61,18 @@ function getParamsFromURL() {
 
 	searchButton.addEventListener("click", () => {
 		data.page = 0;
-	})
+	});
+
+	resetButton.addEventListener("click", () => {
+		setTimeout(() => searchButton.click(), 100);
+	});
 
 	leftArrow.addEventListener("click", (e) => {
 		if (data.page > 0) {
 			data.page--;
 			get(e);
 		}
-	})
+	});
 
 	rightArrow.addEventListener("click", (e) => {
 		let liList = paginationBox.querySelectorAll("li");
@@ -104,7 +81,11 @@ function getParamsFromURL() {
 			data.page++;
 			get(e);
 		}
-	})
+	});
+
+	tagsBox.innerHTML = spinnerCreator();
+	getTags();
+	setTimeout(() => searchButton.click(), 1000);
 
 	function get(e) {
 		e.preventDefault();
@@ -236,7 +217,7 @@ function getParamsFromURL() {
 		return `
 		<label class="filter-form__checkbox-label filter-form__checkbox-label--tags">
 			<input class="filter-form__checkbox hidden" type="checkbox" name="tags" value="${tag.id}" checked>
-			<span style="border-color: ${tag.color}" class="filter-form__checkbox-checker filter-form__checkbox-checker--tags"></span>
+			<span style="border-color: ${tag.color}" class="filter-form__checkbox-checker filter-form__checkbox-checker--tags filter-form__checkbox-checker--${(tag.color).slice(1)}"></span>
 		</label>`;
 	}
 

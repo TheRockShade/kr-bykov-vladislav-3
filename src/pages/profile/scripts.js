@@ -43,22 +43,35 @@ let user = {};
 		})
 		.then(res => res.json())
 		.then (res => {
-			if (res.success) {
-				popupClose(window, open, form);
+			const data = getFormData(e.target);
+			let errors = validateData(data, errors = {});
+			setFormErrors(form, errors);
+			
+			if (res.success && Object.keys(errors).length === 0) {
+				setFormSuccess(e.target);
+				setTimeout(() => {
+					popupClose(window, open, form);
+					answer(answerPopup, "Форма была успешно отправлена", "success");
+				}, 2000);
 			} else {
 				throw res;
 			}
 			isLoading = false;
 		})
 		.catch ((err) => {
-			// setFormText(form, err.errors);
 			isLoading = false;
 		})
 	}
 
 	function validateData(data, errors = {}) {
-		if(data.passwordNewRepeat !== data.passwordNew || data.passwordNewRepeat === "") {
-			errors.passwordNewRepeat = "Your password is incorrect";
+		if(data.oldPassword.length === 0) {
+			errors.oldPassword = "Пожалуйста, введите старый пароль";
+		}
+		if(data.newPassword.length < 4) {
+			errors.newPassword = "Ваш пороль слишком короткий";
+		}
+		if(data.repeatPassword !== data.newPassword || data.repeatPassword === "") {
+			errors.repeatPassword = "Вы неправильно повторили пароль";
 		}
 		return errors;
 	}
@@ -72,6 +85,7 @@ let user = {};
 
 	if (open) {
 		open.addEventListener("click", () => {
+			setValueToForm(form, user);
 			popup(window, open, form);
 		})
 	}
@@ -99,14 +113,18 @@ let user = {};
 		.then (res => {
 			if (res.success) {
 				rerenderUserData(res.data);
-				popupClose(window, open, form);
+				setFormSuccess(e.target);
+				setTimeout(() => {
+					popupClose(window, open, form);
+					answer(answerPopup, "Форма была успешно отправлена", "success");
+				}, 2000);
 			} else {
 				throw res;
 			}
 			isLoading = false;
 		})
 		.catch ((err) => {
-			// setFormText(form, err.errors);
+			setFormErrors(form, err.errors);
 			isLoading = false;
 		})
 	}

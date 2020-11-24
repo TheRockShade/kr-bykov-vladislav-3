@@ -1,0 +1,55 @@
+@import "./mixins";
+@import "./colors";
+@import "./vars";
+
+.answer {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 10;
+
+	padding: 30px 0;
+	display: none;
+	justify-content: center;
+	align-items: center;
+	overflow: scroll;
+
+	background: rgba($c_wild-sand, .99);
+
+	&__text {
+		position: relative;
+
+		margin-right: 20px;
+
+		text-align: center;
+	}
+
+	&__close {
+		padding: 0;
+
+		line-height: 0;
+
+		opacity: .5;
+		background: transparent;
+		border: none;
+		outline: none;
+		cursor: pointer;
+
+		transition: opacity $tr_duration $tr_easing;
+
+		&:hover,
+		&:focus {
+			opacity: 1;
+		}
+	}
+}
+
+p.answer__text--success {
+	color: $c_malachite;
+}
+
+p.answer__text--error {
+	color: $c_pomegranade;
+}

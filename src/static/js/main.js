@@ -3,6 +3,7 @@ const VERSION_API = "1.0.0";
 const body = document.querySelector("body");
 const logout = document.querySelector(".logout_js");
 const logoutMenu = document.querySelector(".logout--menu_js");
+const answerPopup = document.querySelector(".answer");
 
 /* --- Mobile Menu --- */
 
@@ -56,7 +57,33 @@ function popupClose(popup, button, form) {
 	popup.classList.remove("open_js");
 	body.classList.remove("overflow_js");
 	form.reset();
+	clearForm(form);
 	button.focus();
+}
+
+function answer(popup, text, type) {
+	let close = popup.querySelector(".answer__close");
+	let textBox = popup.querySelector(".answer__text");
+	popup.classList.add("open_js");
+	body.classList.add("overflow_js");
+	if (textBox.classList.contains("answer__text--success")) {
+		textBox.classList.remove("answer__text--success");
+	}
+	if (textBox.classList.contains("answer__text--error")) {
+		textBox.classList.remove("answer__text--error");
+	}
+	if (type === "success") {
+		textBox.classList.add("answer__text--success");
+	}
+	if (type === "error") {
+		textBox.classList.add("answer__text--error");
+	}
+	textBox.innerText = text;
+	close.addEventListener("click", (e) => {
+		e.preventDefault();
+		popup.classList.remove("open_js");
+		body.classList.remove("overflow_js");
+	});
 }
 
 /* --- Scroll Button --- */
@@ -239,18 +266,52 @@ function textError(input, error) {
 	});
 }
 
-function setFormText(form, errors) {
+function setFormErrors(form, errors) {
 	let inputs = form.querySelectorAll("input");
 	for (let input of inputs) {
 		if(errors[input.name] && input.type !== "checkbox" && input.type !== "radio") {
 			inputError(input);
 			textError(input, errors[input.name]);
 		}
-		if(!errors[input.name] && input.type !== "checkbox" && input.type !== "radio") {
+	}
+}
+
+function setFormSuccess(form) {
+	let inputs = form.querySelectorAll("input");
+	for (let input of inputs) {
+		if(input.type !== "checkbox" && input.type !== "radio") {
 			inputSuccess(input);
 			textSuccess(input);
 		}
 	}
+}
+
+function clearInput(input) {
+	if (input.hasAttribute("isError")) {
+		input.classList.remove("popup__input--error");
+		input.removeAttribute("isError");
+		input.removeAttribute("isErrorText");
+	} else {
+		input.classList.remove("popup__input--success");
+		input.removeAttribute("isSuccess");
+		input.removeAttribute("isSuccessText");
+	}
+}
+
+function clearText(form) {
+	let messages = [...form.querySelectorAll(".popup__text--error")].concat([...form.querySelectorAll(".popup__text--success")]);
+
+	for (let message of messages) {
+		message.remove();
+	}
+}
+
+function clearForm(form) {
+	let inputs = form.querySelectorAll("input");
+	for (let input of inputs) {
+		clearInput(input);
+	}
+	clearText(form);
 }
 
 function getFormData(form, data = {}, type = "json") {
@@ -287,6 +348,30 @@ function getFormData(form, data = {}, type = "json") {
 	} else {
 		return new FormData(form);
 	}
+}
+
+function setValueToForm(form, data) {
+	let inputs = form.querySelectorAll("input");
+	for(let input of inputs) {
+		switch(input.type) {
+			case "radio":
+				if (data[input.name] === input.value) {
+					input.checked = true;
+				}
+				break;
+			case "checkbox":
+				if(data[input.name] && data[input.name].includes(input.value)) {
+					input.checked = true;
+				}
+				break;
+			default:
+				if(data[input.name]) {
+					input.value = data[input.name];
+				}
+				break;
+		}
+	}
+	return data;
 }
 
 (() => {
@@ -340,7 +425,7 @@ function getFormData(form, data = {}, type = "json") {
 		})
 		.catch(err => {
 			// validateData(data, err.errors);
-			setFormText(e.target, err.errors);
+			setFormErrors(e.target, err.errors);
 			isLoading = false;
 		})
 	}
@@ -394,33 +479,27 @@ function getFormData(form, data = {}, type = "json") {
 		.then(res => res.json())
 		.then(res => {
 			if (res.success) {
-				console.log(`Пользователь успешно вошёл, его ID: ${JSON.stringify(res.data.userId)}`);
+				setFormSuccess(e.target);
 				updateToken(res.data);
 				updateState();
-				popupClose(window, open, form);
+
+				setTimeout(() => {
+					popupClose(window, open, form);
+					answer(answerPopup, "Форма была успешно отправлена", "success");
+				}, 2000);
+
 			} else {
 				throw res;
 			}
 		})
 		.catch(err => {
-			// validateData(data, err.errors);
-			setFormText(e.target, err.errors);
+			setFormErrors(e.target, err.errors);
 			console.error(err);
+			if(err._message) {
+				answer(answerPopup, err._message, "error");
+			}
 			isLoading = false;
 		})
-		
-		let errors = validateData(data);
-		setFormText(form, errors);
-	}
-
-	function validateData(data, errors = {}) {
-		if(!checkEmail(data.email)) {
-			errors.email = "Please enter a valid email adress";
-		}
-		if(data.password === "") {
-			errors.password = "Please enter your password";
-		}
-		return errors;
 	}
 })();
 
