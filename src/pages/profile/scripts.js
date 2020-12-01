@@ -31,36 +31,49 @@ let user = {};
 		if (isLoading) {
 			return;
 		}
+
 		isLoading = true;
-		const body = getFormData(e.target, {}, "FormData");
-		fetchData({
-			method: "PUT",
-			body: body,
-			url: "/api/users",
-			headers: {
-				"x-access-token": token,
-			}
-		})
-		.then(res => res.json())
-		.then (res => {
-			const data = getFormData(e.target);
-			let errors = validateData(data, errors = {});
-			setFormErrors(form, errors);
-			
-			if (res.success && Object.keys(errors).length === 0) {
-				setFormSuccess(e.target);
-				setTimeout(() => {
-					popupClose(window, open, form);
-					answer(answerPopup, "Форма была успешно отправлена", "success");
-				}, 2000);
-			} else {
-				throw res;
-			}
+		const body = getFormData(e.target);
+		let errors = validateData(body, errors = {});
+		
+		if(Object.keys(errors).length > 0) {
+			setFormErrors(e.target, errors);
 			isLoading = false;
-		})
-		.catch ((err) => {
-			isLoading = false;
-		})
+		} else {
+			let newBody = {};
+			newBody.oldPassword = body.oldPassword;
+			newBody.newPassword = body.newPassword;
+
+			fetchData({
+				method: "PUT",
+				body: JSON.stringify(newBody),
+				url: "/api/users",
+				headers: {
+					"x-access-token": token,
+				}
+			})
+			.then(res => res.json())
+			.then (res => {
+				if (res.success) {
+					setFormSuccess(e.target);
+					setTimeout(() => {
+						popupClose(window, open, form);
+						answer(answerPopup, "Форма была успешно отправлена", "success");
+					}, 2000);
+				} else {
+					throw res;
+				}
+				isLoading = false;
+			})
+			.catch ((err) => {
+				if(err._message) {
+					answer(answerPopup, err._message, "error");
+				} else {
+					answer(answerPopup, "Ошибка сервера", "error");
+				}
+				isLoading = false;
+			})
+		}
 	}
 
 	function validateData(data, errors = {}) {
@@ -124,7 +137,11 @@ let user = {};
 			isLoading = false;
 		})
 		.catch ((err) => {
-			setFormErrors(form, err.errors);
+			if (err.errors) {
+				setFormErrors(form, err.errors);
+			} else {
+				answer(answerPopup, "Ошибка сервера", "error");
+			}
 			isLoading = false;
 		})
 	}
@@ -179,12 +196,15 @@ deleteButton.addEventListener("click", () => {
 	.then(res => res.json())
 	.then(res => {
 		if (res.success) {
-			logoutUser();
+			answer(answerPopup, "Пользователь был успешно удалён", "success");
+			setTimeout(() => {
+				logoutUser();
+			}, 2000)
 		} else {
 			throw res;
 		}
 	})
 	.catch(() => {
-		console.error("Что-то пошло не так");
+		answer(answerPopup, "Ошибка сервера", "error");
 	})
 })

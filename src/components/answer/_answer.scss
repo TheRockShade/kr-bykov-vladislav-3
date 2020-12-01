@@ -18,10 +18,14 @@
 
 	background: rgba($c_wild-sand, .99);
 
+	@include media(0, $m_tab) {
+		background: $c_white;
+	}
+
 	&__text {
 		position: relative;
 
-		margin-right: 20px;
+		margin: 0 20px;
 
 		text-align: center;
 	}
@@ -42,6 +46,12 @@
 		&:hover,
 		&:focus {
 			opacity: 1;
+		}
+
+		@include media(0, $m_tab) {
+			position: absolute;
+			top: 20px;
+			left: 20px;
 		}
 	}
 }

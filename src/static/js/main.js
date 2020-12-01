@@ -11,7 +11,7 @@ const answerPopup = document.querySelector(".answer");
   let menu = document.querySelector(".menu"),
     menuOpen = document.querySelector(".menu__open"),
     menuClose = document.querySelector(".menu__close"),
-    focusItem = document.querySelector(".js_focus");
+    focusItem = document.querySelector(".focus_js");
 
   menuOpen.addEventListener("click", () => {
     menu.classList.add("open_js");
@@ -84,12 +84,20 @@ function answer(popup, text, type) {
 		popup.classList.remove("open_js");
 		body.classList.remove("overflow_js");
 	});
+	window.addEventListener("keydown", (e) => {
+		if (e.code === "Escape" && popup.classList.contains("open_js")) {
+			popup.classList.remove("open_js");
+			body.classList.remove("overflow_js");
+		}
+	});
 }
 
 /* --- Scroll Button --- */
 
 (function () {
-  let scrollButton = document.querySelector(".scroll-button");
+	const scrollButton = document.querySelector(".scroll-button"),
+				logo = document.querySelector(".logo_js"),
+				menu = document.querySelector(".menu_js");
 
   if (!scrollButton) {
     return;
@@ -104,7 +112,17 @@ function answer(popup, text, type) {
   });
 
   scrollButton.addEventListener("click", () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+		window.scrollTo({ top: 0, behavior: "smooth" });
+		if(logo) {
+			setTimeout(() => {
+				logo.focus();
+			}, 1000)
+		}
+		if(menu) {
+			setTimeout(() => {
+				menu.focus();
+			}, 1000)
+		}
   });
 })();
 
@@ -404,36 +422,75 @@ function setValueToForm(form, data) {
 			return;
 		}
 		isLoading = true;
-		const data = getFormData(e.target);
-		fetchData({
-			method: "POST",
-			url: "/api/users",
-			body: JSON.stringify(data),
-			headers: {
-				"Content-Type": "application/json"
-			}
-		})
-		.then (res => { return res.json(); })
-		.then(res => {
-			if (res.success) {
-				alert(`Пользователь успешно создан\n ${JSON.stringify(res.data, null, 2)}`);
-				popupClose(window, open, form);
-			} else {
-				throw res;
-			}
+		const body = getFormData(e.target);
+		let errors = validateData(body);
+
+		if(errors.accept && Object.keys(errors).length === 1) {
+			answer(answerPopup, "Вам нужно подтвердить отправку", "error");
+		}
+
+		if(Object.keys(errors).length > 0) {
+			setFormErrors(e.target, errors);
 			isLoading = false;
-		})
-		.catch(err => {
-			// validateData(data, err.errors);
-			setFormErrors(e.target, err.errors);
-			isLoading = false;
-		})
+		} else {
+			fetchData({
+				method: "POST",
+				url: "/api/users",
+				body: JSON.stringify(body),
+				headers: {
+					"Content-Type": "application/json"
+				}
+			})
+			.then (res => { return res.json(); })
+			.then(res => {
+				if (res.success) {
+					setFormSuccess(e.target);
+					setTimeout(() => {
+						popupClose(window, open, form);
+						answer(answerPopup, "Пользователь был успешно создан", "success");
+					}, 2000);
+				} else {
+					throw res;
+				}
+				isLoading = false;
+			})
+			.catch(err => {
+				if (err.errors) {
+					setFormErrors(e.target, err.errors);
+				} else {
+					answer(answerPopup, "Ошибка сервера", "error");
+				}
+				isLoading = false;
+			})
+		}
 	}
 
 	function validateData(data, errors = {}) {
-		if(data.passwordRepeat !== data.password || data.passwordRepeat === "") {
-			errors.passwordRepeat = "Your password is incorrect";
+		if(data.email === "") {
+			errors.email = "Введите email";
 		}
+		if(data.name === "") {
+			errors.name = "Введите имя";
+		}
+		if(data.surname === "") {
+			errors.surname = "Введите фамилию";
+		}
+		if(data.password === "" || data.password.length < 4) {
+			errors.password = "Длина пароля от 4 символов";
+		}
+		if(data.passwordRepeat !== data.password || data.passwordRepeat === "") {
+			errors.passwordRepeat = "Повторите пароль корректно";
+		}
+		if(data.location === "") {
+			errors.location = "Введите местоположение";
+		}
+		if(data.age === "") {
+			errors.age = "Введите возраст";
+		}
+		if(data.accept[0] !== "yes") {
+			errors.accept = "Вам нужно подтвердить отправку";
+		}
+		return errors;
 	}
 })();
 
@@ -468,38 +525,55 @@ function setValueToForm(form, data) {
 		}
 		isLoading = true;
 		const data = getFormData(e.target);
-		fetchData({
-			method: "POST",
-			url: "/api/users/login",
-			body: JSON.stringify(data),
-			headers: {
-				"Content-Type": "application/json"
-			}
-		})
-		.then(res => res.json())
-		.then(res => {
-			if (res.success) {
-				setFormSuccess(e.target);
-				updateToken(res.data);
-				updateState();
+		let errors = validateData(data);
 
-				setTimeout(() => {
-					popupClose(window, open, form);
-					answer(answerPopup, "Форма была успешно отправлена", "success");
-				}, 2000);
-
-			} else {
-				throw res;
-			}
-		})
-		.catch(err => {
-			setFormErrors(e.target, err.errors);
-			console.error(err);
-			if(err._message) {
-				answer(answerPopup, err._message, "error");
-			}
+		if(Object.keys(errors).length > 0) {
+			setFormErrors(e.target, errors);
 			isLoading = false;
-		})
+		} else {
+			fetchData({
+				method: "POST",
+				url: "/api/users/login",
+				body: JSON.stringify(data),
+				headers: {
+					"Content-Type": "application/json"
+				}
+			})
+			.then(res => res.json())
+			.then(res => {
+				if (res.success) {
+					setFormSuccess(e.target);
+					updateToken(res.data);
+					updateState();
+	
+					setTimeout(() => {
+						popupClose(window, open, form);
+						answer(answerPopup, "Вы успешно вошли", "success");
+					}, 2000);
+	
+				} else {
+					throw res;
+				}
+			})
+			.catch(err => {
+				if(err._message) {
+					answer(answerPopup, err._message, "error");
+				} else {
+					answer(answerPopup, "Ошибка сервера", "error");
+				}
+				isLoading = false;
+			})
+		}
+	}
+
+	function validateData(data, errors = {}) {
+		if(data.email === "") {
+			errors.email = "Введите email";
+		}
+		if(data.password === "" || data.password.length < 4) {
+			errors.password = "Длина пароля от 4 символов";
+		}
+		return errors;
 	}
 })();
 
@@ -529,34 +603,40 @@ function updateState() {
 				profileMenu = document.querySelector(".profile--menu_js");
 
 	if(localStorage.getItem("token")) {
-		login.classList.add("hidden");
-		register.classList.add("hidden");
-		profile.classList.remove("hidden");
-		logout.classList.remove("hidden");
+		login.classList.add("hide_js");
+		register.classList.add("hide_js");
+		profile.classList.remove("hide_js");
+		logout.classList.remove("hide_js");
 
-		loginMenu.classList.add("hidden");
-		registerMenu.classList.add("hidden");
-		profileMenu.classList.remove("hidden");
-		logoutMenu.classList.remove("hidden");
+		loginMenu.classList.add("hide_js");
+		registerMenu.classList.add("hide_js");
+		profileMenu.classList.remove("hide_js");
+		logoutMenu.classList.remove("hide_js");
 	} else {
-		login.classList.remove("hidden");
-		register.classList.remove("hidden");
-		profile.classList.add("hidden");
-		logout.classList.add("hidden");
+		login.classList.remove("hide_js");
+		register.classList.remove("hide_js");
+		profile.classList.add("hide_js");
+		logout.classList.add("hide_js");
 
-		loginMenu.classList.remove("hidden");
-		registerMenu.classList.remove("hidden");
-		profileMenu.classList.add("hidden");
-		logoutMenu.classList.add("hidden");
+		loginMenu.classList.remove("hide_js");
+		registerMenu.classList.remove("hide_js");
+		profileMenu.classList.add("hide_js");
+		logoutMenu.classList.add("hide_js");
 	}
 }
 
 logout.addEventListener("click", () => {
-	logoutUser();
+	answer(answerPopup, "Вы успешно вышли", "success");
+	setTimeout(() => {
+		logoutUser();
+	}, 2000)
 });
 
 logoutMenu.addEventListener("click", () => {
-	logoutUser();
+	answer(answerPopup, "Вы успешно вышли", "success");
+	setTimeout(() => {
+		logoutUser();
+	}, 2000)
 });
 
 function logoutUser() {

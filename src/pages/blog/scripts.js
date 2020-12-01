@@ -72,6 +72,7 @@ function getParamsFromURL() {
 			data.page--;
 			get(e);
 		}
+		window.scrollTo({ top: 0, behavior: "smooth" });
 	});
 
 	rightArrow.addEventListener("click", (e) => {
@@ -81,6 +82,7 @@ function getParamsFromURL() {
 			data.page++;
 			get(e);
 		}
+		window.scrollTo({ top: 0, behavior: "smooth" });
 	});
 
 	tagsBox.innerHTML = spinnerCreator();
@@ -194,12 +196,14 @@ function getParamsFromURL() {
 					count -= params.show;
 					const a = pageCreator(index, data, (e) => {
 						get(e);
+						window.scrollTo({ top: 0, behavior: "smooth" });
 					});
 					index++;
 					paginationBox.insertAdjacentElement("beforeend", a);
 				}
 				const a = pageCreator(index, data, (e) => {
 					get(e);
+					window.scrollTo({ top: 0, behavior: "smooth" });
 				});
 				paginationBox.insertAdjacentElement("beforeend", a);
 			} else {
