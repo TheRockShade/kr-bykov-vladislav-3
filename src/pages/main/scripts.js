@@ -24,10 +24,6 @@
 
 		const body = getFormData(e.target);
 		let errors = validateData(body);
-
-		if(errors.accept && Object.keys(errors).length === 1) {
-			answer(answerPopup, "Вам нужно подтвердить отправку", "error");
-		}
 		
 		if (Object.keys(errors).length > 0) {
 			setFormErrors(e.target, errors);
@@ -81,9 +77,6 @@
 		}
 		if(!checkTelephone(data.telephone)) {
 			errors.telephone = "Пожалуйста, введите валидный номер телефона";
-		}
-		if(data.accept[0] !== "on") {
-			errors.accept = "Вам нужно подтвердить отправку";
 		}
 		return errors;
 	}

@@ -37,11 +37,23 @@ const answerPopup = document.querySelector(".answer");
 /* --- Popup Windows --- */
 
 function popup(popup, button, form) {
-	let close = popup.querySelector(".popup__close");
-	let focus = popup.querySelector(".popup__input");
+	const close = popup.querySelector(".popup__close"),
+				focus = popup.querySelector(".popup__input"),
+				checkbox = popup.querySelector(".popup__checkbox"),
+				submit = popup.querySelector(".popup__button");
+
 	popup.classList.add("open_js");
 	body.classList.add("overflow_js");
 	focus.focus();
+	if (checkbox) {
+		checkbox.addEventListener("click", () => {
+			if (submit.hasAttribute("disabled")) {
+				submit.removeAttribute("disabled");
+			} else {
+				submit.setAttribute("disabled", "");
+			}
+		})
+	}
 	close.addEventListener("click", (e) => {
 		e.preventDefault();
 		popupClose(popup, button, form);
@@ -170,7 +182,8 @@ function slider({ sliderEl, defaultActiveSlide = +localStorage.getItem("activeSl
 
   function createDot(index) {
     let dot = document.createElement("button");
-    dot.classList.add("pagination__button");
+		dot.classList.add("pagination__button");
+		dot.setAttribute("aria-label", `Slide number ${index + 1}`)
     if (index === activeSlide) {
       dot.classList.add("pagination__button--active");
     }
@@ -425,10 +438,6 @@ function setValueToForm(form, data) {
 		const body = getFormData(e.target);
 		let errors = validateData(body);
 
-		if(errors.accept && Object.keys(errors).length === 1) {
-			answer(answerPopup, "Вам нужно подтвердить отправку", "error");
-		}
-
 		if(Object.keys(errors).length > 0) {
 			setFormErrors(e.target, errors);
 			isLoading = false;
@@ -486,9 +495,6 @@ function setValueToForm(form, data) {
 		}
 		if(data.age === "") {
 			errors.age = "Введите возраст";
-		}
-		if(data.accept[0] !== "yes") {
-			errors.accept = "Вам нужно подтвердить отправку";
 		}
 		return errors;
 	}
@@ -643,4 +649,8 @@ function logoutUser() {
 	localStorage.removeItem("token");
 	localStorage.removeItem("userId");
 	return window.location = "/";
+}
+
+function spinnerCreator() {
+	return `<div class="spinner">Loading...</div>`;
 }

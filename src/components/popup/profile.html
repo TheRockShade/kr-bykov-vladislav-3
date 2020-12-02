@@ -58,11 +58,15 @@
 			</div>
 		</div>
 		<div class="popup__col">
-			<div class="popup__col-50">
-				<label class="popup__label">
+			<div class="popup__col-50 popup__col-50--file">
+				<label class="popup__label popup__label--file">
 					<span class="popup__text text-small">Profile picture</span>
-					<input class="popup__input" type="file" name="avatar">
+					<input class="popup__input file_js" type="file" name="avatar">
 				</label>
+				<div class="popup__file popup-file">
+					<img class="popup-file__img" src="/static/images/icon-file.svg" alt="file icon">
+					<span class="popup-file__text fileText_js">Choose a file...</span>
+				</div>
 			</div>
 		</div>
 		@@include('button/index.html', {

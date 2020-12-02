@@ -62,7 +62,7 @@
 			display: block;
 			flex-wrap: nowrap;
 
-			@include media(0, $m_pc) {
+			@include media(0, 900px) {
 				order: 4;
 			}
 
@@ -271,6 +271,14 @@
 		&:checked ~ .filter-form__checkbox-text {
 			opacity: 1;
 		}
+
+		&:disabled ~ .filter-form__checkbox-checker {
+			border-color: $c_pomegranade;
+		}
+
+		&:disabled ~ .filter-form__checkbox-text {
+			color: $c_pomegranade;
+		}
 	}
 
 	&__radio {
@@ -326,6 +334,18 @@
 		&:checked ~ .filter-form__radio-text {
 			opacity: 1;
 		}
+
+		&:disabled ~ .filter-form__radio-checker {
+			border-color: $c_pomegranade;
+
+			&::before {
+				background-color: $c_pomegranade;
+			}
+		}
+
+		&:disabled ~ .filter-form__radio-text {
+			color: $c_pomegranade;
+		}
 	}
 
 	&__button {
@@ -339,9 +359,19 @@
 	opacity: .5;
 }
 
+.filter-form__checkbox-label:hover .filter-form__checkbox:disabled ~ .filter-form__checkbox-checker,
+.filter-form__checkbox-label:hover .filter-form__checkbox:disabled ~ .filter-form__checkbox-text {
+	opacity: .1;
+}
+
 .filter-form__radio-label:hover .filter-form__radio-checker,
 .filter-form__radio-label:hover .filter-form__radio-text {
 	opacity: .5;
+}
+
+.filter-form__radio-label:hover .filter-form__radio:disabled ~ .filter-form__radio-checker,
+.filter-form__radio-label:hover .filter-form__radio:disabled ~ .filter-form__radio-text {
+	opacity: .1;
 }
 
 .filter-form__checkbox:focus ~ .filter-form__checkbox-checker,

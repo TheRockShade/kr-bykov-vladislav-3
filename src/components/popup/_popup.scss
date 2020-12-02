@@ -86,6 +86,10 @@
 	&__col-50 {
 		width: 50%;
 
+		&--file {
+			position: relative;
+		}
+
 		@include media(0, $m_tab) {
 			width: 100%;
 		}
@@ -107,6 +111,12 @@
 		&--checkbox {
 			display: flex;
 			align-items: center;
+		}
+
+		&--file {
+			position: relative;
+
+			margin-bottom: 30px;
 		}
 	}
 
@@ -139,6 +149,7 @@
 		padding: 12px 14px;
 
 		font-size: 18px;
+		font-weight: 500;
 		line-height: 21px;
 		color: $c_black--dl;
 
@@ -171,6 +182,41 @@
 			&:focus {
 				border-color: rgba($c_malachite, .5);;
 			}
+		}
+
+		&[type="file"] {
+			width: 97%;
+			height: 50px;
+
+			font-size: 0px;
+
+			@include media(0, $m_tab) {
+				width: 100%;
+			}
+		}
+	}
+
+	&-file {
+		position: absolute;
+		top: 27px;
+		left: 4px;
+
+		display: flex;
+		align-items: center;
+
+		background: $c_white;
+
+		padding: 10px;
+
+		&__img {
+			margin-right: 10px;
+		}
+
+		&__text {
+			font-size: 18px;
+			font-weight: 500;
+			line-height: 21px;
+			color: $c_black--dl;
 		}
 	}
 
@@ -244,6 +290,10 @@
 		&:checked ~ .popup__checkbox-text {
 			opacity: 1;
 		}
+
+		&:disabled ~ .popup__checkbox-checker {
+			border-color: $c_pomegranade;
+		}
 	}
 
 	button[type="submit"] {
@@ -287,4 +337,19 @@
 .popup__checkbox:focus ~ .popup__checkbox-checker,
 .popup__checkbox:focus ~ .popup__checkbox-text {
 	opacity: .5;
+}
+
+.popup__label--checkbox:hover {
+	cursor: pointer;
+}
+
+.popup__label--checkbox:hover ~ .popup__button {
+	color: $c_gray;
+
+	border-color: $c_gray;
+}
+
+.popup__label--checkbox:hover .popup__checkbox:disabled ~ .popup__checkbox-checker,
+.popup__label--checkbox:hover .popup__checkbox:disabled ~ .popup__checkbox-text{
+	opacity: .1;
 }

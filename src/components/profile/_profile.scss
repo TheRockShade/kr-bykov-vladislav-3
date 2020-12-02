@@ -27,11 +27,13 @@
 	}
 
 	&__photo {
-		position: relative;
-
 		width: 320px;
 		height: 450px;
 		margin-right: 105px;
+
+		display: flex;
+		align-items: center;
+		justify-content: center;
 
 		background: $c_wild-sand center center;
 		background-size: cover;

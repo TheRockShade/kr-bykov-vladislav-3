@@ -100,6 +100,12 @@
 	width: auto;
 
 	outline: none;
+	transition: opacity $tr_easing $tr_duration;
+
+	&:hover,
+	&:focus {
+		opacity: .5;
+	}
 }
 
 .swiper-button-prev {

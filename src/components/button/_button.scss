@@ -17,7 +17,7 @@
 	outline: none;
 	cursor: pointer;
 
-	transition: background-color $tr_duration $tr_easing, color $tr_duration $tr_easing;
+	transition: background-color $tr_duration $tr_easing, color $tr_duration $tr_easing, border-color $tr_duration $tr_easing;
 
 	&:hover,
 	&:focus {

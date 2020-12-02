@@ -94,6 +94,8 @@ let user = {};
 	let open = document.querySelector(".change-data_js"),
 			window = document.querySelector(".popup--change-data"),
 			form = document.forms["change-data"],
+			file = document.querySelector(".file_js"),
+			fileText = document.querySelector(".fileText_js"),
 			isLoading = false;
 
 	if (open) {
@@ -102,6 +104,17 @@ let user = {};
 			popup(window, open, form);
 		})
 	}
+
+	file.addEventListener("input", () => {
+		if (file.value) {
+			let fileName = file.value.slice(12);
+
+			if (fileName.length > 20) {
+				fileName = fileName.slice(0, 20) + "...";
+			}
+			fileText.innerHTML = fileName;
+		}
+	})
 
 	form.addEventListener("submit", (e) => {
 		submit(e);
@@ -180,6 +193,7 @@ function rerenderUserData(user) {
 	profileEmail.innerText = user.email;
 	profileLocation.innerText = user.location;
 	profileAge.innerText = user.age,
+	profilePhoto.innerText = "",
 	profilePhoto.style = `background-image: url(${SERVER_URL}${user.photoUrl})`;
 }
 

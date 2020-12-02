@@ -63,8 +63,14 @@
 		color: $c_gray;
 
 		border-bottom: 1px dashed $c_gray;
+		outline: none;
 
-		&:hover {
+		transition: color $tr_duration $tr_easing;
+
+		&:hover,
+		&:focus {
+			color: $c_black--dl;
+			
 			border-bottom-style: solid;
 		}
 	}

@@ -1,7 +1,5 @@
 const form = document.forms["filter"];
-let data = {
-	page: 0
-};
+let data = { page: 0 };
 
 function setParamsToURL(params = {}) {
 	const keysArr = Object.keys(params);
@@ -47,21 +45,17 @@ function getParamsFromURL() {
 }
 
 (() => {
-	const tagsBox = document.querySelector(".tags_js");
-	const postBox = document.querySelector(".posts_js");
-	const searchButton = document.querySelector(".search-button_js");
-	const resetButton = document.querySelector(".reset-button_js");
-	const paginationBox = document.querySelector(".pagination_js");
-	const leftArrow = document.querySelector(".left-arrow_js");
-	const rightArrow = document.querySelector(".right-arrow_js");
+	const tagsBox = document.querySelector(".tags_js"),
+				postBox = document.querySelector(".posts_js"),
+				searchButton = document.querySelector(".search-button_js"),
+				resetButton = document.querySelector(".reset-button_js"),
+				paginationBox = document.querySelector(".pagination_js"),
+				leftArrow = document.querySelector(".left-arrow_js"),
+				rightArrow = document.querySelector(".right-arrow_js");
 
-	form.addEventListener("submit", (e) => {
-		get(e);
-	});
+	form.addEventListener("submit", (e) => get(e));
 
-	searchButton.addEventListener("click", () => {
-		data.page = 0;
-	});
+	searchButton.addEventListener("click", () => data.page = 0);
 
 	resetButton.addEventListener("click", () => {
 		setTimeout(() => searchButton.click(), 100);
@@ -72,7 +66,6 @@ function getParamsFromURL() {
 			data.page--;
 			get(e);
 		}
-		window.scrollTo({ top: 0, behavior: "smooth" });
 	});
 
 	rightArrow.addEventListener("click", (e) => {
@@ -82,11 +75,12 @@ function getParamsFromURL() {
 			data.page++;
 			get(e);
 		}
-		window.scrollTo({ top: 0, behavior: "smooth" });
 	});
 
 	tagsBox.innerHTML = spinnerCreator();
 	getTags();
+
+	blogPreloader();
 	setTimeout(() => searchButton.click(), 1000);
 
 	function get(e) {
@@ -96,7 +90,7 @@ function getParamsFromURL() {
 		data.page = page;
 		data.show = +data.show || 0;
 		setParamsToURL(data);
-		postBox.innerHTML = spinnerCreator();
+		blogPreloader(data.show);
 		getPosts(data);
 	}
 
@@ -196,14 +190,12 @@ function getParamsFromURL() {
 					count -= params.show;
 					const a = pageCreator(index, data, (e) => {
 						get(e);
-						window.scrollTo({ top: 0, behavior: "smooth" });
 					});
 					index++;
 					paginationBox.insertAdjacentElement("beforeend", a);
 				}
 				const a = pageCreator(index, data, (e) => {
 					get(e);
-					window.scrollTo({ top: 0, behavior: "smooth" });
 				});
 				paginationBox.insertAdjacentElement("beforeend", a);
 			} else {
@@ -213,14 +205,29 @@ function getParamsFromURL() {
 		xhr.onerror = () => console.error("Произошла ошибка сервера");
 	}
 
-	function spinnerCreator() {
-		return `<div class="spinner">Loading...</div>`;
+	function blogPreloader(count = 10) {
+		let card = `
+		<li class="blog__preload blog-preload">
+			<div class="blog-preload__img"></div>
+			<div class="blog-preload__box">
+				<div class="blog-preload__tags"></div>
+				<div class="blog-preload__info"></div>
+				<div class="blog-preload__title"></div>
+				<div class="blog-preload__text"></div>
+				<div class="blog-preload__link" href="#"></div>
+			</div>
+		</li>`
+
+		postBox.innerHTML = "";
+		for (let i = 0; i < count; i++) {
+			postBox.innerHTML += card;
+		}
 	}
 
 	function tagCreator(tag) {
 		return `
 		<label class="filter-form__checkbox-label filter-form__checkbox-label--tags">
-			<input class="filter-form__checkbox hidden" type="checkbox" name="tags" value="${tag.id}" checked>
+			<input class="filter-form__checkbox hidden" type="checkbox" name="tags" value="${tag.id}" aria-label="Tag ${tag.color}" checked>
 			<span style="border-color: ${tag.color}" class="filter-form__checkbox-checker filter-form__checkbox-checker--tags filter-form__checkbox-checker--${(tag.color).slice(1)}"></span>
 		</label>`;
 	}
@@ -258,6 +265,9 @@ function getParamsFromURL() {
 		let a = document.createElement("a");
 		a.setAttribute("href", `?page=${index}`);
 		a.classList.add("blog-pagination__link", "text", "text--bold", "link_js");
+		if (index === data.page) {
+			a.classList.add("active");
+		}
 		a.addEventListener("click", (e) => {
 			e.preventDefault();
 			data.page = index;

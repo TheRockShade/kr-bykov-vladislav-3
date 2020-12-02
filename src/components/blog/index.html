@@ -1,18 +1,21 @@
 <section class="blog">
 	<div class="blog__container container">
 		<div class="blog__content">
+			<h2 class="title-two hidden">Blog</h2>
 			<ul class="blog__list posts_js"></ul>
 			<div class="blog__pagination blog-pagination">
 				@@include('arrow-button/index.html', {
 					"class": "blog-pagination__arrow blog-pagination__arrow--left left-arrow_js",
 					"type": "normal",
-					"rotation": "left"
+					"rotation": "left",
+					"label": "Toggle Left"
 				})
 				<ul class="blog-pagination__list pagination_js"></ul>
 				@@include('arrow-button/index.html', {
 					"class": "blog-pagination__arrow blog-pagination__arrow--right right-arrow_js",
 					"type": "normal",
-					"rotation": "right"
+					"rotation": "right",
+					"label": "Toggle Right"
 				})
 			</div>
 		</div>

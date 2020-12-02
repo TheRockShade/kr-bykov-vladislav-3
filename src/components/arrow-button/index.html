@@ -1,15 +1,15 @@
 @@if (type === "normal" && rotation === "left") {
-	<button class="@@class arrow-button arrow-button--left"><img class="arrow-button__img" src="/static/images/icon-arrow.svg" alt="Toggle Left"></button>
+	<button class="@@class arrow-button arrow-button--left" aria-label="@@label"><img class="arrow-button__img" src="/static/images/icon-arrow.svg" alt="Toggle Left"></button>
 }
 
 @@if (type === "disabled" && rotation === "left") {
-	<button class="@@class arrow-button arrow-button--left" disabled><img class="arrow-button__img" src="/static/images/icon-arrow.svg" alt="Toggle Left"></button>
+	<button class="@@class arrow-button arrow-button--left" aria-label="@@label" disabled><img class="arrow-button__img" src="/static/images/icon-arrow.svg" alt="Toggle Left"></button>
 }
 
 @@if (type === "normal" && rotation === "right") {
-	<button class="@@class arrow-button arrow-button--right"><img class="arrow-button__img" src="/static/images/icon-arrow.svg" alt="Toggle Right"></button>
+	<button class="@@class arrow-button arrow-button--right" aria-label="@@label"><img class="arrow-button__img" src="/static/images/icon-arrow.svg" alt="Toggle Right"></button>
 }
 
 @@if (type === "disabled" && rotation === "right") {
-	<button class="@@class arrow-button arrow-button--right" disabled><img class="arrow-button__img" src="/static/images/icon-arrow.svg" alt="Toggle Right"></button>
+	<button class="@@class arrow-button arrow-button--right" aria-label="@@label" disabled><img class="arrow-button__img" src="/static/images/icon-arrow.svg" alt="Toggle Right"></button>
 }
