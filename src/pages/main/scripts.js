@@ -1,8 +1,11 @@
+/* --- Message Popup --- */
+
 (() => {
-	let open = document.querySelector(".message_js"),
-			window = document.querySelector(".popup--message"),
-			form = document.forms["message"],
-			isLoading = false;
+	const open = document.querySelector(".message_js"),
+				window = document.querySelector(".popup--message"),
+				form = document.forms["message"];
+
+	let isLoading = false;
 
 	if (open) {
 		open.addEventListener("click", () => {
@@ -16,10 +19,10 @@
 
 	function submit(e) {
 		e.preventDefault();
+
 		if (isLoading) {
 			return;
 		}
-
 		isLoading = true;
 
 		const body = getFormData(e.target);
@@ -39,7 +42,7 @@
 				body: JSON.stringify(newData),
 				headers: {
 					"Content-Type": "application/json"
-				},
+				}
 			})
 			.then(res => { return res.json(); })
 			.then(res => {
@@ -66,23 +69,25 @@
 	}
 
 	function validateData(data, errors = {}) {
-		if(data.name === "") {
+		if (data.name === "") {
 			errors.name = "Пожалуйста, введите своё имя";
 		}
-		if(data.subject === "") {
+		if (data.subject === "") {
 			errors.subject = "Пожалуйста, введите тему сообщения";
 		}
-		if(data.to === "") {
+		if (data.to === "") {
 			errors.to = "Пожалуйста, введите ваш email";
 		}
-		if(!checkTelephone(data.telephone)) {
+		if (!checkTelephone(data.telephone)) {
 			errors.telephone = "Пожалуйста, введите валидный номер телефона";
 		}
 		return errors;
 	}
 })();
 
-(function () {
+/* --- Swiper --- */
+
+(() => {
   const option = {
     sliderEl: ".slider",
   };
@@ -96,4 +101,4 @@ var mySwiper = new Swiper('.swiper-container', {
     nextEl: '.swiper-button-next',
     prevEl: '.swiper-button-prev',
   },
-})();
+})

@@ -10,11 +10,14 @@ const profileName = document.querySelector(".profile-name_js"),
 
 let user = {};
 
+/* --- Change Password Popup --- */
+
 (() => {
-	let open = document.querySelector(".change-password_js"),
-			window = document.querySelector(".popup--change-password"),
-			form = document.forms["change-password"],
-			isLoading = false;
+	const open = document.querySelector(".change-password_js"),
+				window = document.querySelector(".popup--change-password"),
+				form = document.forms["change-password"];
+
+	let isLoading = false;
 
 	if (open) {
 		open.addEventListener("click", () => {
@@ -28,15 +31,16 @@ let user = {};
 
 	function submit(e) {
 		e.preventDefault();
+
 		if (isLoading) {
 			return;
 		}
-
 		isLoading = true;
+
 		const body = getFormData(e.target);
 		let errors = validateData(body, errors = {});
 		
-		if(Object.keys(errors).length > 0) {
+		if (Object.keys(errors).length > 0) {
 			setFormErrors(e.target, errors);
 			isLoading = false;
 		} else {
@@ -66,7 +70,7 @@ let user = {};
 				isLoading = false;
 			})
 			.catch ((err) => {
-				if(err._message) {
+				if (err._message) {
 					answer(answerPopup, err._message, "error");
 				} else {
 					answer(answerPopup, "Ошибка сервера", "error");
@@ -77,26 +81,29 @@ let user = {};
 	}
 
 	function validateData(data, errors = {}) {
-		if(data.oldPassword.length === 0) {
+		if (data.oldPassword.length === 0) {
 			errors.oldPassword = "Пожалуйста, введите старый пароль";
 		}
-		if(data.newPassword.length < 4) {
+		if (data.newPassword.length < 4) {
 			errors.newPassword = "Ваш пороль слишком короткий";
 		}
-		if(data.repeatPassword !== data.newPassword || data.repeatPassword === "") {
+		if (data.repeatPassword !== data.newPassword || data.repeatPassword === "") {
 			errors.repeatPassword = "Вы неправильно повторили пароль";
 		}
 		return errors;
 	}
 })();
 
+/* --- Change Data Popup --- */
+
 (() => {
-	let open = document.querySelector(".change-data_js"),
-			window = document.querySelector(".popup--change-data"),
-			form = document.forms["change-data"],
-			file = document.querySelector(".file_js"),
-			fileText = document.querySelector(".fileText_js"),
-			isLoading = false;
+	const open = document.querySelector(".change-data_js"),
+				window = document.querySelector(".popup--change-data"),
+				form = document.forms["change-data"],
+				file = document.querySelector(".file_js"),
+				fileText = document.querySelector(".fileText_js");
+
+	let isLoading = false;
 
 	if (open) {
 		open.addEventListener("click", () => {
@@ -112,6 +119,7 @@ let user = {};
 			if (fileName.length > 20) {
 				fileName = fileName.slice(0, 20) + "...";
 			}
+
 			fileText.innerHTML = fileName;
 		}
 	})
@@ -122,11 +130,14 @@ let user = {};
 
 	function submit(e) {
 		e.preventDefault();
+
 		if (isLoading) {
 			return;
 		}
 		isLoading = true;
+
 		const body = getFormData(e.target, {}, "FormData");
+
 		fetchData({
 			method: "PUT",
 			body: body,
@@ -160,6 +171,8 @@ let user = {};
 	}
 })();
 
+/* --- User Update --- */
+
 function updateUserData() {
 		if (!token || !userId) {
 			return window.location = "/";
@@ -182,10 +195,11 @@ function updateUserData() {
 			}
 		})
 		.catch(err => {
-			console.error(err);
 			return window.location = "/";
 		})
 }
+
+updateUserData();
 
 function rerenderUserData(user) {
 	profileName.innerText = user.name;
@@ -197,7 +211,7 @@ function rerenderUserData(user) {
 	profilePhoto.style = `background-image: url(${SERVER_URL}${user.photoUrl})`;
 }
 
-updateUserData();
+/* --- Delete User --- */
 
 deleteButton.addEventListener("click", () => {
 	fetchData({

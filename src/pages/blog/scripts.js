@@ -1,48 +1,8 @@
 const form = document.forms["filter"];
+
 let data = { page: 0 };
 
-function setParamsToURL(params = {}) {
-	const keysArr = Object.keys(params);
-	let url = new URL("http://123.ru");
-	for(let key of keysArr) {
-		if(typeof params[key] === "object") {
-			const arr = params[key];
-			for(let item of arr) {
-				url.searchParams.append(key, item);
-			}
-		} else {
-			url.searchParams.append(key, params[key]);
-		}
-	}
-	history.replaceState({}, document.title, url.search);
-}
-
-function getParamsFromURL() {
-	const searchParams = new URL(window.location).searchParams;
-	let params = {};
-	if(searchParams.has("tags")) {
-		params.tags = searchParams.getAll("tags");
-	}
-	if(searchParams.has("views")) {
-		params.views = searchParams.get("views");
-	}
-	if(searchParams.has("commentsCount")) {
-		params.commentsCount = searchParams.getAll("commentsCount");
-	}
-	if(searchParams.has("show")) {
-		params.show = searchParams.get("show");
-	}
-	if(searchParams.has("sort")) {
-		params.sort = searchParams.get("sort");
-	}
-	if(searchParams.has("title")) {
-		params.title = searchParams.get("title");
-	}
-	if(searchParams.has("page")) {
-		params.page = searchParams.get("page");
-	}
-	return params;
-}
+/* --- Get Posts, Tags, and Pagination --- */
 
 (() => {
 	const tagsBox = document.querySelector(".tags_js"),
@@ -85,10 +45,12 @@ function getParamsFromURL() {
 
 	function get(e) {
 		e.preventDefault();
+
 		let page = data.page || 0;
 		data = getFormData(form);
 		data.page = page;
 		data.show = +data.show || 0;
+
 		setParamsToURL(data);
 		blogPreloader(data.show);
 		getPosts(data);
@@ -96,6 +58,7 @@ function getParamsFromURL() {
 
 	function getTags() {
 		let xhr = new XMLHttpRequest();
+
 		xhr.open("GET", `${SERVER_URL}/api/tags`);
 		xhr.send();
 		xhr.onload = () => {
@@ -140,13 +103,13 @@ function getParamsFromURL() {
 		if (params.commentsCount.length !== 0) {
 			let arr = [];
 			params.commentsCount.forEach(el => {
-				el.split("-").forEach(el => {arr.push(el);});
+				el.split("-").forEach(el => { arr.push(el); });
 			});
 			let commentsCountValue = {
 				min: Math.min.apply(null, arr),
 				max: Math.max.apply(null, arr)
 			}
-			filter.commentsCount = {$between: [commentsCountValue["min"], commentsCountValue["max"]]};
+			filter.commentsCount = { $between: [commentsCountValue["min"], commentsCountValue["max"]] };
 		}
 
 		url.searchParams.set("filter", JSON.stringify(filter));
@@ -165,10 +128,12 @@ function getParamsFromURL() {
 		url.searchParams.set("offset", JSON.stringify(+params.show * params.page));
 
 		let xhr = new XMLHttpRequest();
+
 		xhr.open("GET", `${SERVER_URL}/api/posts?${url.searchParams}`);
 		xhr.send();
 		xhr.onload = () => {
 			const response = JSON.parse(xhr.response);
+
 			if (response.success) {
 				postBox.innerHTML = "";
 				for (let card of response.data) {
@@ -186,7 +151,7 @@ function getParamsFromURL() {
 				
 				paginationBox.innerHTML = "";
 
-				while(count - params.show > 0) {
+				while (count - params.show > 0) {
 					count -= params.show;
 					const a = pageCreator(index, data, (e) => {
 						get(e);
@@ -194,6 +159,7 @@ function getParamsFromURL() {
 					index++;
 					paginationBox.insertAdjacentElement("beforeend", a);
 				}
+
 				const a = pageCreator(index, data, (e) => {
 					get(e);
 				});
@@ -216,7 +182,7 @@ function getParamsFromURL() {
 				<div class="blog-preload__text"></div>
 				<div class="blog-preload__link" href="#"></div>
 			</div>
-		</li>`
+		</li>`;
 
 		postBox.innerHTML = "";
 		for (let i = 0; i < count; i++) {
@@ -262,19 +228,72 @@ function getParamsFromURL() {
 	function pageCreator(index, data, onclick) {
 		let li = document.createElement("li");
 		li.classList.add("blog-pagination__item");
+
 		let a = document.createElement("a");
 		a.setAttribute("href", `?page=${index}`);
 		a.classList.add("blog-pagination__link", "text", "text--bold", "link_js");
+
 		if (index === data.page) {
 			a.classList.add("active");
 		}
+
 		a.addEventListener("click", (e) => {
 			e.preventDefault();
 			data.page = index;
 			onclick(e);
 		})
+
 		a.innerText = +index + 1;
 		li.insertAdjacentElement("beforeend", a);
+
 		return li;
 	}
 })();
+
+/* --- URL Functions --- */
+
+function setParamsToURL(params = {}) {
+	const keysArr = Object.keys(params);
+	let url = new URL("http://123.ru");
+
+	for (let key of keysArr) {
+		if(typeof params[key] === "object") {
+			const arr = params[key];
+			for(let item of arr) {
+				url.searchParams.append(key, item);
+			}
+		} else {
+			url.searchParams.append(key, params[key]);
+		}
+	}
+	history.replaceState({}, document.title, url.search);
+}
+
+function getParamsFromURL() {
+	const searchParams = new URL(window.location).searchParams;
+
+	let params = {};
+
+	if (searchParams.has("tags")) {
+		params.tags = searchParams.getAll("tags");
+	}
+	if (searchParams.has("views")) {
+		params.views = searchParams.get("views");
+	}
+	if (searchParams.has("commentsCount")) {
+		params.commentsCount = searchParams.getAll("commentsCount");
+	}
+	if (searchParams.has("show")) {
+		params.show = searchParams.get("show");
+	}
+	if (searchParams.has("sort")) {
+		params.sort = searchParams.get("sort");
+	}
+	if (searchParams.has("title")) {
+		params.title = searchParams.get("title");
+	}
+	if (searchParams.has("page")) {
+		params.page = searchParams.get("page");
+	}
+	return params;
+}
