@@ -37,20 +37,17 @@ let user = {};
 		}
 		isLoading = true;
 
-		const body = getFormData(e.target);
-		let errors = validateData(body, errors = {});
+		const bodyFormData = getFormData(e.target, {}, "FormData");
+		const bodyJSON = getFormData(e.target);
+		let errors = validateData(bodyJSON, errors = {});
 		
 		if (Object.keys(errors).length > 0) {
 			setFormErrors(e.target, errors);
 			isLoading = false;
 		} else {
-			let newBody = {};
-			newBody.oldPassword = body.oldPassword;
-			newBody.newPassword = body.newPassword;
-
 			fetchData({
 				method: "PUT",
-				body: JSON.stringify(newBody),
+				body: bodyFormData,
 				url: "/api/users",
 				headers: {
 					"x-access-token": token,
@@ -62,7 +59,7 @@ let user = {};
 					setFormSuccess(e.target);
 					setTimeout(() => {
 						popupClose(window, open, form);
-						answer(answerPopup, "Форма была успешно отправлена", "success");
+						answer(answerPopup, "Пароль был успешно изменён", "success");
 					}, 2000);
 				} else {
 					throw res;

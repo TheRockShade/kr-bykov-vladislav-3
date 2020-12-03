@@ -29,7 +29,7 @@
 	}
 
 	&__panel {
-		position: absolute;
+		position: sticky;
 		top: 454px;
 		left: 0;
 		right: 0;
@@ -92,6 +92,10 @@
 
 .swiper-container {
 	height: 604px;
+}
+
+.swiper-slide {
+	overflow-y: scroll;
 }
 
 .swiper-button-prev,

@@ -168,25 +168,25 @@ const SERVER_URL = "https://academy.directlinedev.com",
 	}
 
 	function validateData(data, errors = {}) {
-		if(data.email === "") {
+		if (data.email === "") {
 			errors.email = "Введите email";
 		}
-		if(data.name === "") {
+		if (data.name === "") {
 			errors.name = "Введите имя";
 		}
-		if(data.surname === "") {
+		if (data.surname === "") {
 			errors.surname = "Введите фамилию";
 		}
-		if(data.password === "" || data.password.length < 4) {
+		if (data.password === "" || data.password.length < 4) {
 			errors.password = "Длина пароля от 4 символов";
 		}
-		if(data.passwordRepeat !== data.password || data.passwordRepeat === "") {
+		if (data.passwordRepeat !== data.password || data.passwordRepeat === "") {
 			errors.passwordRepeat = "Повторите пароль корректно";
 		}
-		if(data.location === "") {
+		if (data.location === "") {
 			errors.location = "Введите местоположение";
 		}
-		if(data.age === "") {
+		if (isNaN(data.age) || data.age === "") {
 			errors.age = "Введите возраст";
 		}
 		return errors;
