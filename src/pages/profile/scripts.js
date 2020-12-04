@@ -56,6 +56,7 @@ let user = {};
 			.then(res => res.json())
 			.then (res => {
 				if (res.success) {
+					clearForm(e.target);
 					setFormSuccess(e.target);
 					setTimeout(() => {
 						popupClose(window, open, form);
@@ -86,6 +87,9 @@ let user = {};
 		}
 		if (data.repeatPassword !== data.newPassword || data.repeatPassword === "") {
 			errors.repeatPassword = "Вы неправильно повторили пароль";
+		}
+		if (data.oldPassword === data.newPassword) {
+			errors.newPassword = "Новый пароль должен отличаться от старого";
 		}
 		return errors;
 	}
@@ -133,38 +137,52 @@ let user = {};
 		}
 		isLoading = true;
 
-		const body = getFormData(e.target, {}, "FormData");
+		const bodyFormData = getFormData(e.target, {}, "FormData");
+		const bodyJSON = getFormData(e.target);
+		let errors = validateData(bodyJSON);
 
-		fetchData({
-			method: "PUT",
-			body: body,
-			url: "/api/users",
-			headers: {
-				"x-access-token": token,
-			}
-		})
-		.then(res => res.json())
-		.then (res => {
-			if (res.success) {
-				rerenderUserData(res.data);
-				setFormSuccess(e.target);
-				setTimeout(() => {
-					popupClose(window, open, form);
-					answer(answerPopup, "Форма была успешно отправлена", "success");
-				}, 2000);
-			} else {
-				throw res;
-			}
+		if (Object.keys(errors).length > 0) {
+			setFormErrors(e.target, errors);
 			isLoading = false;
-		})
-		.catch ((err) => {
-			if (err.errors) {
-				setFormErrors(form, err.errors);
-			} else {
-				answer(answerPopup, "Ошибка сервера", "error");
-			}
-			isLoading = false;
-		})
+		} else {
+			fetchData({
+				method: "PUT",
+				body: bodyFormData,
+				url: "/api/users",
+				headers: {
+					"x-access-token": token,
+				}
+			})
+			.then(res => res.json())
+			.then (res => {
+				if (res.success) {
+					rerenderUserData(res.data);
+					setFormSuccess(e.target);
+					setTimeout(() => {
+						popupClose(window, open, form);
+						answer(answerPopup, "Форма была успешно отправлена", "success");
+					}, 2000);
+				} else {
+					throw res;
+				}
+				isLoading = false;
+			})
+			.catch ((err) => {
+				if (err.errors) {
+					setFormErrors(form, err.errors);
+				} else {
+					answer(answerPopup, "Ошибка сервера", "error");
+				}
+				isLoading = false;
+			})
+		}
+	}
+
+	function validateData(data, errors = {}) {
+		if (isNaN(data.age) || data.age === "") {
+			errors.age = "Введите возраст";
+		}
+		return errors;
 	}
 })();
 

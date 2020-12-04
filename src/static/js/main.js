@@ -83,8 +83,8 @@ const SERVER_URL = "https://academy.directlinedev.com",
 	}
 
 	function validateData(data, errors = {}) {
-		if(data.email === "") {
-			errors.email = "Введите email";
+		if(!checkEmail(data.email)) {
+			errors.email = "Введите корректный email";
 		}
 		if(data.password === "" || data.password.length < 4) {
 			errors.password = "Длина пароля от 4 символов";
