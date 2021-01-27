@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+		<link href="https://unpkg.com/swiper/swiper-bundle.min.css" rel="stylesheet" />
+    <link href="common.css" rel="stylesheet" />
+		<link href="style.css" rel="stylesheet" />
+		<link rel="stylesheet" href="static/fonts/font-face.css" />
+    <title>Main</title>
+  </head>
+  <body>
+		<header class="header">
+	<div class="header__container container">
+		<div class="header__content">
+			<a class="header__logo text text--bold logo_js" href="index.html">Home</a>
+			<nav class="header__nav nav">
+				<ul class="nav__list">
+					<li class="nav__item"><a class="nav__link text text--bold" href="pages/blog/index.html">My blog</a></li>
+					<li class="nav__item"><a class="nav__link text text--bold signin_js" href="#">Sign in</a></li>
+					<li class="nav__item"><a class="nav__link text text--bold register_js" href="#">Register</a></li>
+					<li class="nav__item"><a class="nav__link text text--bold hide_js profile_js" href="pages/profile/index.html">My profile</a></li>
+					<li class="nav__item"><a class="nav__link text text--bold hide_js logout_js" href="#">Logout</a></li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</header>
+		<button class="menu__open menu_js" aria-label="Open menu"><img class="menu__burger" src="static/images/icon-menu.svg" alt="Open Menu"></button>
+<div class="menu">
+	<ul class="menu__list">
+		<li class="menu__item"><a class="menu__link focus_js" href="index.html">Home</a></li>
+		<li class="menu__item"><a class="menu__link" href="pages/blog/index.html">My blog</a></li>
+		<li class="menu__item"><a class="menu__link signin--menu_js" href="#">Sign in</a></li>
+		<li class="menu__item"><a class="menu__link register--menu_js" href="#">Register</a></li>
+		<li class="menu__item"><a class="menu__link hide_js profile--menu_js" href="pages/profile/index.html">My profile</a></li>
+		<li class="menu__item"><a class="menu__link logout--menu_js" href="#">Logout</a></li>
+	</ul>
+	<button class="menu__close" aria-label="Close"><img class="menu__x" src="static/images/icon-close.svg" alt="Close button"></button>
+</div>
+		<main>
+			<section class="first-screen">
+	<div class="first-screen__container container">
+		<div class="first-screen__content">
+			<h2 class="first-screen__title title-one">Antonina Antoninovna</h2>
+			<p class="first-screen__text text">Future front-end developer 23 years old, Tolyatti</p>
+			<div class="first-screen__slider slider">
+				<div class="slider__wrapper">
+					<div class="slider__inner-wrapper">
+						<div class="slider__slide">
+							<picture>
+								<source srcset="static/images/slider.jpg, static/images/slider-retina.jpg 2x" media="(min-width: 800px)">
+								<source srcset="static/images/slider-tablet.jpg" media="(min-width: 375px) and (max-width: 799px)">
+								<source srcset="static/images/slider-mobile.jpg" media="(max-width: 374px)">
+								<img class="slider__img" src="static/images/slider.jpg" alt="Photo">
+							</picture>
+						</div>
+						<div class="slider__slide">
+							<picture>
+								<source srcset="static/images/slider.jpg, static/images/slider-retina.jpg 2x" media="(min-width: 800px)">
+								<source srcset="static/images/slider-tablet.jpg" media="(min-width: 375px) and (max-width: 799px)">
+								<source srcset="static/images/slider-mobile.jpg" media="(max-width: 374px)">
+								<img class="slider__img" src="static/images/slider.jpg" alt="Photo">
+							</picture>
+						</div>
+						<div class="slider__slide">
+							<picture>
+								<source srcset="static/images/slider.jpg, static/images/slider-retina.jpg 2x" media="(min-width: 800px)">
+								<source srcset="static/images/slider-tablet.jpg" media="(min-width: 375px) and (max-width: 799px)">
+								<source srcset="static/images/slider-mobile.jpg" media="(max-width: 374px)">
+								<img class="slider__img" src="static/images/slider.jpg" alt="Photo">
+							</picture>
+						</div>
+						<div class="slider__slide">
+							<picture>
+								<source srcset="static/images/slider.jpg, static/images/slider-retina.jpg 2x" media="(min-width: 800px)">
+								<source srcset="static/images/slider-tablet.jpg" media="(min-width: 375px) and (max-width: 799px)">
+								<source srcset="static/images/slider-mobile.jpg" media="(max-width: 374px)">
+								<img class="slider__img" src="static/images/slider.jpg" alt="Photo">
+							</picture>
+						</div>
+					</div>
+				</div>
+				<div class="slider__control">
+					
+	<button class="slider__button arrow-button arrow-button--left" aria-label="Toggle Left"><img class="arrow-button__img" src="static/images/icon-arrow.svg" alt="Toggle Left"></button>
+
+
+
+
+
+
+
+					<div class="slider__pagination pagination"></div>
+					
+
+
+
+
+	<button class="slider__button arrow-button arrow-button--right" aria-label="Toggle Right"><img class="arrow-button__img" src="static/images/icon-arrow.svg" alt="Toggle Right"></button>
+
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+			<section class="about">
+	<div class="about__container container">
+		<div class="about__content">
+			<h2 class="about__title title-two">About me</h2>
+			<div class="about__box">
+				<div class="about__cloud">
+					<p class="about__text text">
+						Aliquam tortor molestie turpis est tristique. Congue diam orci amet quis semper ut. Vitae aenean nibh facilisis urna, ultricies euismod nunc. Commodo fringilla sit hendrerit consequat. Vel ac elit vel sagittis.
+					</p>
+				</div>
+				<div class="about__cloud">
+					<p class="about__text text">
+						Tincidunt id quis pellentesque rutrum pretium. Egestas aliquam dictum ipsum nisl, sed pulvinar. Commodo elit sed a fermentum non justo. Etiam platea consectetur.
+					</p>
+				</div>
+				<div class="about__cloud">
+					<p class="about__text text">
+						Quam ipsum odio tellus etiam aliquam dolor ut hendrerit. Felis risus nec vitae nunc ultricies placerat. Nullam nec felis eu id dolor pellentesque tristique. 
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+			<section class="skills">
+	<div class="container__skills container">
+		<div class="skills__content">
+			<h2 class="skills__title title-two">Skills</h2>
+			<span class="skills__text text">I work in such programs as</span>
+			<ul class="skills__list">
+				<li class="skills__item">
+					<picture>
+						<source srcset="static/images/icon-html.png, static/images/icon-html-retina.png 2x">
+						<img class="skills__img" src="static/images/icon-html.png" alt="HTML">
+					</picture>
+					<span class="skills__desc">HTML 5</span>
+					<div class="skills__progress progress">
+						<span class="progress__percent">85%</span>
+						<div class="progress__bar progress__bar--html"></div>
+					</div>
+				</li>
+				<li class="skills__item">
+					<picture>
+						<source srcset="static/images/icon-css.png, static/images/icon-css-retina.png 2x">
+						<img class="skills__img" src="static/images/icon-css.png" alt="CSS">
+					</picture>
+					<span class="skills__desc">CSS/SCSS</span>
+					<div class="skills__progress progress">
+						<span class="progress__percent">55%</span>
+						<div class="progress__bar progress__bar--css"></div>
+					</div>
+				</li>
+				<li class="skills__item">
+					<picture>
+						<source srcset="static/images/icon-js.png, static/images/icon-js-retina.png 2x">
+						<img class="skills__img" src="static/images/icon-js.png" alt="JavaScript">
+					</picture>
+					<span class="skills__desc">JavaScript</span>
+					<div class="skills__progress progress">
+						<span class="progress__percent">5%</span>
+						<div class="progress__bar progress__bar--js"></div>
+					</div>
+				</li>
+				<li class="skills__item">
+					<picture>
+						<source srcset="static/images/icon-git.png, static/images/icon-git-retina.png 2x">
+						<img class="skills__img" src="static/images/icon-git.png" alt="Git">
+					</picture>
+					<span class="skills__desc">Git/GitHub</span>
+					<div class="skills__progress progress">
+						<span class="progress__percent">15%</span>
+						<div class="progress__bar progress__bar--git"></div>
+					</div>
+				</li>
+				<li class="skills__item">
+					<picture>
+						<source srcset="static/images/icon-figma.png, static/images/icon-figma-retina.png 2x">
+						<img class="skills__img" src="static/images/icon-figma.png" alt="Figma">
+					</picture>
+					<span class="skills__desc">Figma</span>
+					<div class="skills__progress progress">
+						<span class="progress__percent">80%</span>
+						<div class="progress__bar progress__bar--figma"></div>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+</section>
+			<section class="portfolio">
+	<div class="container__portfolio container">
+		<div class="portfolio__content">
+			<h2 class="portfolio__title title-two">Portfolio</h2>
+			<div class="swiper-container">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide">
+						<picture>
+							<source srcset="static/images/portfolio.jpg, static/images/portfolio-retina.jpg 2x">
+							<img class="portfolio__img" src="static/images/portfolio.jpg" alt="Portfolio project">
+						</picture>
+						<div class="portfolio__panel">
+							<a class="portfolio__subtitle" href="#">Learning site for DL Academy courses</a>
+							<p class="portfolio__text text-small">A simple multi-page static site. The design layout was in Figma. HTML and CSS were used. The site is responsive and cross-browser, but without adding interactivity via JavaScript.</p>
+						</div>
+					</div>
+					<div class="swiper-slide">
+						<picture>
+							<source srcset="static/images/portfolio.jpg, static/images/portfolio-retina.jpg 2x">
+							<img class="portfolio__img" src="static/images/portfolio.jpg" alt="Portfolio project">
+						</picture>
+						<div class="portfolio__panel">
+							<a class="portfolio__subtitle" href="#">Learning site for DL Academy courses</a>
+							<p class="portfolio__text text-small">A simple multi-page static site. The design layout was in Figma. HTML and CSS were used. The site is responsive and cross-browser, but without adding interactivity via JavaScript.</p>
+						</div>
+					</div>
+					<div class="swiper-slide">
+						<picture>
+							<source srcset="static/images/portfolio.jpg, static/images/portfolio-retina.jpg 2x">
+							<img class="portfolio__img" src="static/images/portfolio.jpg" alt="Portfolio project">
+						</picture>
+						<div class="portfolio__panel">
+							<a class="portfolio__subtitle" href="#">Learning site for DL Academy courses</a>
+							<p class="portfolio__text text-small">A simple multi-page static site. The design layout was in Figma. HTML and CSS were used. The site is responsive and cross-browser, but without adding interactivity via JavaScript.</p>
+						</div>
+					</div>
+				</div>
+				<div class="swiper-button-prev"></div>
+				<div class="swiper-button-next"></div>
+			</div>
+		</div>
+	</div>
+</section>
+		</main>
+		<footer class="contacts">
+	<div class="contacts__container container">
+		<div class="contacts__content">
+			<h2 class="contacts__title title-two">Contacts</h2>
+			<p class="contacts__text text">Want to know more or just chat? You are welcome!</p>
+			
+	<button class="button contacts__button message_js">Send message</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			<ul class="contacts__list">
+				<li class="contacts__item">
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<a href="#" class="button button--link button--empty contacts__link">Instagram</a>
+
+
+
+				</li>
+				<li class="contacts__item">
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<a href="#" class="button button--link button--empty contacts__link">Vk</a>
+
+
+
+				</li>
+				<li class="contacts__item">
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<a href="#" class="button button--link button--empty contacts__link">Telegram</a>
+
+
+
+				</li>
+				<li class="contacts__item">
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<a href="#" class="button button--link button--empty contacts__link">Mail</a>
+
+
+
+				</li>
+				<li class="contacts__item">
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<a href="#" class="button button--link button--empty contacts__link">GitHub</a>
+
+
+
+				</li>
+				<li class="contacts__item">
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<a href="#" class="button button--link button--empty contacts__link">Phone</a>
+
+
+
+				</li>
+			</ul>
+			<span class="contacts__design text-small">Design by <a class="contacts__accent" href="#">DL Academy</a></span>
+			<span class="contacts__code text-small">Program code from Antonina</span>
+		</div>
+	</div>
+</footer>
+		<div class="popup popup--login">
+	<form class="popup__form popup__form--login" name="login">
+		<label class="popup__label">
+			<span class="popup__text text-small">Email <span class="popup__accent">*</span></span>
+			<input class="popup__input" type="email" name="email">
+		</label>
+		<label class="popup__label">
+			<span class="popup__text text-small">Password <span class="popup__accent">*</span></span>
+			<input class="popup__input" type="password" name="password">
+		</label>
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<button class="button button--empty popup__button" type="submit">Log in</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		<button class="popup__close" aria-label="Close"><img class="popup__x" src="static/images/icon-close.svg" alt="Close button"></button>
+	</form>
+</div>
+
+<div class="popup popup--register">
+	<form class="popup__form popup__form--register" name="register">
+		<label class="popup__label">
+			<span class="popup__text text-small">Email <span class="popup__accent">*</span></span>
+			<input class="popup__input" type="email" name="email">
+		</label>
+		<div class="popup__col">
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">Name <span class="popup__accent">*</span></span>
+					<input class="popup__input" type="text" name="name">
+				</label>
+			</div>
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">Surname <span class="popup__accent">*</span></span>
+					<input class="popup__input" type="text" name="surname">
+				</label>
+			</div>
+		</div>
+		<div class="popup__col">
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">Password <span class="popup__accent">*</span></span>
+					<input class="popup__input" type="password" name="password">
+				</label>
+			</div>
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">Repeat password <span class="popup__accent">*</span></span>
+					<input class="popup__input" type="password" name="passwordRepeat">
+				</label>
+			</div>
+		</div>
+		<div class="popup__col">
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">Location <span class="popup__accent">*</span></span>
+					<input class="popup__input" type="text" name="location">
+				</label>
+			</div>
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">Age <span class="popup__accent">*</span></span>
+					<input class="popup__input" type="text" name="age">
+				</label>
+			</div>
+		</div>
+		<label class="popup__label popup__label--checkbox">
+			<input class="popup__checkbox hidden" type="checkbox" name="accept" value="yes">
+			<span class="popup__checkbox-checker"></span>
+			<span class="popup__checkbox-text">Clicking on the button, you consent to the processing of your personal data.</span>
+		</label>
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<button class="button button--empty popup__button" type="submit" disabled>Sign up</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		<button class="popup__close" aria-label="Close"><img class="popup__x" src="static/images/icon-close.svg" alt="Close button"></button>
+	</form>
+</div>
+
+<div class="popup popup--message">
+	<form class="popup__form popup__form--message" name="message">
+		<div class="popup__col">
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">What is your name? <span class="popup__accent">*</span></span>
+					<input class="popup__input popup__input" type="text" name="name">
+				</label>
+			</div>
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">Message subject <span class="popup__accent">*</span></span>
+					<input class="popup__input" type="text" name="subject">
+				</label>
+			</div>
+		</div>
+		<div class="popup__col">
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">Your Email <span class="popup__accent">*</span></span>
+					<input class="popup__input" type="email" name="to">
+				</label>
+			</div>
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">Your mobile phone <span class="popup__accent">*</span></span>
+					<input class="popup__input" type="tel" name="telephone">
+				</label>
+			</div>
+		</div>
+		<label class="popup__label">
+			<span class="popup__text text-small">What do you want to discuss with me?</span>
+			<textarea class="popup__textarea" name="message"></textarea>
+		</label>
+		<label class="popup__label popup__label--checkbox">
+			<input class="popup__checkbox hidden" type="checkbox" name="accept">
+			<span class="popup__checkbox-checker"></span>
+			<span class="popup__checkbox-text">Clicking on the button, you consent to the processing of your personal data.</span>
+		</label>
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<button class="button button--empty popup__button" type="submit" disabled>Send</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		<button class="popup__close" aria-label="Close"><img class="popup__x" src="static/images/icon-close.svg" alt="Close button"></button>
+	</form>
+</div>
+		<div class="answer">
+	<p class="answer__text title-three">Form has been sent successfully</p>
+	<button class="answer__close" aria-label="Close"><img class="answer__x" src="static/images/icon-close.svg" alt="Close button"></button>
+</div>
+		<button class="scroll-button" aria-label="Go to Top"><img class="scroll-button__img" src="static/images/icon-arrow.svg" alt="Go Up"></button>
+
+		<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="static/js/main.js"></script>
+    <script src="scripts.js"></script>
+  </body>
+</html>

@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+    <link href="../../common.css" rel="stylesheet" />
+		<link href="style.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../static/fonts/font-face.css" />
+    <title>Main</title>
+  </head>
+  <body>
+		<header class="header">
+	<div class="header__container container">
+		<div class="header__content">
+			<a class="header__logo text text--bold logo_js" href="../../index.html">Home</a>
+			<nav class="header__nav nav">
+				<ul class="nav__list">
+					<li class="nav__item"><a class="nav__link text text--bold" href="../../pages/blog/index.html">My blog</a></li>
+					<li class="nav__item"><a class="nav__link text text--bold signin_js" href="#">Sign in</a></li>
+					<li class="nav__item"><a class="nav__link text text--bold register_js" href="#">Register</a></li>
+					<li class="nav__item"><a class="nav__link text text--bold hide_js profile_js" href="../../pages/profile/index.html">My profile</a></li>
+					<li class="nav__item"><a class="nav__link text text--bold hide_js logout_js" href="#">Logout</a></li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</header>
+		<button class="menu__open menu_js" aria-label="Open menu"><img class="menu__burger" src="../../static/images/icon-menu.svg" alt="Open Menu"></button>
+<div class="menu">
+	<ul class="menu__list">
+		<li class="menu__item"><a class="menu__link focus_js" href="../../index.html">Home</a></li>
+		<li class="menu__item"><a class="menu__link" href="../../pages/blog/index.html">My blog</a></li>
+		<li class="menu__item"><a class="menu__link signin--menu_js" href="#">Sign in</a></li>
+		<li class="menu__item"><a class="menu__link register--menu_js" href="#">Register</a></li>
+		<li class="menu__item"><a class="menu__link hide_js profile--menu_js" href="../../pages/profile/index.html">My profile</a></li>
+		<li class="menu__item"><a class="menu__link logout--menu_js" href="#">Logout</a></li>
+	</ul>
+	<button class="menu__close" aria-label="Close"><img class="menu__x" src="../../static/images/icon-close.svg" alt="Close button"></button>
+</div>
+		<main>
+			<section class="profile">
+	<div class="profile__container container">
+		<div class="profile__content">
+			<h1 class="profile__title title-one">My profile</h1>
+			<div class="profile__box">
+				<div class="profile__photo profile-photo_js">Loading...</div>
+				<div class="profile__lists">
+					<ul class="profile__info profile-info">
+						<li class="profile-info__item text">
+							<span class="profile-info__data text text--bold">Name:</span>
+							<span class="profile-info__value profile-name_js">Loading...</span>
+						</li>
+						<li class="profile-info__item text">
+							<span class="profile-info__data text text--bold">Surname:</span>
+							<span class="profile-info__value profile-surname_js">Loading...</span>
+						</li>
+						<li class="profile-info__item text">
+							<span class="profile-info__data text text--bold">Email:</span>
+							<span class="profile-info__value profile-email_js">Loading...</span>
+						</li>
+						<li class="profile-info__item text">
+							<span class="profile-info__data text text--bold">Password:</span>
+							<span class="profile-info__value profile-password_js">*********</span>
+						</li>
+						<li class="profile-info__item text">
+							<span class="profile-info__data text text--bold">Location:</span>
+							<span class="profile-info__value profile-location_js">Loading...</span>
+						</li>
+						<li class="profile-info__item text">
+							<span class="profile-info__data text text--bold">Age:</span>
+							<span class="profile-info__value profile-age_js">Loading...</span>
+						</li>
+					</ul>
+					<ul class="profile__buttons profile-buttons">
+						<li class="profile-buttons__item">
+							
+
+
+
+
+	<button class="button button--empty profile__change-password change-password_js">Change password</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+						</li>
+						<li class="profile-buttons__item">
+							
+
+
+
+
+	<button class="button button--empty profile__change-data change-data_js">Change other data</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+						</li>
+						<li class="profile-buttons__item">
+							
+
+
+
+
+	<button class="button button--empty profile__delete delete_js">Delete account</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+		</main>
+		<div class="popup popup--login">
+	<form class="popup__form popup__form--login" name="login">
+		<label class="popup__label">
+			<span class="popup__text text-small">Email <span class="popup__accent">*</span></span>
+			<input class="popup__input" type="email" name="email">
+		</label>
+		<label class="popup__label">
+			<span class="popup__text text-small">Password <span class="popup__accent">*</span></span>
+			<input class="popup__input" type="password" name="password">
+		</label>
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<button class="button button--empty popup__button" type="submit">Log in</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		<button class="popup__close" aria-label="Close"><img class="popup__x" src="../../static/images/icon-close.svg" alt="Close button"></button>
+	</form>
+</div>
+
+<div class="popup popup--register">
+	<form class="popup__form popup__form--register" name="register">
+		<label class="popup__label">
+			<span class="popup__text text-small">Email <span class="popup__accent">*</span></span>
+			<input class="popup__input" type="email" name="email">
+		</label>
+		<div class="popup__col">
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">Name <span class="popup__accent">*</span></span>
+					<input class="popup__input" type="text" name="name">
+				</label>
+			</div>
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">Surname <span class="popup__accent">*</span></span>
+					<input class="popup__input" type="text" name="surname">
+				</label>
+			</div>
+		</div>
+		<div class="popup__col">
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">Password <span class="popup__accent">*</span></span>
+					<input class="popup__input" type="password" name="password">
+				</label>
+			</div>
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">Repeat password <span class="popup__accent">*</span></span>
+					<input class="popup__input" type="password" name="passwordRepeat">
+				</label>
+			</div>
+		</div>
+		<div class="popup__col">
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">Location <span class="popup__accent">*</span></span>
+					<input class="popup__input" type="text" name="location">
+				</label>
+			</div>
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">Age <span class="popup__accent">*</span></span>
+					<input class="popup__input" type="text" name="age">
+				</label>
+			</div>
+		</div>
+		<label class="popup__label popup__label--checkbox">
+			<input class="popup__checkbox hidden" type="checkbox" name="accept" value="yes">
+			<span class="popup__checkbox-checker"></span>
+			<span class="popup__checkbox-text">Clicking on the button, you consent to the processing of your personal data.</span>
+		</label>
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<button class="button button--empty popup__button" type="submit" disabled>Sign up</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		<button class="popup__close" aria-label="Close"><img class="popup__x" src="../../static/images/icon-close.svg" alt="Close button"></button>
+	</form>
+</div>
+
+<div class="popup popup--message">
+	<form class="popup__form popup__form--message" name="message">
+		<div class="popup__col">
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">What is your name? <span class="popup__accent">*</span></span>
+					<input class="popup__input popup__input" type="text" name="name">
+				</label>
+			</div>
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">Message subject <span class="popup__accent">*</span></span>
+					<input class="popup__input" type="text" name="subject">
+				</label>
+			</div>
+		</div>
+		<div class="popup__col">
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">Your Email <span class="popup__accent">*</span></span>
+					<input class="popup__input" type="email" name="to">
+				</label>
+			</div>
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">Your mobile phone <span class="popup__accent">*</span></span>
+					<input class="popup__input" type="tel" name="telephone">
+				</label>
+			</div>
+		</div>
+		<label class="popup__label">
+			<span class="popup__text text-small">What do you want to discuss with me?</span>
+			<textarea class="popup__textarea" name="message"></textarea>
+		</label>
+		<label class="popup__label popup__label--checkbox">
+			<input class="popup__checkbox hidden" type="checkbox" name="accept">
+			<span class="popup__checkbox-checker"></span>
+			<span class="popup__checkbox-text">Clicking on the button, you consent to the processing of your personal data.</span>
+		</label>
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<button class="button button--empty popup__button" type="submit" disabled>Send</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		<button class="popup__close" aria-label="Close"><img class="popup__x" src="../../static/images/icon-close.svg" alt="Close button"></button>
+	</form>
+</div>
+		<div class="popup popup--change-password">
+	<form class="popup__form popup__form--change-password" name="change-password">
+		<label class="popup__label">
+			<span class="popup__text text-small">Old password <span class="popup__accent">*</span></span>
+			<input class="popup__input" type="password" name="oldPassword">
+		</label>
+		<label class="popup__label">
+			<span class="popup__text text-small">New password <span class="popup__accent">*</span></span>
+			<input class="popup__input" type="password" name="newPassword">
+		</label>
+		<label class="popup__label">
+			<span class="popup__text text-small">Repeat new password <span class="popup__accent">*</span></span>
+			<input class="popup__input" type="password" name="repeatPassword">
+		</label>
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<button class="button button--empty popup__button" type="submit">Change password</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		<button class="popup__close" aria-label="Close"><img class="popup__x" src="../../static/images/icon-close.svg" alt="Close button"></button>
+	</form>
+</div>
+
+<div class="popup popup--change-data">
+	<form class="popup__form popup__form--change-data" name="change-data">
+		<label class="popup__label">
+			<span class="popup__text text-small">Email</span>
+			<input class="popup__input" type="email" name="email">
+		</label>
+		<div class="popup__col">
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">Name</span>
+					<input class="popup__input" type="text" name="name">
+				</label>
+			</div>
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">Surname</span>
+					<input class="popup__input" type="text" name="surname">
+				</label>
+			</div>
+		</div>
+		<div class="popup__col">
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">Location</span>
+					<input class="popup__input" type="text" name="location">
+				</label>
+			</div>
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">Age</span>
+					<input class="popup__input" type="text" name="age">
+				</label>
+			</div>
+		</div>
+		<div class="popup__col">
+			<div class="popup__col-50 popup__col-50--file">
+				<label class="popup__label popup__label--file">
+					<span class="popup__text text-small">Profile picture</span>
+					<input class="popup__input file_js" type="file" name="avatar" accept=".png, .jpg, .jpeg">
+				</label>
+				<div class="popup__file popup-file">
+					<img class="popup-file__img" src="../../static/images/icon-file.svg" alt="file icon">
+					<span class="popup-file__text fileText_js">Choose a file...</span>
+				</div>
+			</div>
+		</div>
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<button class="button button--empty popup__button" type="submit">Submit changes</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		<button class="popup__close" aria-label="Close"><img class="popup__x" src="../../static/images/icon-close.svg" alt="Close button"></button>
+	</form>
+</div>
+		<div class="answer">
+	<p class="answer__text title-three">Form has been sent successfully</p>
+	<button class="answer__close" aria-label="Close"><img class="answer__x" src="../../static/images/icon-close.svg" alt="Close button"></button>
+</div>
+		<script src="../../static/js/main.js"></script>
+    <script src="scripts.js"></script>
+  </body>
+</html>

@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+    <link href="../../common.css" rel="stylesheet" />
+		<link href="style.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../static/fonts/font-face.css" />
+    <title>Main</title>
+  </head>
+  <body>
+		<header class="header">
+	<div class="header__container container">
+		<div class="header__content">
+			<a class="header__logo text text--bold logo_js" href="../../index.html">Home</a>
+			<nav class="header__nav nav">
+				<ul class="nav__list">
+					<li class="nav__item"><a class="nav__link text text--bold" href="../../pages/blog/index.html">My blog</a></li>
+					<li class="nav__item"><a class="nav__link text text--bold signin_js" href="#">Sign in</a></li>
+					<li class="nav__item"><a class="nav__link text text--bold register_js" href="#">Register</a></li>
+					<li class="nav__item"><a class="nav__link text text--bold hide_js profile_js" href="../../pages/profile/index.html">My profile</a></li>
+					<li class="nav__item"><a class="nav__link text text--bold hide_js logout_js" href="#">Logout</a></li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</header>
+		<button class="menu__open menu_js" aria-label="Open menu"><img class="menu__burger" src="../../static/images/icon-menu.svg" alt="Open Menu"></button>
+<div class="menu">
+	<ul class="menu__list">
+		<li class="menu__item"><a class="menu__link focus_js" href="../../index.html">Home</a></li>
+		<li class="menu__item"><a class="menu__link" href="../../pages/blog/index.html">My blog</a></li>
+		<li class="menu__item"><a class="menu__link signin--menu_js" href="#">Sign in</a></li>
+		<li class="menu__item"><a class="menu__link register--menu_js" href="#">Register</a></li>
+		<li class="menu__item"><a class="menu__link hide_js profile--menu_js" href="../../pages/profile/index.html">My profile</a></li>
+		<li class="menu__item"><a class="menu__link logout--menu_js" href="#">Logout</a></li>
+	</ul>
+	<button class="menu__close" aria-label="Close"><img class="menu__x" src="../../static/images/icon-close.svg" alt="Close button"></button>
+</div>
+		<main>
+			<section class="filter">
+	<div class="filter__container container">
+		<div class="filter__content">
+			<h1 class="filter__title title-one">My blog</h1>
+			<form class="filter__form filter-form" name="filter">
+				<div class="filter-form__top">
+					<fieldset class="filter-form__fieldset filter-form__fieldset--tags">
+						<legend class="filter-form__legend text-small">Tags</legend>
+						<div class="filter-form__tags-box tags_js"></div>
+					</fieldset>
+					<fieldset class="filter-form__fieldset filter-form__fieldset--views">
+						<legend class="filter-form__legend text-small">Views</legend>
+						<label class="filter-form__radio-label">
+							<input class="filter-form__radio hidden" type="radio" name="views" value="100-500">
+							<span class="filter-form__radio-checker"></span>
+							<span class="filter-form__radio-text text">100-500</span>
+						</label>
+						<label class="filter-form__radio-label">
+							<input class="filter-form__radio hidden" type="radio" name="views" value="500-1000">
+							<span class="filter-form__radio-checker"></span>
+							<span class="filter-form__radio-text text">500-1000</span>
+						</label>
+						<label class="filter-form__radio-label">
+							<input class="filter-form__radio hidden" type="radio" name="views" value="1000-2000">
+							<span class="filter-form__radio-checker"></span>
+							<span class="filter-form__radio-text text">1000-2000</span>
+						</label>
+					</fieldset>
+					<fieldset class="filter-form__fieldset filter-form__fieldset--comments">
+						<legend class="filter-form__legend text-small">Comments</legend>
+						<label class="filter-form__checkbox-label">
+							<input class="filter-form__checkbox hidden" type="checkbox" name="commentsCount" value="0">
+							<span class="filter-form__checkbox-checker"></span>
+							<span class="filter-form__checkbox-text text">0</span>
+						</label>
+						<label class="filter-form__checkbox-label">
+							<input class="filter-form__checkbox hidden" type="checkbox" name="commentsCount" value="0-1">
+							<span class="filter-form__checkbox-checker"></span>
+							<span class="filter-form__checkbox-text text">0-1</span>
+						</label>
+						<label class="filter-form__checkbox-label">
+							<input class="filter-form__checkbox hidden" type="checkbox" name="commentsCount" value="1-50">
+							<span class="filter-form__checkbox-checker"></span>
+							<span class="filter-form__checkbox-text text">1-50</span>
+						</label>
+					</fieldset>
+					<fieldset class="filter-form__fieldset filter-form__fieldset--show">
+						<legend class="filter-form__legend text-small">How show?</legend>
+						<label class="filter-form__radio-label">
+							<input class="filter-form__radio hidden" type="radio" name="show" value="5">
+							<span class="filter-form__radio-checker"></span>
+							<span class="filter-form__radio-text text">show 5</span>
+						</label>
+						<label class="filter-form__radio-label">
+							<input class="filter-form__radio hidden" type="radio" name="show" value="10" checked>
+							<span class="filter-form__radio-checker"></span>
+							<span class="filter-form__radio-text text">show 10</span>
+						</label>
+					</fieldset>
+					<fieldset class="filter-form__fieldset filter-form__fieldset--sort">
+						<legend class="filter-form__legend text-small">Sort by</legend>
+						<label class="filter-form__radio-label">
+							<input class="filter-form__radio hidden" type="radio" name="sort" value="date" checked>
+							<span class="filter-form__radio-checker"></span>
+							<span class="filter-form__radio-text text">date</span>
+						</label>
+						<label class="filter-form__radio-label">
+							<input class="filter-form__radio hidden" type="radio" name="sort" value="title">
+							<span class="filter-form__radio-checker"></span>
+							<span class="filter-form__radio-text text">title</span>
+						</label>
+						<label class="filter-form__radio-label">
+							<input class="filter-form__radio hidden" type="radio" name="sort" value="views">
+							<span class="filter-form__radio-checker"></span>
+							<span class="filter-form__radio-text text">views</span>
+						</label>
+					</fieldset>
+					<fieldset class="filter-form__fieldset filter-form__fieldset--reset">
+						<legend class="filter-form__legend filter-form__legend--reset text-small">reset form</legend>
+						
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<button class="button button--empty filter-form__button reset-button_js" type="reset">Reset</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+					</fieldset>
+				</div>
+				<div class="filter-form__search search">
+					<input class="search__input" type="text" name="title">
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<button class="button button--empty search__button search-button_js" type="submit">Search</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				</div>
+			</form>
+		</div>
+	</div>
+</section>
+			<section class="blog">
+	<div class="blog__container container">
+		<div class="blog__content">
+			<h2 class="title-two hidden">Blog</h2>
+			<ul class="blog__list posts_js"></ul>
+			<div class="blog__pagination blog-pagination">
+				
+	<button class="blog-pagination__arrow blog-pagination__arrow--left left-arrow_js arrow-button arrow-button--left" aria-label="Toggle Left"><img class="arrow-button__img" src="../../static/images/icon-arrow.svg" alt="Toggle Left"></button>
+
+
+
+
+
+
+
+				<ul class="blog-pagination__list pagination_js"></ul>
+				
+
+
+
+
+	<button class="blog-pagination__arrow blog-pagination__arrow--right right-arrow_js arrow-button arrow-button--right" aria-label="Toggle Right"><img class="arrow-button__img" src="../../static/images/icon-arrow.svg" alt="Toggle Right"></button>
+
+
+
+			</div>
+		</div>
+	</div>
+</section>
+		</main>
+		<footer class="contacts">
+	<div class="contacts__container container">
+		<div class="contacts__content">
+			<h2 class="contacts__title title-two">Contacts</h2>
+			<p class="contacts__text text">Want to know more or just chat? You are welcome!</p>
+			
+	<button class="button contacts__button message_js">Send message</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			<ul class="contacts__list">
+				<li class="contacts__item">
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<a href="#" class="button button--link button--empty contacts__link">Instagram</a>
+
+
+
+				</li>
+				<li class="contacts__item">
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<a href="#" class="button button--link button--empty contacts__link">Vk</a>
+
+
+
+				</li>
+				<li class="contacts__item">
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<a href="#" class="button button--link button--empty contacts__link">Telegram</a>
+
+
+
+				</li>
+				<li class="contacts__item">
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<a href="#" class="button button--link button--empty contacts__link">Mail</a>
+
+
+
+				</li>
+				<li class="contacts__item">
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<a href="#" class="button button--link button--empty contacts__link">GitHub</a>
+
+
+
+				</li>
+				<li class="contacts__item">
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<a href="#" class="button button--link button--empty contacts__link">Phone</a>
+
+
+
+				</li>
+			</ul>
+			<span class="contacts__design text-small">Design by <a class="contacts__accent" href="#">DL Academy</a></span>
+			<span class="contacts__code text-small">Program code from Antonina</span>
+		</div>
+	</div>
+</footer>
+		<div class="popup popup--login">
+	<form class="popup__form popup__form--login" name="login">
+		<label class="popup__label">
+			<span class="popup__text text-small">Email <span class="popup__accent">*</span></span>
+			<input class="popup__input" type="email" name="email">
+		</label>
+		<label class="popup__label">
+			<span class="popup__text text-small">Password <span class="popup__accent">*</span></span>
+			<input class="popup__input" type="password" name="password">
+		</label>
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<button class="button button--empty popup__button" type="submit">Log in</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		<button class="popup__close" aria-label="Close"><img class="popup__x" src="../../static/images/icon-close.svg" alt="Close button"></button>
+	</form>
+</div>
+
+<div class="popup popup--register">
+	<form class="popup__form popup__form--register" name="register">
+		<label class="popup__label">
+			<span class="popup__text text-small">Email <span class="popup__accent">*</span></span>
+			<input class="popup__input" type="email" name="email">
+		</label>
+		<div class="popup__col">
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">Name <span class="popup__accent">*</span></span>
+					<input class="popup__input" type="text" name="name">
+				</label>
+			</div>
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">Surname <span class="popup__accent">*</span></span>
+					<input class="popup__input" type="text" name="surname">
+				</label>
+			</div>
+		</div>
+		<div class="popup__col">
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">Password <span class="popup__accent">*</span></span>
+					<input class="popup__input" type="password" name="password">
+				</label>
+			</div>
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">Repeat password <span class="popup__accent">*</span></span>
+					<input class="popup__input" type="password" name="passwordRepeat">
+				</label>
+			</div>
+		</div>
+		<div class="popup__col">
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">Location <span class="popup__accent">*</span></span>
+					<input class="popup__input" type="text" name="location">
+				</label>
+			</div>
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">Age <span class="popup__accent">*</span></span>
+					<input class="popup__input" type="text" name="age">
+				</label>
+			</div>
+		</div>
+		<label class="popup__label popup__label--checkbox">
+			<input class="popup__checkbox hidden" type="checkbox" name="accept" value="yes">
+			<span class="popup__checkbox-checker"></span>
+			<span class="popup__checkbox-text">Clicking on the button, you consent to the processing of your personal data.</span>
+		</label>
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<button class="button button--empty popup__button" type="submit" disabled>Sign up</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		<button class="popup__close" aria-label="Close"><img class="popup__x" src="../../static/images/icon-close.svg" alt="Close button"></button>
+	</form>
+</div>
+
+<div class="popup popup--message">
+	<form class="popup__form popup__form--message" name="message">
+		<div class="popup__col">
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">What is your name? <span class="popup__accent">*</span></span>
+					<input class="popup__input popup__input" type="text" name="name">
+				</label>
+			</div>
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">Message subject <span class="popup__accent">*</span></span>
+					<input class="popup__input" type="text" name="subject">
+				</label>
+			</div>
+		</div>
+		<div class="popup__col">
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">Your Email <span class="popup__accent">*</span></span>
+					<input class="popup__input" type="email" name="to">
+				</label>
+			</div>
+			<div class="popup__col-50">
+				<label class="popup__label">
+					<span class="popup__text text-small">Your mobile phone <span class="popup__accent">*</span></span>
+					<input class="popup__input" type="tel" name="telephone">
+				</label>
+			</div>
+		</div>
+		<label class="popup__label">
+			<span class="popup__text text-small">What do you want to discuss with me?</span>
+			<textarea class="popup__textarea" name="message"></textarea>
+		</label>
+		<label class="popup__label popup__label--checkbox">
+			<input class="popup__checkbox hidden" type="checkbox" name="accept">
+			<span class="popup__checkbox-checker"></span>
+			<span class="popup__checkbox-text">Clicking on the button, you consent to the processing of your personal data.</span>
+		</label>
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<button class="button button--empty popup__button" type="submit" disabled>Send</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		<button class="popup__close" aria-label="Close"><img class="popup__x" src="../../static/images/icon-close.svg" alt="Close button"></button>
+	</form>
+</div>
+		<div class="answer">
+	<p class="answer__text title-three">Form has been sent successfully</p>
+	<button class="answer__close" aria-label="Close"><img class="answer__x" src="../../static/images/icon-close.svg" alt="Close button"></button>
+</div>
+		<button class="scroll-button" aria-label="Go to Top"><img class="scroll-button__img" src="../../static/images/icon-arrow.svg" alt="Go Up"></button>
+
+		<script src="../../static/js/main.js"></script>
+    <script src="scripts.js"></script>
+  </body>
+</html>
