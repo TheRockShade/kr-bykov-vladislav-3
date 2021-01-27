@@ -14,7 +14,7 @@ const SERVER_URL = "https://academy.directlinedev.com",
 				openMenu = document.querySelector(".signin--menu_js"),
 				windowMenu = document.querySelector(".popup--login");
 
-	let	isLoading = false;
+	let isLoading = false;
 
 	if (open) {
 		open.addEventListener("click", () => {
@@ -540,8 +540,10 @@ function inputError(input) {
 	if (input.hasAttribute("isError")) {
 		return;
 	}
+	
 	input.setAttribute("isError", "");
 	input.classList.add("popup__input--error");
+
 	input.addEventListener("input", () => {
 		input.classList.remove("popup__input--error");
 		input.removeAttribute("isError");
